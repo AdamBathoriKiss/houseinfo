@@ -2,31 +2,40 @@ import { FaUser } from "react-icons/fa6";
 import { NavLink } from "react-router";
 import { Dialog } from 'primereact/dialog';
 import { useState } from "react";
-        
+import { IconField } from 'primereact/iconfield';
+import { InputIcon } from 'primereact/inputicon';
+import { InputText } from "primereact/inputtext";
+import type { House } from "~/hooks/useMain";
 
-interface House {
+interface FilteredHouses {
     id: number;
     name: string;
 }
 
-const houses = [
-    { id: 1, name: "House 1"},
-    { id: 2, name: "House 2"},
-    { id: 3, name: "House 3"},
-    { id: 4, name: "House 4"},
-    { id: 5, name: "House 5"},
-    { id: 6, name: "House 6"},
-    { id: 7, name: "House 7"},
-    { id: 8, name: "House 8"},
-    { id: 9, name: "House 9"},
-]
-
-export default function Header() {
+export default function Header({houses}: {houses: House[]}) {
   const [visible, setVisible] = useState(false);
+  const [houseList, setHouseList]= useState<any>(houses);
+  const [filteredHouses, setFilteredHouses] = useState<FilteredHouses[]>([]);
+
+
+const houseFiltering = (searchTerm: string) => {
+  let filtered: FilteredHouses[] = [];
+  if (searchTerm.length >= 3) {
+    filtered = houses
+      .filter(house => house.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      .map(house => ({
+        id: typeof house.id === 'number' ? house.id : Number(house.id),
+        name: house.name
+      }));
+    if (filtered.length === 0) {
+      filtered = [{ id: 0, name: 'No results found' }];
+    }
+  }
+  setFilteredHouses(filtered);
+}
 
     return (
-
-    <header className="pb-3">
+      <header className="pb-3">
        <nav aria-label="Global" className="flex items-center px-3 justify-between">
       <div className="flex lg:flex-1">
         <a href="#" className="-m-1.5 p-1.5">
@@ -44,18 +53,18 @@ export default function Header() {
       </div>
       <div className="hidden lg:flex lg:gap-x-12">
 
-     {houses.length <= 3 ? houses.map((house: House) => (
+     {houseList && houseList.length <= 3 ? houseList.map((house: House) => (
   <NavLink key={house.id} to="/" className="text-sm/6 font-semibold text-dark">
     {house.name}
   </NavLink>
 )) : (
   <>
-    {houses.slice(0, 3).map((house: House) => (
+    {houseList && houseList.slice(0, 3).map((house: House) => (
       <NavLink key={house.id} to="/main" className="text-sm/6 font-semibold text-dark">
         {house.name}
       </NavLink>
     ))}
-    <span className="text-sm/6 font-semibold text-dark" onClick={()=>setVisible(true)}>...</span>
+    {houseList && <span className="text-sm/6 font-semibold text-dark" onClick={()=>setVisible(true)}>...</span>}
   </>
 )}
        
@@ -67,12 +76,29 @@ export default function Header() {
         </a>
       </div>
     </nav>
-   <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => {if (!visible) return; setVisible(false); }}>
-               {houses.slice(3, houses.length).map((house: House) => (
+
+   <Dialog header='Houses' headerStyle={{textAlign:'center'}} className="w-2xl" visible={visible} onHide={() => {if (!visible) return; setVisible(false); }}>
+
+             <div className="flex flex-row justify-center p-4 gap-1 border-bottom-1 border-amber-400">
+              <IconField iconPosition="left" className="w-96" >
+              <InputIcon className="pi pi-search"/>
+              <InputText placeholder="Search" className="w-full" onChange={(e)=>houseFiltering(e.target.value)}/>
+              </IconField>  
+              </div>
+
+              <div className="flex flex-row justify-center flex-wrap p-4 gap-4">
+               {filteredHouses.length !== 0 ? 
+               filteredHouses.map((house: House) => (
+                <NavLink key={house.id} to="/" className="text-sm/6 font-semibold text-dark block my-2">
+                  {house.name}
+                </NavLink>
+               )) :
+               houseList && houseList.map((house: House) => (
                 <NavLink key={house.id} to="/" className="text-sm/6 font-semibold text-dark block my-2">
                   {house.name}
                 </NavLink>
               ))}
+              </div>
             </Dialog>
 
     </header>
