@@ -21,7 +21,7 @@ const schema = z.object({
 		message: "Kötelező kiválasztani az ingatlan típusát",
 	}),
 	buildingYear: z
-		.number()
+		.number("Hiányzó adat: építés éve")
 		.min(1900, "Az építés éve nem lehet korábbi, mint 1900")
 		.max(new Date().getFullYear(), `Az építés éve nem lehet későbbi, mint ${new Date().getFullYear()}`)
 		.optional(),
@@ -76,7 +76,7 @@ export default function useHouseRegistration() {
 		if (Object.keys(errors).length > 0) {
 			toast.current?.show({
 				severity: "error",
-				summary: "Validation Errors",
+				summary: <b>Hiba történt a művelet közben!</b>,
 				detail: "Please fix the errors and try again.",
 				life: 5000,
 				sticky: false,

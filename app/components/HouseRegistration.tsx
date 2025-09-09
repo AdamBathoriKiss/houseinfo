@@ -12,7 +12,7 @@ export default function HouseRegistration() {
 		stepperRef,
 		register,
 		handleSubmit,
-		formState: { errors, isSubmitted },
+		formState: { errors },
 		watch,
 	} = useHouseRegistration();
 	return (
