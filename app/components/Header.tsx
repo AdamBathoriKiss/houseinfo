@@ -65,7 +65,7 @@ export default function Header({ houses }: { houses: House[] }) {
 						</svg>
 					</button>
 				</div>
-				<div className="hidden lg:flex lg:gap-x-12">
+				<div className="hidden lg:flex lg:gap-x-8">
 					{houseList && houseList.length <= 3 ? (
 						houseList.map((house: House) => (
 							<NavLink key={house.id} to="/" className="text-sm/6 font-semibold text-dark">
