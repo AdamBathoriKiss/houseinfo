@@ -47,7 +47,7 @@ export default function useHouseRegistration() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitted },
 		watch,
 		setValue,
 	} = useForm<FormData>({
@@ -80,9 +80,10 @@ export default function useHouseRegistration() {
 				detail: "Please fix the errors and try again.",
 				life: 5000,
 				sticky: false,
-				content: () => (
+				content: (props) => (
 					<div className="flex flex-column" style={{ flex: "1" }}>
 						<div className="font-medium text-sm my-3 text-900" style={{ whiteSpace: "pre-wrap" }}>
+							{props.message.summary} <br />
 							{Object.values(errors)
 								.map((error) => error?.message)
 								.filter(Boolean)
@@ -92,7 +93,22 @@ export default function useHouseRegistration() {
 				),
 			});
 		}
-	}, [errors]);
+		if (isSubmitted && Object.keys(errors).length === 0) {
+			toast.current?.show({
+				severity: "success",
+				summary: "Sikeres ház regisztráció!",
+				life: 5000,
+				sticky: false,
+				content: (props) => (
+					<div className="flex flex-column" style={{ flex: "1" }}>
+						<div className="font-medium text-sm my-3 text-900" style={{ whiteSpace: "pre-wrap" }}>
+							{props.message.summary}
+						</div>
+					</div>
+				),
+			});
+		}
+	}, [errors, isSubmitted]);
 
 	const onSubmit: SubmitHandler<FormData> = (data) => {
 		console.log("Form Data:", data);
@@ -107,7 +123,7 @@ export default function useHouseRegistration() {
 		stepperRef,
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitted },
 		watch,
 		setValue,
 	};
