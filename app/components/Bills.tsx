@@ -103,13 +103,27 @@ export default function Bills() {
 		},
 	]);
 
+	const getScrollHeight = () => {
+		if (!size) return "325px"; // Alapértelmezett méret
+
+		// Ha maximalizált állapotban van, akkor responsive magasságot ad
+		if (window.innerWidth >= 1024) {
+			return "45rem"; // Nagy képernyő
+		} else if (window.innerWidth >= 768) {
+			return "32rem"; // Közepes képernyő
+		} else {
+			return "25rem"; // Kis képernyő
+		}
+	};
+	/*useEffe
+
 	/*useEffect(() => {
 		ProductService.getProductsMini().then((data) => setProducts(data));
 	}, []);*/
 
 	return (
 		<div>
-			<DataTable value={products} stripedRows header="Számlák">
+			<DataTable value={products} stripedRows header="Számlák" scrollable>
 				<Column field="code" header="Code"></Column>
 				<Column field="name" header="Name"></Column>
 				<Column field="category" header="Category"></Column>

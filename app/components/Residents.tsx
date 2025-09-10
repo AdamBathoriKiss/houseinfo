@@ -104,6 +104,18 @@ export default function Residents({ size, setSize }: void) {
 		},
 	]);
 
+	const getScrollHeight = () => {
+		if (!size) return "325px"; // Alapértelmezett méret
+
+		// Ha maximalizált állapotban van, akkor responsive magasságot ad
+		if (window.innerWidth >= 1024) {
+			return "45rem"; // Nagy képernyő
+		} else if (window.innerWidth >= 768) {
+			return "32rem"; // Közepes képernyő
+		} else {
+			return "25rem"; // Kis képernyő
+		}
+	};
 	/*useEffect(() => {
 		ProductService.getProductsMini().then((data) => setProducts(data));
 	}, []);*/
@@ -126,14 +138,17 @@ export default function Residents({ size, setSize }: void) {
 				header={header}
 				emptyMessage="Nincs megjelenítendő adat"
 				scrollable
-				style={{}}
-				scrollHeight="325px"
+				scrollHeight={getScrollHeight()} // Dinamikus magasság
 				virtualScrollerOptions={{ itemSize: products.length }}
 			>
 				<Column field="code" header="Code"></Column>
 				<Column field="name" header="Name"></Column>
 				<Column field="category" header="Category"></Column>
 				<Column field="quantity" header="Quantity"></Column>
+				{size && <Column field="name" header="name"></Column>}
+				{size && <Column field="quantity" header="Quantity"></Column>}
+				{size && <Column field="category" header="category"></Column>}
+				{size && <Column field="code" header="code"></Column>}
 			</DataTable>
 		</div>
 	);

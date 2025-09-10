@@ -12,9 +12,7 @@ export default function Main() {
 			<Header houses={houses} />
 
 			{/* Main content - maradék hely */}
-			<div className="flex-1 overflow-auto">
-				{houses && houses.length > 0 ? <MainPage /> : <HouseRegistration />}
-			</div>
+			<div>{houses && houses.length > 0 ? <MainPage /> : <HouseRegistration />}</div>
 		</div>
 	);
 }
