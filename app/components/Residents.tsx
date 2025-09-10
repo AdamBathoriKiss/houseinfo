@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Button } from "primereact/button";
 
 interface Product {
 	id: string;
@@ -15,7 +16,7 @@ interface Product {
 	rating: number;
 }
 
-export default function Residents() {
+export default function Residents({ size, setSize }: void) {
 	const [products, setProducts] = useState<Product[]>([
 		{
 			id: "1000",
@@ -107,13 +108,25 @@ export default function Residents() {
 		ProductService.getProductsMini().then((data) => setProducts(data));
 	}, []);*/
 
+	const header = () => {
+		return (
+			<div className="flex justify-between">
+				<h4>Lakók</h4>
+				<Button icon="pi pi-window-maximize" onClick={() => setSize(!size)} />
+			</div>
+		);
+	};
+
 	return (
 		<div>
 			<DataTable
-				value={products}
+				value={[]}
 				stripedRows
-				header="Lakók"
+				className="rounded"
+				header={header}
+				emptyMessage="Nincs megjelenítendő adat"
 				scrollable
+				style={{}}
 				scrollHeight="325px"
 				virtualScrollerOptions={{ itemSize: products.length }}
 			>

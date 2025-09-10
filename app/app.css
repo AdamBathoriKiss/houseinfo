@@ -1,16 +1,26 @@
 @import "tailwindcss";
 @import "primereact/resources/themes/lara-light-indigo/theme.css";
 @import "primereact/resources/primereact.min.css";
-@import 'primeicons/primeicons.css';
-        
+@import "primeicons/primeicons.css";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-sans:
+		"Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
 }
 
-
 .p-dialog-mask {
-    background-color:  rgba(0, 0, 0, 0.4) !important;
-    transition-property: background-color;
+	background-color: rgba(0, 0, 0, 0.4) !important;
+	transition-property: background-color;
+}
+
+.createBtn {
+	background-color: transparent !important;
+	border: 1px solid white !important;
+	border-style: dashed !important;
+}
+
+.createBtn:hover {
+	background-color: green !important;
+	border: transparent !important;
 }
