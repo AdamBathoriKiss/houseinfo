@@ -1,106 +1,149 @@
 import { useState } from "react";
 import ListSchema from "./ListSchema";
 
-export interface Product {
-    id: string;
-    code: string;
-    name: string;
-    description: string;
-    image: string;
-    price: number;
-    category: string;
-    quantity: number;
-    inventoryStatus: string;
-    rating: number;
+export interface Residents {
+	  id: string;
+	name: string;
+	address: string;
+	phoneNumber: string;
+	email: string;
+	birthOfDate: string;
+}
+
+export interface News {
+	  id: string;
+	title: string;
+	date: string;
+	createdBy: string;
+	content: string;
+}
+
+export interface Tasks {
+	  id: string;
+	title: string;
+	deadline: string;
+	status: string;
+	description: string;
+	responsible: string;
+}
+
+export interface Bills {
+	  id: string;
+	accountNumber: string;
+	amount: number;
+	invoiceDate: string;
+	paymentDeadline: string;
+	status: string;
+}
+
+export interface Documents {
+	  id: string;
+	name: string;
+	createdBy: string;
+	date: string;
+	type: string;
+	size: string;
 }
 
 export default function MainPage() {
-    const [products, setProducts] = useState<Product[]>([
-        {
-            id: "1000",
-            code: "f230fh0g3",
-            name: "Bamboo Watch",
-            description: "Product Description",
-            image: "bamboo-watch.jpg",
-            price: 65,
-            category: "Accessories",
-            quantity: 24,
-            inventoryStatus: "INSTOCK",
-            rating: 5,
-        },
-        {
-            id: "1001",
-            code: "nvklal433",
-            name: "Black Watch",
-            description: "Product Description",
-            image: "black-watch.jpg",
-            price: 72,
-            category: "Accessories",
-            quantity: 61,
-            inventoryStatus: "INSTOCK",
-            rating: 4,
-        },
-        {
-            id: "1002",
-            code: "zz21cz3c1",
-            name: "Blue Band",
-            description: "Product Description",
-            image: "blue-band.jpg",
-            price: 79,
-            category: "Fitness",
-            quantity: 2,
-            inventoryStatus: "LOWSTOCK",
-            rating: 3,
-        },
-        {
-            id: "1003",
-            code: "244wgerg2",
-            name: "Blue T-Shirt",
-            description: "Product Description",
-            image: "blue-t-shirt.jpg",
-            price: 29,
-            category: "Clothing",
-            quantity: 25,
-            inventoryStatus: "INSTOCK",
-            rating: 5,
-        },
-        {
-            id: "1004",
-            code: "h456wer53",
-            name: "Bracelet",
-            description: "Product Description",
-            image: "bracelet.jpg",
-            price: 15,
-            category: "Accessories",
-            quantity: 73,
-            inventoryStatus: "INSTOCK",
-            rating: 4,
-        },
-        {
-            id: "1005",
-            code: "av2231fwg",
-            name: "Brown Purse",
-            description: "Product Description",
-            image: "brown-purse.jpg",
-            price: 120,
-            category: "Accessories",
-            quantity: 0,
-            inventoryStatus: "OUTOFSTOCK",
-            rating: 4,
-        },
-        {
-            id: "1006",
-            code: "bib36pfvm",
-            name: "Chakra Bracelet",
-            description: "Product Description",
-            image: "chakra-bracelet.jpg",
-            price: 32,
-            category: "Accessories",
-            quantity: 5,
-            inventoryStatus: "LOWSTOCK",
-            rating: 3,
-        },
-    ]);
+// Lakók
+const [residents, setResidenst] = useState([
+  {
+    id: "1",
+    name: "Kovács János",
+    address: "Budapest, Fő utca 12.",
+    phoneNumber: "+36 30 123 4567",
+    email: "janos.kovacs@example.com",
+    birthOfDate: "1985-03-15",
+  },
+  {
+    id: "2",
+    name: "Nagy Éva",
+    address: "Budapest, Petőfi tér 8.",
+    phoneNumber: "+36 20 987 6543",
+    email: "eva.nagy@example.com",
+    birthOfDate: "1990-11-02",
+  }
+]);
+
+// Hírek
+const [news, setNews] = useState([
+  {
+    id: "1",
+    title: "Közgyűlés időpontja",
+    date: "2025-09-15",
+    createdBy: "Lakóközösség",
+    content: "A következő közgyűlés 2025. október 1-jén lesz 18 órakor a közösségi házban."
+  },
+  {
+    id: "2",
+    title: "Új parkolóhelyek",
+    date: "2025-09-10",
+    createdBy: "Karbantartás",
+    content: "Új parkolóhelyeket alakítottunk ki az udvarban, kérjük, használják!"
+  }
+]);
+
+// Feladatok
+const [tasks, setTasks] = useState([
+  {
+    id: "1",
+    title: "Lépcsőház takarítása",
+    deadline: "2025-09-20",
+    status: "Folyamatban",
+    description: "A lépcsőház napi takarítása szükséges.",
+    responsible: "Kovács János"
+  },
+  {
+    id: "2",
+    title: "Kerti növények locsolása",
+    deadline: "2025-09-18",
+    status: "Nem kezdődött",
+    description: "A közös kert locsolása hetente kétszer.",
+    responsible: "Nagy Éva"
+  }
+]);
+
+// Számlák
+const [bills, setBills] = useState([
+  {
+    id: "1",
+    accountNumber: "SZ0001",
+    amount: 15000,
+    invoiceDate: "2025-08-30",
+    paymentDeadline: "2025-09-15",
+    status: "Fizetett"
+  },
+  {
+    id: "2",
+    accountNumber: "SZ0002",
+    amount: 12000,
+    invoiceDate: "2025-09-05",
+    paymentDeadline: "2025-09-25",
+    status: "Fizetés alatt"
+  }
+]);
+
+// Dokumentumok
+const [documents, setDocuments] = useState([
+  {
+    id: "1",
+    name: "Alapító Okirat",
+    createdBy: "Nagy Éva",
+    date: "2025-01-10",
+    type: "PDF",
+    size: "1.2 MB"
+  },
+  {
+    id: "2",
+    name: "Közgyűlési jegyzőkönyv",
+    createdBy: "Kovács János",
+    date: "2025-08-01",
+    type: "DOCX",
+    size: "500 KB"
+  }
+]);
+
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -109,16 +152,14 @@ export default function MainPage() {
                 <div className="flex flex-col gap-4">
                     <div className="shadow-xl/30 rounded-sm h-96 bg-gray-100 flex flex-col">
                         <ListSchema
-                            dataTableValue={products}
+                            dataTableValue={residents}
                             title={"Lakók"}
                             type="residents"
                         />
-                        {/*<Residents size={maximized} setSize={setMaximized} />*/}
                     </div>
                     <div className="shadow-xl/30 rounded-sm h-dvh bg-gray-200">
-                        {/*<Tasks />*/}
                         <ListSchema
-                            dataTableValue={products}
+                            dataTableValue={tasks}
                             title={"Feladatok"}
                             type="tasks"
                         />
@@ -128,17 +169,15 @@ export default function MainPage() {
                 {/* Jobb oldali oszlop */}
                 <div className="flex flex-col gap-4">
                     <div className="shadow-xl/30 rounded-sm h-dvh bg-gray-300">
-                        {/*<News />*/}
                         <ListSchema
-                            dataTableValue={products}
+                            dataTableValue={news}
                             title={"Hírek"}
                             type="news"
                         />
                     </div>
                     <div className="shadow-xl/30 rounded-sm h-96 bg-gray-400">
-                        {/*<Bills />*/}
                         <ListSchema
-                            dataTableValue={products}
+                            dataTableValue={bills}
                             title={"Számlák"}
                             type="bills"
                         />
@@ -148,9 +187,8 @@ export default function MainPage() {
 
             <div className="px-4 my-4">
                 <div className="shadow-xl/30 rounded-sm bg-gray-500 h-96">
-                    {/*<Documents />*/}
                     <ListSchema
-                        dataTableValue={products}
+                        dataTableValue={documents}
                         title={"Dokumentumok"}
                         type="documents"
                     />

@@ -9,6 +9,11 @@
 		"Noto Color Emoji";
 }
 
+* {
+	font-family: var(--font-sans);
+	font-size: 0.9rem !important;
+}
+
 .p-dialog-mask {
 	background-color: rgba(0, 0, 0, 0.4) !important;
 	transition-property: background-color;

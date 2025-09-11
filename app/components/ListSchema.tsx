@@ -1,16 +1,16 @@
-import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import type { Product } from "./MainPage";
-import { useEffect, useState, type ReactElement } from "react";
+import type { Residents, News, Tasks, Bills, Documents } from "./MainPage";
+import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import dataTableColumns from "~/utils/dataTableColumns";
 
 interface ListSchemaProps {
-    dataTableValue: Product[];
+    dataTableValue: Residents[]| News[] | Tasks[] | Bills[] | Documents[];
     title: string;
 	type: string;
 }
+
 
 export default function ListSchema({ dataTableValue, title, type }: ListSchemaProps) {
     const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
@@ -37,7 +37,6 @@ export default function ListSchema({ dataTableValue, title, type }: ListSchemaPr
                 emptyMessage="Nincs megjelenítendő adat"
                 scrollable
                 scrollHeight="flex"
-                //virtualScrollerOptions={{ itemSize: dataTableValue.length }}
             >
 				{dataTableColumns(type).columns.map((col, i) => (
                     <Column key={col.field} field={col.field} header={col.header} />
