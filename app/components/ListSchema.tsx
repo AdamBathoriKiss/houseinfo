@@ -60,7 +60,7 @@ export default function ListSchema({ dataTableValue, title, type }: ListSchemaPr
                         scrollable
                         scrollHeight="400px"
                         virtualScrollerOptions={{
-                            itemSize: dataTableValue.length,
+                            itemSize: 46
                         }}
                     >
                        	{dataTableColumns(type).expandedColumns.map((col, i) => (
