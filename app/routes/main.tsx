@@ -7,7 +7,7 @@ export default function Main() {
 	const { houses } = useMain();
 
 	return (
-		<div className="h-screen flex flex-col overflow-hidden">
+		<div className="flex flex-col min-h-screen">
 			{/* Header - fix magasság */}
 			<Header houses={houses} />
 

@@ -1,7 +1,4 @@
 import { useState } from "react";
-import Bills from "./Bills";
-import Documents from "./Documents";
-import Tasks from "./Tasks";
 import { Button } from "primereact/button";
 import ListSchema from "./ListSchema";
 
@@ -19,18 +16,16 @@ export interface Product {
 }
 
 export default function MainPage() {
-	const defaultSize = "shadow-xl/30 rounded-sm h-dvh bg-gray-200";
-	const modifiedSize = "shadow-xl/30 rounded-sm w-[97vw] md:w-[97.5vw] h-full bg-gray-100 z-30";
-	const [maximized, setMaximized] = useState(false);
+	const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
 
 	const header = (title: string) => {
 		return (
 			<div className="flex justify-between">
 				<h4>{title}</h4>
-				{!maximized ? (
-					<Button icon="pi pi-window-maximize" onClick={() => setMaximized(!maximized)} />
+				{!onDialogOpened ? (
+					<Button icon="pi pi-window-maximize" onClick={() => setOnDialogOpened(!onDialogOpened)} />
 				) : (
-					<Button icon="pi pi-window-minimize" onClick={() => setMaximized(!maximized)} />
+					<Button icon="pi pi-window-minimize" onClick={() => setOnDialogOpened(!onDialogOpened)} />
 				)}
 			</div>
 		);
@@ -124,16 +119,15 @@ export default function MainPage() {
 	]);
 
 	return (
-		<div className={maximized ? " h-screen overflow-hidden " : " h-screen bg-amber-300 overflow-auto"}>
-			<div className="grid grid-cols-2 gap-4 px-4 my-4 ">
+		<div className='flex flex-col min-h-screen'>
+			<div className="grid grid-cols-2 gap-4 px-4 my-4 flex-1">
 				{/* Bal oldali oszlop */}
 				<div className="flex flex-col gap-4">
-					<div className={!maximized ? defaultSize : modifiedSize}>
+					<div className='shadow-xl/30 rounded-sm h-96 bg-gray-100 flex flex-col'>
 						<ListSchema
 							dataTableValue={products}
 							header={header("Lakók")}
-							size={maximized}
-							setSize={setMaximized}
+							onDialogOpened={onDialogOpened}
 						/>
 						{/*<Residents size={maximized} setSize={setMaximized} />*/}
 					</div>
@@ -142,22 +136,26 @@ export default function MainPage() {
 						<ListSchema
 							dataTableValue={products}
 							header={header("Feladatok")}
-							size={maximized}
-							setSize={setMaximized}
+							onDialogOpened={onDialogOpened}
 						/>
 					</div>
 				</div>
 
 				{/* Jobb oldali oszlop */}
 				<div className="flex flex-col gap-4">
-					<div className="shadow-xl/30 rounded-sm h-dvh">{/*<News />*/}</div>
-					<div className="shadow-xl/30 rounded-sm h-96">
+					<div className="shadow-xl/30 rounded-sm h-dvh bg-gray-300">{/*<News />*/}
+					<ListSchema
+							dataTableValue={products}
+							header={header("Hírek")}
+							onDialogOpened={onDialogOpened}
+						/>
+					</div>
+					<div className="shadow-xl/30 rounded-sm h-96 bg-gray-400">
 						{/*<Bills />*/}
 						<ListSchema
 							dataTableValue={products}
 							header={header("Számlák")}
-							size={maximized}
-							setSize={setMaximized}
+							onDialogOpened={onDialogOpened}
 						/>
 					</div>
 				</div>
@@ -169,8 +167,7 @@ export default function MainPage() {
 					<ListSchema
 						dataTableValue={products}
 						header={header("Dokumentumok")}
-						size={maximized}
-						setSize={setMaximized}
+						onDialogOpened={onDialogOpened}
 					/>
 				</div>
 			</div>
