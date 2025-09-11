@@ -104,6 +104,7 @@ export default function Header({ houses }: { houses: House[] }) {
 				onHide={() => {
 					if (!visible) return;
 					setVisible(false);
+					setFilteredHouses([]);
 				}}
 			>
 				<div className="flex flex-row justify-center p-4 gap-1 border-bottom-1 border-amber-400">
