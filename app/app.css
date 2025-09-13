@@ -2,6 +2,7 @@
 @import "primereact/resources/themes/lara-light-indigo/theme.css";
 @import "primereact/resources/primereact.min.css";
 @import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
 
 @theme {
 	--font-sans:
@@ -29,7 +30,6 @@
 	background-color: green !important;
 	border: transparent !important;
 }
-
 
   /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 

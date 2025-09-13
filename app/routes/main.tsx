@@ -7,7 +7,7 @@ export default function Main() {
 	const { houses } = useMain();
 
 	return (
-		<div className="flex flex-col min-h-screen">
+		<div className="flex flex-col min-h-screen bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]">
 			{/* Header - fix magasság */}
 			<Header houses={houses} />
 

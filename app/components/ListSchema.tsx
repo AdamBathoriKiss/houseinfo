@@ -4,23 +4,27 @@ import type { Residents, News, Tasks, Bills, Documents } from "./MainPage";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import dataTableColumns from "~/utils/dataTableColumns";
+import "../app.css";
 
 interface ListSchemaProps {
-    dataTableValue: Residents[]| News[] | Tasks[] | Bills[] | Documents[];
+    dataTableValue: Residents[] | News[] | Tasks[] | Bills[] | Documents[];
     title: string;
-	type: string;
+    type: string;
 }
 
-
-export default function ListSchema({ dataTableValue, title, type }: ListSchemaProps) {
+export default function ListSchema({
+    dataTableValue,
+    title,
+    type,
+}: ListSchemaProps) {
     const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
 
     const header = () => {
         return (
-            <div className="flex justify-between rounded-2xl">
-                <h4>{title}</h4>	
+            <div className="flex justify-between p-4  bg-white text-gray-800 border border-gray-100  shadow-sm">
+                <h4 className="font-semibold">{title}</h4>
                 <span
-                    className="pi pi-window-maximize cursor-pointer"
+                    className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
                     onClick={() => setOnDialogOpened(!onDialogOpened)}
                 ></span>
             </div>
@@ -28,47 +32,95 @@ export default function ListSchema({ dataTableValue, title, type }: ListSchemaPr
     };
 
     return (
-        <>
-            <DataTable
-                value={dataTableValue}
-                stripedRows
-                className="rounded"
-                header={header}
-                emptyMessage="Nincs megjelenítendő adat"
-                scrollable
-                scrollHeight="flex"
-            >
-				{dataTableColumns(type).columns.map((col, i) => (
-                    <Column key={col.field} field={col.field} header={col.header} />
-                ))}
-            </DataTable>
+        <div className="h-full flex flex-col ">
+            {/* Header */}
+            {header()}
 
+            {/* DataTable konténer - flex-1 használja a maradék helyet */}
+            <div className="flex-1 overflow-hidden">
+                <DataTable
+                    value={dataTableValue}
+                    stripedRows
+                    unstyled
+                    className="h-full bg-white text-gray-800 border border-gray-100 shadow-sm"
+                    emptyMessage="Nincs megjelenítendő adat"
+                    scrollable
+                    scrollHeight="100%"
+                    pt={{
+                        wrapper: {
+                            className: "h-full overflow-auto",
+                        },
+                        table: {
+                            className: "w-full table-auto border-collapse",
+                        },
+                        header: {
+                            className:
+                                "bg-gray-100 text-gray-700 font-semibold p-3 border-b border-gray-300 select-none",
+                        },
+                        tbody: { className: "align-middle" }, // tbody-ra alkalmazott stílus pl.
+                        bodyRow: {
+                            className:
+                                "hover:bg-gray-50 even:bg-gray-50 border-b border-gray-200",
+                        },
+                    }}
+                >
+                    {dataTableColumns(type).columns.map((col) => (
+                        <Column
+                            key={col.field}
+                            field={col.field}
+                            header={col.header}
+                            bodyClassName="p-3 whitespace-nowrap"
+                        />
+                    ))}
+                </DataTable>
+            </div>
+
+            {/* Dialog */}
             {onDialogOpened && (
                 <Dialog
                     header={title}
                     visible={onDialogOpened}
                     onHide={() => setOnDialogOpened(false)}
-                    className="lg:w-[90vw] h-[80vh]"
+                    className="lg:w-[90vw] lg:h-[80vh]"
+                    contentClassName="h-full p-0"
                     draggable={false}
                     resizable={false}
                 >
-                    <DataTable
-                        value={dataTableValue}
-                        stripedRows
-                        className="rounded"
-                        emptyMessage="Nincs megjelenítendő adat"
-                        scrollable
-                        scrollHeight="400px"
-                        virtualScrollerOptions={{
-                            itemSize: 46
-                        }}
-                    >
-                       	{dataTableColumns(type).expandedColumns.map((col, i) => (
-                    <Column key={col.field} field={col.field} header={col.header} />
-                ))}
-                    </DataTable>
+                    <div className="h-full">
+                        <DataTable
+                            value={dataTableValue}
+                            stripedRows
+                            unstyled
+                            emptyMessage="Nincs megjelenítendő adat"
+                            scrollable
+                            scrollHeight="70vh"
+                            virtualScrollerOptions={{
+                                itemSize: 46,
+                            }}
+                            pt={{
+                                wrapper: { className: "h-full overflow-auto" },
+                                header: {
+                                    className:
+                                        "bg-gray-50 font-medium p-3 border-b",
+                                },
+                                bodyRow: {
+                                    className: "border-b hover:bg-gray-50",
+                                },
+                            }}
+                        >
+                            {dataTableColumns(type).expandedColumns.map(
+                                (col, i) => (
+                                    <Column
+                                        key={col.field}
+                                        field={col.field}
+                                        header={col.header}
+                                    />
+                                )
+                            )}
+                        </DataTable>
+                    </div>
                 </Dialog>
             )}
-        </>
+        </div>
     );
 }
