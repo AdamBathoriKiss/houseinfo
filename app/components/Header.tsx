@@ -34,8 +34,8 @@ export default function Header({ houses }: { houses: House[] }) {
 	};
 
 	return (
-		<header className="pb-3 shadow-xl ">
-			<nav aria-label="Global" className="flex items-center px-3 justify-between">
+		<header className="pb-3">
+			<nav aria-label="Global" className="flex items-center px-3 justify-between shadow-neutral-400-500 shadow-md bg-white">
 				<div className="flex lg:flex-1">
 					<a href="#" className="-m-1.5 p-1.5">
 						<span className="sr-only">Your Company</span>
@@ -102,7 +102,6 @@ export default function Header({ houses }: { houses: House[] }) {
 				className="w-2xl"
 				visible={visible}
 				onHide={() => {
-					if (!visible) return;
 					setVisible(false);
 					setFilteredHouses([]);
 				}}

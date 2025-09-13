@@ -16,7 +16,7 @@ const residentExpandedCols = [
 const newsCol = [
   { field: 'title', header: 'Cím' },
   { field: 'date', header: 'Dátum' },
-  { field: 'writer', header: 'Szerző' }
+  { field: 'createdBy', header: 'Szerző' }
 ];
 
 const newsExpandedCols = [

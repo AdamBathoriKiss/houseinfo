@@ -168,11 +168,11 @@ const [documents, setDocuments] = useState([
 ]);
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <div className="grid grid-cols-2 gap-4 px-4 my-4 flex-1">
+        <div className="flex flex-col min-h-screen w-[80%] align-baseline px-6">
+            <div className="grid grid-cols-2 gap-6">
                 {/* Bal oldali oszlop */}
-                <div className="flex flex-col gap-4">
-                    <div className="shadow-xl/30 rounded-sm h-96 bg-gray-100 flex flex-col">
+                <div className="flex flex-col gap-6">
+                    <div className="shadow-xl/30 rounded-md h-96 bg-gray-100">
                         <ListSchema
                             dataTableValue={residents}
                             title={"Lakók"}
@@ -189,7 +189,7 @@ const [documents, setDocuments] = useState([
                 </div>
 
                 {/* Jobb oldali oszlop */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-6">
                     <div className="shadow-xl/30 rounded-sm h-dvh bg-gray-300">
                         <ListSchema
                             dataTableValue={news}

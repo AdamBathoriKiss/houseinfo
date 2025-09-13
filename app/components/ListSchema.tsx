@@ -17,7 +17,7 @@ export default function ListSchema({ dataTableValue, title, type }: ListSchemaPr
 
     const header = () => {
         return (
-            <div className="flex justify-between">
+            <div className="flex justify-between rounded-2xl">
                 <h4>{title}</h4>	
                 <span
                     className="pi pi-window-maximize cursor-pointer"
