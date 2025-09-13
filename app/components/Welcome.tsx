@@ -1,25 +1,27 @@
 import { Button } from "primereact/button";
 import "../app.css";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function Welcome() {
-  const navigate = useNavigate();
-  const [isScrolledToNextPage, setIsScrolledToNextPage] = useState(false);
+    const navigate = useNavigate();
+    const { ref: refSection1, inView: inViewSection1 } = useInView({ threshold: 0.5 });
+    const { ref: refSection2, inView: inViewSection2 } = useInView({ threshold: 0.5 });
+    const { ref: refSection3, inView: inViewSection3 } = useInView({ threshold: 0.5 });
+    const { ref: refSection4, inView: inViewSection4 } = useInView({ threshold: 0.5 });
+    const [currentSection, setCurrentSection] = useState<'section1' | 'section2' | 'section3' | 'section4' | null>(null);
+
 
   useEffect(() => {
-    const onScroll = () => {
-      // pl. ha a görgetés elér egy adott sávot (például pixelben, vagy bizonyos elem teteje alapján)
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > window.innerHeight) { 
-        setIsScrolledToNextPage(true); // fehér háttéren fekete szín
-      } else {
-        setIsScrolledToNextPage(false); // rózsaszínen fehér szín
-      }
-    };
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    if (inViewSection1) setCurrentSection('section1');
+    else if (inViewSection2) setCurrentSection('section2');
+    else if (inViewSection3) setCurrentSection('section3');
+    else if (inViewSection4) setCurrentSection('section4');
+  }, [inViewSection1, inViewSection2, inViewSection3, inViewSection4]);
+
+  // Betűszín kiválasztás currentSection alapján
+  const textColorClass = currentSection === 'section2' || currentSection === 'section3'  ? 'flex space-x-6 text-indigo-500' : 'flex space-x-6 text-white';
 
     const handleLogin = () => {
         // Bejelentkezés logika
@@ -33,11 +35,10 @@ export default function Welcome() {
     };
 
     return (
-        <div className="flex flex-col min-h-screen overflow-auto">
+        <div className="flex flex-col min-h-screen overflow-auto" >
             {/* Header */}
-
             {/* Hero Section */}
-            <section className="min-h-screen bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]">
+            <section className="min-h-screen bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]" ref={refSection1}>
                 <header className="flex items-center px-3 justify-between fixed top-0 left-0 w-full h-16 z-10">
                     <div className="logo">
                         <img
@@ -46,7 +47,9 @@ export default function Welcome() {
                             className="h-15 p-0 w-auto"
                         />
                     </div>
-                    <ul className={isScrolledToNextPage ? 'flex space-x-6 text-indigo-500' : 'flex space-x-6 text-white'}>
+                    <ul
+                        className={textColorClass}
+                    >
                         <li>Főoldal</li>
                         <li>Funkciók</li>
                         <li>Árak</li>
@@ -54,7 +57,10 @@ export default function Welcome() {
                     </ul>
 
                     <div className="flex space-x-4">
-                        <button className={isScrolledToNextPage ? 'flex space-x-6 text-indigo-500' : 'flex space-x-6 text-white'} onClick={handleLogin}>
+                        <button
+                            className={textColorClass}
+                            onClick={handleLogin}
+                        >
                             Bejelentkezés
                         </button>
                     </div>
@@ -63,7 +69,8 @@ export default function Welcome() {
                 <div className="align-center h-screen w-[80vw] mx-auto flex flex-col items-center justify-center text-center text-white py-20">
                     <div>
                         <p className="!text-7xl text-center font-black mb-4">
-                            Közösképviselet. Új szinten. Együttműködés könnyedén.
+                            Közösképviselet. Új szinten. Együttműködés
+                            könnyedén.
                         </p>
                         <p className="!text-sm text-center mx-auto px-4 w-[45vw]">
                             Közösképviselőknek könnyíti meg az adminisztratív
@@ -83,7 +90,7 @@ export default function Welcome() {
             </section>
 
             {/* Features Section */}
-            <section className="flex flex-col min-h-screen overflow-auto">
+            <section className="flex flex-col min-h-screen overflow-auto" ref={refSection2}>
                 <div className="container">
                     <h3 className="features-title">
                         Miért válassza a HázInfó-t?
@@ -118,7 +125,7 @@ export default function Welcome() {
             </section>
 
             {/* Call to Action */}
-            <section className="min-h-screen bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]">
+            <section className="flex flex-col min-h-screen overflow-auto" ref={refSection3}>
                 <div className="container">
                     <h3>Készen áll az egyszerűbb közösképviselésre?</h3>
                     <p>Csatlakozzon már ma és tapasztalja meg a különbséget!</p>
@@ -132,7 +139,7 @@ export default function Welcome() {
             </section>
 
             {/* Footer */}
-            <footer className="footer">
+            <footer className="min-h-[50vh] bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]" ref={refSection4}>
                 <div className="container">
                     <div className="footer-content">
                         <div className="footer-left">
