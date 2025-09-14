@@ -890,7 +890,7 @@ export default function MainPage() {
             </div>
 
             <div className="px-4 my-4">
-                <div className="surface-card shadow-2xl rounded-md h-96">
+                <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
                     <ListSchema
                         dataTableValue={documents}
                         title={"Dokumentumok"}

@@ -21,7 +21,7 @@ export default function ListSchema({
 
     const header = () => {
         return (
-            <div className="flex justify-between p-4  bg-white text-gray-800 border border-gray-100  shadow-sm">
+            <div className="flex justify-between p-4  bg-white/15 backdrop-blur-3xl text-gray-800  shadow-sm">
                 <h4 className="font-semibold">{title}</h4>
                 <span
                     className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
@@ -40,15 +40,12 @@ export default function ListSchema({
             <div className="flex-1 overflow-hidden">
                 <DataTable
                     value={dataTableValue}
-                    stripedRows
                     unstyled
-                    className="h-full bg-white text-gray-800 border border-gray-100 shadow-sm"
+                    className="h-full bg-white/15 backdrop-blur-3xl text-gray-800 shadow-sm"
                     emptyMessage="Nincs megjelenítendő adat"
-                    scrollable
-                    scrollHeight="100%"
                     pt={{
                         wrapper: {
-                            className: "h-full overflow-auto",
+                            className: "h-full overflow-auto backdrop-blur-3xl",
                         },
                         table: {
                             className: "w-full table-auto border-collapse",
@@ -60,7 +57,7 @@ export default function ListSchema({
                         tbody: { className: "align-middle" }, // tbody-ra alkalmazott stílus pl.
                         bodyRow: {
                             className:
-                                "hover:bg-gray-50 even:bg-gray-50 border-b border-gray-200",
+                                "hover:bg-gray-800 hover:text-gray-50 backdrop-blur-sm  border-b border-gray-200",
                         },
                     }}
                 >
@@ -89,7 +86,7 @@ export default function ListSchema({
                     <div className="h-full">
                         <DataTable
                             value={dataTableValue}
-                            stripedRows
+                            //stripedRows
                             unstyled
                             emptyMessage="Nincs megjelenítendő adat"
                             scrollable
@@ -98,13 +95,21 @@ export default function ListSchema({
                                 itemSize: 46,
                             }}
                             pt={{
-                                wrapper: { className: "h-full overflow-auto" },
+                                wrapper: {
+                                    className: "h-full overflow-auto",
+                                },
+                                table: {
+                                    className:
+                                        "w-full table-auto border-collapse",
+                                },
                                 header: {
                                     className:
-                                        "bg-gray-50 font-medium p-3 border-b",
+                                        "bg-gray-100 text-gray-700 font-semibold p-3 border-b border-gray-300 select-none",
                                 },
+                                tbody: { className: "align-middle" }, // tbody-ra alkalmazott stílus pl.
                                 bodyRow: {
-                                    className: "border-b hover:bg-gray-50",
+                                    className:
+                                        "hover:bg-gray-50 even:bg-gray-50 border-b border-gray-200",
                                 },
                             }}
                         >

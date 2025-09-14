@@ -17,12 +17,10 @@ export default function Welcome() {
     }, [inView]);
 
     // Betűszín kiválasztás currentSection alapján
-    const textColorClass = !currentSection
-        ? "flex space-x-6 text-indigo-500"
-        : "flex space-x-6 text-white";
-    const headerColorClass = !currentSection
-        ? "flex items-center px-3 justify-between fixed top-0 left-0 w-full h-18 z-30 border-b-1 bg-white"
-        : "flex items-center px-3 justify-between fixed top-0 left-0 w-full h-16 z-10";
+    const textColorClass = "flex space-x-6 text-white";
+    const headerColorClass =
+        "flex items-center px-3 justify-between fixed top-0 left-0 w-full h-18 z-30 backdrop-blur-sm text-gray-800 transition duration-500";
+
     const handleLogin = () => {
         // Bejelentkezés logika
         navigate("/main");
@@ -35,10 +33,9 @@ export default function Welcome() {
 
     return (
         <div className="flex flex-col min-h-screen overflow-auto ">
-            {/* Header */}
             {/* Hero Section */}
             <section
-                className="min-h-screen bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]"
+                className="min-h-screen bg-[linear-gradient(180deg,#777BF1_0%,#343D4A_140%)]"
                 ref={ref}
             >
                 <header className={headerColorClass}>
@@ -66,16 +63,16 @@ export default function Welcome() {
                     </div>
                 </header>
 
-                <div className="align-center h-screen w-[80vw] mx-auto flex flex-col items-center justify-center text-center text-white py-20">
+                <div className="align-center h-screen w-[80vw] mx-auto flex flex-col items-center justify-center text-center text-white py-20 ">
                     <div>
                         <p className="!text-7xl text-center font-black mb-4">
                             Közösképviselet. Új szinten. Együttműködés
                             könnyedén.
                         </p>
-                        <p className="!text-sm text-center mx-auto px-4 w-[45vw]">
-                            Közösképviselőknek könnyíti meg az adminisztratív
-                            feladatok ellátását és megkönnyíti a hozzá tartozó
-                            applikációval a lakókkal történő kommunikációt
+                        <p className="!text-sm text-center mx-auto px-4 w-[35vw]">
+                            Házinfó - ahol a közösképviselők és lakók könnyedén
+                            együttműködhetnek. Minden egy helyen: kommunikáció,
+                            adminisztráció, közösköltség-kezelés.
                         </p>
                         <div className="hero-buttons">
                             <Button
@@ -89,43 +86,78 @@ export default function Welcome() {
                 </div>
             </section>
 
-            {/* Features Section */}
-            <section className="flex flex-col min-h-screen overflow-auto">
+            {/* Problems Section */}
+            <section className="min-h-screen flex flex-col items-center justify-center text-center text-white py-20  bg-[#484f79]">
                 <div className="container">
-                    <h3 className="features-title">
-                        Miért válassza a HázInfó-t?
-                    </h3>
                     <div className="features-grid">
                         <div className="feature-card">
-                            <div className="feature-icon">📱</div>
-                            <h4>Azonnali értesítések</h4>
-                            <p>
-                                Lakók értesítése appon keresztül fontos
-                                információkról és eseményekről
-                            </p>
-                        </div>
-                        <div className="feature-card">
-                            <div className="feature-icon">🛠️</div>
-                            <h4>Hibajelentések</h4>
-                            <p>
-                                Lakók jelenthetnek hibákat és kérdéseket
-                                egyszerűen az appon keresztül
-                            </p>
-                        </div>
-                        <div className="feature-card">
-                            <div className="feature-icon">💳</div>
-                            <h4>Közös költség fizetés</h4>
-                            <p>
-                                Közös költség befizetési lehetőség az appon
-                                keresztül, egyszerűen és biztonságosan
-                            </p>
+                            <h3>Ismerős ezek közül valamelyik?</h3>
+                            <ul>
+                                <li>
+                                    📧 Elvesznek az emailek a lakók és
+                                    közösképviselő között
+                                </li>
+                                <li>
+                                    📋 Papíralapú adminisztráció, káosz a
+                                    dokumentumokban
+                                </li>
+                                <li>
+                                    💸 Bonyolult a közösköltség nyomon követése
+                                    és befizetése
+                                </li>
+                                <li>
+                                    🔧 Lassan jutnak el a hibabejelentések a
+                                    megfelelő személyhez
+                                </li>
+                                <li>
+                                    📊 Nehéz áttekinteni a lakóközösség pénzügyi
+                                    helyzetét
+                                </li>
+                                <li>
+                                    🤝 Rossz a kommunikáció lakók és
+                                    közösképviselő között
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Call to Action */}
-            <section className="flex flex-col min-h-screen overflow-auto">
+            {/* Problem Solving Section */}
+            <section className="flex flex-col min-h-screen overflow-auto bg-[#484f79]">
+                <div className="container">
+                    <h3>A Házinfó mindent megold</h3>
+                    <p>
+                        Egy átlátható, egyszerűen használható platform, amely
+                        összehozza a lakóközösséget
+                    </p>
+                    <h3>Közösképviselőknek</h3>
+                        <h4>Adminisztráció egyszerűen</h4>
+                    <ul>
+                        <li>Automatikus kimutatások és jelentések</li>
+                        <li>Digitális dokumentumkezelés</li>
+                        <li>Lakók egyszerű értesítése</li>
+                        <li>Pénzügyi áttekintés egy helyen</li>
+                    </ul>
+                    <h3>Lakóknak</h3>
+                        <h4>Minden kéznél a mobilon</h4>
+                    <ul>
+                        <li>Hibabejelentés pár kattintással</li>
+                        <li>Közösköltség online befizetése</li>
+                        <li>Közvetlen kapcsolat a közösképviselővel</li>
+                        <li>Fontos hírek és értesítések</li>
+                    </ul>
+                    <button
+                        className="btn btn-primary btn-large"
+                        onClick={handleRegister}
+                    >
+                        Regisztráció most
+                    </button>
+                </div>
+            </section>
+
+            {/* Features */}
+            <section className="flex flex-col min-h-screen overflow-auto bg-[#484f79]">
                 <div className="container">
                     <h3>Készen áll az egyszerűbb közösképviselésre?</h3>
                     <p>Csatlakozzon már ma és tapasztalja meg a különbséget!</p>
@@ -139,7 +171,7 @@ export default function Welcome() {
             </section>
 
             {/* Footer */}
-            <footer className="min-h-[50vh] bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]">
+            <footer className="min-h-screen bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)]">
                 <div className="container">
                     <div className="footer-content">
                         <div className="footer-left">
