@@ -124,7 +124,7 @@ export default function Welcome() {
             </section>
 
             {/* Problem Solving Section */}
-            <section className="flex flex-col min-h-screen overflow-auto bg-[#484f79]">
+            <section className="flex flex-col min-h-screen overflow-auto text-white bg-[#484f79]">
                 <div className="container">
                     <h3>A Házinfó mindent megold</h3>
                     <p>
@@ -147,31 +147,43 @@ export default function Welcome() {
                         <li>Közvetlen kapcsolat a közösképviselővel</li>
                         <li>Fontos hírek és értesítések</li>
                     </ul>
-                    <button
-                        className="btn btn-primary btn-large"
-                        onClick={handleRegister}
-                    >
-                        Regisztráció most
-                    </button>
                 </div>
             </section>
 
             {/* Features */}
-            <section className="flex flex-col min-h-screen overflow-auto bg-[#484f79]">
+            <section className="flex flex-col min-h-screen text-white overflow-auto bg-[#484f79]">
                 <div className="container">
-                    <h3>Készen áll az egyszerűbb közösképviselésre?</h3>
-                    <p>Csatlakozzon már ma és tapasztalja meg a különbséget!</p>
-                    <button
-                        className="btn btn-primary btn-large"
-                        onClick={handleRegister}
-                    >
-                        Regisztráció most
-                    </button>
+                    <h3>Miért válassza a Házinfót?</h3>
+                    <h4>🚀 Egyszerű használat</h4>
+                    <p>Nem kell informatikus lenni hozzá - pár perc alatt megtanulja bárki</p>
+                    <h4>📱 Mobil app</h4>
+                    <p>Mindig kéznél van, bárhol használható</p>
+                    <h4>💰 Költséghatékony</h4>
+                    <p>Kevesebb adminisztrációs idő = több megtakarítás</p>
+                    <h4>🔒 Biztonságos</h4>
+                    <p>SimplePay-es fizetés a teljeskörű biztonság érdekében.</p>
+                    <h4>📊 Átlátható pénzügyek</h4>
+                    <p>Minden lakó látja, mire költik a közös pénzt</p>
+                    <h4>⚡ Gyors kommunikáció</h4>
+                    <p>Valós idejű értesítések, nincs többé elveszett üzenet</p>
                 </div>
             </section>
 
+            {/* Cta  */}
+            <section className="flex flex-col min-h-screen text-white overflow-auto bg-[#484f79]">
+                <h3>Készen áll a változásra?</h3>
+                <p>Csatlakozzon már ma több ezer elégedett lakóközösséghez!</p>
+                <h4>Előnyök kiemelése</h4>
+                <ul>
+                    <li>✅ 30 napos ingyenes próba</li>
+                    <li>✅ Nincs beállítási költség</li>
+                    <li>✅ Magyar nyelvű támogatás</li>
+                    <li>✅ Bármikor lemondható</li>
+                </ul>
+            </section>
+
             {/* Footer */}
-            <footer className="min-h-screen bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)]">
+            <footer className="min-h-screen text-white bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)]">
                 <div className="container">
                     <div className="footer-content">
                         <div className="footer-left">
