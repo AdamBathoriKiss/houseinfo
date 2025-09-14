@@ -9,6 +9,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 import { PrimeReactProvider } from "primereact/api";
 
 export const links: Route.LinksFunction = () => [
@@ -32,6 +34,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <script src="https://unpkg.com/taos@1.0.5/dist/taos.js"></script>
+        
       </head>
       <body>
         {children}
@@ -43,6 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+AOS.init();
   return (
     <PrimeReactProvider>
       <Outlet />

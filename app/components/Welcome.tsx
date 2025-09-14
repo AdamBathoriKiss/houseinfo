@@ -63,8 +63,8 @@ export default function Welcome() {
                     </div>
                 </header>
 
-                <div className="align-center h-screen w-[80vw] mx-auto flex flex-col items-center justify-center text-center text-white py-20 ">
-                    <div>
+                <div className="align-center h-screen w-[80vw] mx-auto flex flex-col items-center justify-center text-center text-white py-20">
+                    <div data-aos="fade-up" data-aos-duration="1000">
                         <p className="!text-7xl text-center font-black mb-4">
                             Közösképviselet. Új szinten. Együttműködés
                             könnyedén.
@@ -87,52 +87,67 @@ export default function Welcome() {
             </section>
 
             {/* Problems Section */}
-            <section className="min-h-screen flex flex-col items-center justify-center text-center text-white py-20  bg-[#484f79]">
-                <div className="container">
-                    <div className="features-grid">
-                        <div className="feature-card">
-                            <h3>Ismerős ezek közül valamelyik?</h3>
-                            <ul>
-                                <li>
-                                    📧 Elvesznek az emailek a lakók és
-                                    közösképviselő között
-                                </li>
-                                <li>
-                                    📋 Papíralapú adminisztráció, káosz a
-                                    dokumentumokban
-                                </li>
-                                <li>
-                                    💸 Bonyolult a közösköltség nyomon követése
-                                    és befizetése
-                                </li>
-                                <li>
-                                    🔧 Lassan jutnak el a hibabejelentések a
-                                    megfelelő személyhez
-                                </li>
-                                <li>
-                                    📊 Nehéz áttekinteni a lakóközösség pénzügyi
-                                    helyzetét
-                                </li>
-                                <li>
-                                    🤝 Rossz a kommunikáció lakók és
-                                    közösképviselő között
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            <section className="min-h-screen flex flex-col text-white py-20  bg-[#484f79]">
+                <div>
+                    <p
+                        className="text-teal-400 !text-4xl font-black mx-4"
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                    >
+                        Ismerősek az alábbi problémák?
+                    </p>
+                    <ul>
+                        <li
+                            className="!text-lg font-black"
+                            data-aos="fade-up"
+                            data-aos-duration="1000"
+                        >
+                            Papíralapú adminisztráció, káosz a dokumentumokban
+                        </li>
+                        <li
+                            className="!text-lg font-black"
+                            data-aos="fade-up"
+                            data-aos-duration="1000"
+                        >
+                            Bonyolult a közösköltség nyomon követése és
+                            befizetése
+                        </li>
+                        <li
+                            className="!text-lg font-black"
+                            data-aos="fade-up"
+                            data-aos-duration="1000"
+                        >
+                            Lassan jutnak el a hibabejelentések a megfelelő
+                            személyhez
+                        </li>
+                        <li
+                            className="!text-lg font-black"
+                            data-aos="fade-up"
+                            data-aos-duration="1000"
+                        >
+                            Nehéz áttekinteni a lakóközösség pénzügyi helyzetét
+                        </li>
+                        <li
+                            className="!text-lg font-black"
+                            data-aos="fade-up"
+                            data-aos-duration="1000"
+                        >
+                            Rossz a kommunikáció lakók és közösképviselő között
+                        </li>
+                    </ul>
                 </div>
             </section>
 
             {/* Problem Solving Section */}
             <section className="flex flex-col min-h-screen overflow-auto text-white bg-[#484f79]">
                 <div className="container">
-                    <h3>A Házinfó mindent megold</h3>
+                    <h3>A Házinfó megoldja ezeket a problémákat</h3>
                     <p>
                         Egy átlátható, egyszerűen használható platform, amely
                         összehozza a lakóközösséget
                     </p>
                     <h3>Közösképviselőknek</h3>
-                        <h4>Adminisztráció egyszerűen</h4>
+                    <h4>Adminisztráció egyszerűen</h4>
                     <ul>
                         <li>Automatikus kimutatások és jelentések</li>
                         <li>Digitális dokumentumkezelés</li>
@@ -140,7 +155,7 @@ export default function Welcome() {
                         <li>Pénzügyi áttekintés egy helyen</li>
                     </ul>
                     <h3>Lakóknak</h3>
-                        <h4>Minden kéznél a mobilon</h4>
+                    <h4>Minden kéznél a mobilon</h4>
                     <ul>
                         <li>Hibabejelentés pár kattintással</li>
                         <li>Közösköltség online befizetése</li>
@@ -155,13 +170,18 @@ export default function Welcome() {
                 <div className="container">
                     <h3>Miért válassza a Házinfót?</h3>
                     <h4>🚀 Egyszerű használat</h4>
-                    <p>Nem kell informatikus lenni hozzá - pár perc alatt megtanulja bárki</p>
+                    <p>
+                        Nem kell informatikus lenni hozzá - pár perc alatt
+                        megtanulja bárki
+                    </p>
                     <h4>📱 Mobil app</h4>
                     <p>Mindig kéznél van, bárhol használható</p>
                     <h4>💰 Költséghatékony</h4>
                     <p>Kevesebb adminisztrációs idő = több megtakarítás</p>
                     <h4>🔒 Biztonságos</h4>
-                    <p>SimplePay-es fizetés a teljeskörű biztonság érdekében.</p>
+                    <p>
+                        SimplePay-es fizetés a teljeskörű biztonság érdekében.
+                    </p>
                     <h4>📊 Átlátható pénzügyek</h4>
                     <p>Minden lakó látja, mire költik a közös pénzt</p>
                     <h4>⚡ Gyors kommunikáció</h4>

@@ -12,6 +12,7 @@
     "@hookform/resolvers": "^5.2.1",
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",
+    "aos": "^2.3.4",
     "isbot": "^5.1.27",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.7",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@react-router/dev": "^7.7.1",
     "@tailwindcss/vite": "^4.1.4",
+    "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
