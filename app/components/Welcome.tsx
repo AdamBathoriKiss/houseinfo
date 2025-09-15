@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Divider } from "primereact/divider";
+import { InputText } from "primereact/inputtext";
 
 export default function Welcome() {
 	const navigate = useNavigate();
@@ -157,48 +158,138 @@ export default function Welcome() {
 
 			{/* Features */}
 			<section className="flex flex-col min-h-screen text-white overflow-auto bg-[#484f79]">
-				<div className="container">
-					<h3>Miért válassza a Házinfót?</h3>
-					<h4>🚀 Egyszerű használat</h4>
-					<p>Nem kell informatikus lenni hozzá - pár perc alatt megtanulja bárki</p>
-					<h4>📱 Mobil app</h4>
-					<p>Mindig kéznél van, bárhol használható</p>
-					<h4>💰 Költséghatékony</h4>
-					<p>Kevesebb adminisztrációs idő = több megtakarítás</p>
-					<h4>🔒 Biztonságos</h4>
-					<p>SimplePay-es fizetés a teljeskörű biztonság érdekében.</p>
-					<h4>📊 Átlátható pénzügyek</h4>
-					<p>Minden lakó látja, mire költik a közös pénzt</p>
-					<h4>⚡ Gyors kommunikáció</h4>
-					<p>Valós idejű értesítések, nincs többé elveszett üzenet</p>
+				<p className="text-teal-400 !text-4xl font-black text-center">Miért pont a Házinfó?</p>
+
+				<div
+					className="flex flex-row my-30 items-center justify-center"
+					data-aos="fade-up"
+					data-aos-duration="1000"
+					data-aos-delay="500"
+				>
+					<div className="flex flex-col">
+						<p className="text-teal-400 !text-2xl font-black">Egyszerű használat</p>
+						<p>Nem kell informatikus lenni hozzá - pár perc alatt megtanulja bárki</p>
+					</div>
+					<span className="sr-only">HouseInfo features easy to use section</span>
+					<img
+						src="../../public/features_easy.png"
+						alt="House-Info features_easy image"
+						className="h-[35vh] mx-8 w-auto shadow-2xl rounded-2xl"
+					/>
+				</div>
+
+				<div
+					className="flex flex-row-reverse my-30 items-center justify-center"
+					data-aos="fade-up"
+					data-aos-duration="1000"
+					data-aos-delay="500"
+				>
+					<div className="flex flex-col">
+						<p className="text-teal-400 !text-2xl font-black">Mobil app</p>
+						<p>Mindig kéznél van, bárhol használható</p>
+					</div>
+					<span className="sr-only">HouseInfo mobile section</span>
+					<img
+						src="../../public/mobile.png"
+						alt="House-Info mobile image"
+						className="h-[35vh] mx-8 w-auto shadow-2xl rounded-2xl"
+					/>
+				</div>
+
+				<div
+					className="flex flex-row my-30 items-center justify-center"
+					data-aos="fade-up"
+					data-aos-duration="1000"
+					data-aos-delay="500"
+				>
+					<div className="flex flex-col">
+						<p className="text-teal-400 !text-2xl font-black">Költséghatékony</p>
+						<p>Kevesebb adminisztrációs idő = több megtakarítás</p>
+					</div>
+					<span className="sr-only">HouseInfo cost management section</span>
+					<img
+						src="../../public/cost_management.png"
+						alt="House-Info cost management image"
+						className="h-[35vh] mx-8 w-auto shadow-2xl rounded-2xl"
+					/>
+				</div>
+
+				<div
+					className="flex flex-row-reverse my-30 items-center justify-center"
+					data-aos="fade-up"
+					data-aos-duration="1000"
+					data-aos-delay="500"
+				>
+					<div className="flex flex-col">
+						<p className="text-teal-400 !text-2xl font-black">Biztonságos</p>
+						<p>SimplePay-es fizetés a teljeskörű biztonság érdekében</p>
+					</div>
+					<span className="sr-only">HouseInfo payment section</span>
+					<img
+						src="../../public/secure_payment.png"
+						alt="House-Info secure payment image"
+						className="h-[35vh] mx-8 w-auto shadow-2xl rounded-2xl"
+					/>
+				</div>
+
+				<div
+					className="flex flex-row my-30 items-center justify-center"
+					data-aos="fade-up"
+					data-aos-duration="1000"
+					data-aos-delay="500"
+				>
+					<div className="flex flex-col">
+						<p className="text-teal-400 !text-2xl font-black">Átlátható pénzügyek</p>
+						<p>Minden lakó látja, mire költik a közös pénzt</p>
+					</div>
+					<span className="sr-only">HouseInfo shared money section</span>
+					<img
+						src="../../public/shared_money.png"
+						alt="House-Info cost management image"
+						className="h-[35vh] mx-8 w-auto shadow-2xl rounded-2xl"
+					/>
+				</div>
+
+				<div
+					className="flex flex-row-reverse my-30 items-center justify-center"
+					data-aos="fade-up"
+					data-aos-duration="1000"
+					data-aos-delay="500"
+				>
+					<div className="flex flex-col">
+						<p className="text-teal-400 !text-2xl font-black">Gyors kommunikáció</p>
+						<p>Valós idejű értesítések, nincs többé elveszett üzenet</p>
+					</div>
+					<span className="sr-only">HouseInfo fast communication section</span>
+					<img
+						src="../../public/fast_communication.png"
+						alt="House-Info secure payment image"
+						className="h-[35vh] mx-8 w-auto shadow-2xl rounded-2xl"
+					/>
 				</div>
 			</section>
 
-			{/* Cta  */}
-			<section className="flex flex-col min-h-screen text-white overflow-auto bg-[#484f79]">
-				<h3>Készen áll a változásra?</h3>
-				<p>Csatlakozzon már ma több ezer elégedett lakóközösséghez!</p>
-				<h4>Előnyök kiemelése</h4>
-				<ul>
-					<li>✅ 30 napos ingyenes próba</li>
-					<li>✅ Nincs beállítási költség</li>
-					<li>✅ Magyar nyelvű támogatás</li>
-					<li>✅ Bármikor lemondható</li>
-				</ul>
-			</section>
+			{/* Footer with CTA */}
+			<footer className="min-h-screen flex flex-col justify-between items-center text-white bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)]">
+				<div className="mt-55 flex flex-col items-center">
+					<p className="!text-6xl text-center font-black mb-4">Készen áll a változásra?</p>
+					<p className="!text-lg text-center font-black mb-4">
+						Csatlakozzon már ma több ezer elégedett lakóközösséghez!
+					</p>
+					<InputText
+						placeholder="E-mail cím"
+						className="w-[25vw] !mt-30 !bg-gray-600/30 !text-gray-50 !placeholder-gray-50"
+					/>
+					<Button
+						className="!bg-lime-50 w-fit !mt-5 !text-purple-900 !border-0 !text-lg !font-semibold"
+						onClick={handleRegister}
+					>
+						Kérem az árajánlatot
+					</Button>
+				</div>
 
-			{/* Footer */}
-			<footer className="min-h-screen text-white bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)]">
-				<div className="container">
-					<div className="footer-content">
-						<div className="footer-left">
-							<h4>🏠 HázInfó</h4>
-							<p>A modern közösképviselés eszköze</p>
-						</div>
-						<div className="footer-right">
-							<p>&copy; 2025 HázInfó. Minden jog fenntartva.</p>
-						</div>
-					</div>
+				<div>
+					<p className="my-4">&copy; {new Date().getFullYear()} HázInfó. Minden jog fenntartva.</p>
 				</div>
 			</footer>
 		</div>
