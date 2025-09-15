@@ -35,10 +35,13 @@ export default function Header({ houses }: { houses: House[] }) {
 
 	return (
 		<header className="pb-3">
-			<nav aria-label="Global" className="flex items-center px-3 justify-between shadow-neutral-400-500 bg-transparent">
+			<nav
+				aria-label="Global"
+				className="flex items-center px-3 justify-between shadow-neutral-400-500 bg-transparent"
+			>
 				<div className="flex lg:flex-1">
 					<a href="#" className="-m-1.5 p-1.5">
-						<span className="sr-only">Your Company</span>
+						<span className="sr-only">HouseInfo</span>
 						<img src="/houseinfologo.png" alt="House-Info logo" className="h-15 p-0 w-auto" />
 					</a>
 				</div>
