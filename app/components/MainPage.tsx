@@ -909,7 +909,7 @@ export default function MainPage() {
                         />
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-                        <ListSchema
+                        <ListViewSchema
                             dataTableValue={tasks}
                             title={"Feladatok"}
                             type="tasks"
