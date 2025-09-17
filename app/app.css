@@ -36,7 +36,7 @@
 
 /* Custom styles for the landing page */
 
-.p-dataview .p-dataview-content,
-.p-dataview-header {
+.p-datascroller .p-datascroller-content,
+.p-datascroller-header {
 	background-color: #343d4a !important;
 }
