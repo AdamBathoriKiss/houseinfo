@@ -38,7 +38,7 @@ export default function ListViewSchema({ dataTableValue, title, type }: ListSche
 				itemTemplate={itemTemplate}
 				rows={5}
 				inline
-				scrollHeight="500px"
+				scrollHeight="310px"
 				header={title}
 				className="!bg-[#343d4a]"
 			/>
