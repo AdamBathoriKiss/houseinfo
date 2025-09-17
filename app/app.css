@@ -1,8 +1,7 @@
 @import "tailwindcss";
-@import "primereact/resources/themes/lara-light-indigo/theme.css";
+@import "primereact/resources/themes/md-dark-indigo/theme.css";
 @import "primereact/resources/primereact.min.css";
 @import "primeicons/primeicons.css";
-
 
 @theme {
 	--font-sans:
@@ -17,7 +16,7 @@
 
 .p-dialog-mask {
 	background-color: rgba(0, 0, 0, 0.4) !important;
-	transition-property: background-color;
+	transition-property: var(--background-color);
 }
 
 .createBtn {
@@ -31,6 +30,6 @@
 	border: transparent !important;
 }
 
-  /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
 /* Custom styles for the landing page */

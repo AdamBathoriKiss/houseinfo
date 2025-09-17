@@ -34,7 +34,7 @@ export default function Header({ houses }: { houses: House[] }) {
 	};
 
 	return (
-		<header className="pb-3">
+		<header className="pb-3 text-white">
 			<nav
 				aria-label="Global"
 				className="flex items-center px-3 justify-between shadow-neutral-400-500 bg-transparent"
