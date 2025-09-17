@@ -83,7 +83,7 @@ export default function Diagrams() {
 
 	return (
 		<div className="card">
-			<Chart type="line" data={chartData} options={chartOptions} />
+			<Chart className="!h-[50vh]" type="line" data={chartData} options={chartOptions} />
 		</div>
 	);
 }

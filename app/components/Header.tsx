@@ -37,7 +37,7 @@ export default function Header({ houses }: { houses: House[] }) {
 		<header className="pb-3 text-white">
 			<nav
 				aria-label="Global"
-				className="flex items-center px-3 justify-between shadow-neutral-400-500 bg-dark-500"
+				className="flex items-center px-3 justify-between shadow-neutral-400-500 bg-dark-500/30 fixed z-30 w-full backdrop-blur-2xl"
 			>
 				<div className="flex lg:flex-1">
 					<a href="#" className="-m-1.5 p-1.5">
