@@ -1,5 +1,7 @@
 import { useState } from "react";
 import ListSchema from "./ListSchema";
+import { Card } from "primereact/card";
+import ListViewSchema from "./ListViewSchema";
 
 export interface Residents {
 	id: string;
@@ -847,25 +849,40 @@ export default function MainPage() {
 	]);
 
 	return (
-		<div className="flex flex-col min-h-screen px-6 ">
+		<div className="flex flex-col min-h-screen px-6 bg-dark-500">
+			<div className="grid grid-cols-4">
+				<Card className="!bg-[#343d4a] m-4">
+					<p>Teszt</p>
+				</Card>
+				<Card className="!bg-[#343d4a] m-4">
+					<p>Teszt</p>
+				</Card>
+				<Card className="!bg-[#343d4a] m-4">
+					<p>Teszt</p>
+				</Card>
+				<Card className="!bg-[#343d4a] m-4">
+					<p>Teszt</p>
+				</Card>
+			</div>
 			<div className="grid grid-cols-2 gap-6 px-4 my-4">
 				{/* Bal oldali oszlop */}
 				<div className="flex flex-col gap-6">
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
-						<ListSchema dataTableValue={residents} title={"Lakók"} type="residents" />
+						{/*<ListSchema dataTableValue={news} title={"Hírek"} type="news" />*/}
+						<ListViewSchema dataTableValue={news} title={"Hírek"} type="news" />
 					</div>
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-						<ListSchema dataTableValue={tasks} title={"Feladatok"} type="tasks" />
+						<ListSchema dataTableValue={bills} title={"Számlák"} type="bills" />
 					</div>
 				</div>
 
 				{/* Jobb oldali oszlop */}
 				<div className="flex flex-col gap-6">
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-						<ListSchema dataTableValue={news} title={"Hírek"} type="news" />
+						<ListSchema dataTableValue={tasks} title={"Feladatok"} type="tasks" />
 					</div>
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-						<ListSchema dataTableValue={bills} title={"Számlák"} type="bills" />
+						<ListSchema dataTableValue={residents} title={"Lakók"} type="residents" />
 					</div>
 				</div>
 			</div>

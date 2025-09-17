@@ -6,7 +6,7 @@ import { Dialog } from "primereact/dialog";
 import dataTableColumns from "~/utils/dataTableColumns";
 import "../app.css";
 
-interface ListSchemaProps {
+export interface ListSchemaProps {
 	dataTableValue: Residents[] | News[] | Tasks[] | Bills[] | Documents[];
 	title: string;
 	type: string;
@@ -17,7 +17,7 @@ export default function ListSchema({ dataTableValue, title, type }: ListSchemaPr
 
 	const header = () => {
 		return (
-			<div className="flex justify-between p-4  backdrop-blur-lg   shadow-sm">
+			<div className="flex justify-between p-4 !bg-[#343d4a] backdrop-blur-lg   shadow-sm">
 				<h4 className="font-semibold">{title}</h4>
 				<span
 					className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
@@ -37,7 +37,7 @@ export default function ListSchema({ dataTableValue, title, type }: ListSchemaPr
 				<DataTable
 					value={dataTableValue}
 					unstyled
-					className="h-full var(--primary-color) backdrop-blur-lg shadow-sm text-white"
+					className="h-full !bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300"
 					emptyMessage="Nincs megjelenítendő adat"
 					pt={{
 						wrapper: {
