@@ -63,6 +63,13 @@ export default function ListViewSchema<T extends News | Tasks>({
                         <span className="text-sm font-semibold text-gray-100">
                             {news.date}
                         </span>
+                        {isHoverable && (
+                            <Button
+                                icon="pi pi-trash"
+                                tooltip="Hír törlése"
+                                className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+                            />
+                        )}
                         {!isHoverable && (
                             <Button
                                 icon="pi pi-eye"
