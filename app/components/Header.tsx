@@ -34,10 +34,10 @@ export default function Header({ houses }: { houses: House[] }) {
 	};
 
 	return (
-		<header className="pb-3 text-white">
+		<header className="pb-3 text-white fixed z-30  shadow-neutral-400-500 bg-dark-500/30  backdrop-blur-2xl">
 			<nav
 				aria-label="Global"
-				className="flex items-center px-3 justify-between shadow-neutral-400-500 bg-dark-500/30 fixed z-30 w-full backdrop-blur-2xl"
+				className="flex flex-row min-w-screen px-8 items-center justify-between"
 			>
 				<div className="flex lg:flex-1">
 					<a href="#" className="-m-1.5 p-1.5">
@@ -45,7 +45,7 @@ export default function Header({ houses }: { houses: House[] }) {
 						<img src="/houseinfologo.png" alt="House-Info logo" className="h-15 p-0 w-auto" />
 					</a>
 				</div>
-				<div className="flex lg:hidden">
+				<div className="flex lg:hidden !px-6">
 					<button
 						type="button"
 						className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
@@ -91,7 +91,7 @@ export default function Header({ houses }: { houses: House[] }) {
 						</>
 					)}
 				</div>
-				<div className="hidden lg:flex lg:flex-1 lg:justify-end px-3 gap-4">
+				<div className=" lg:flex lg:flex-1 lg:justify-end">
 					<a href="#" className="text-sm/6 font-semibold text-dark justify-items-center flex gap-4">
 						UserName
 						<FaUser className="my-auto" />

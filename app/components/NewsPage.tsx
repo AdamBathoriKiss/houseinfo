@@ -110,7 +110,7 @@ export default function NewsPage({title, content, createdBy, date}: CurrentNews)
                     label="Mentés"
                     severity="success"
                     type="submit"
-                    className="!my-3 !px-5 !py-3 !bg-green-600 hover:!bg-green-700 !text-white !font-semibold !rounded-md !shadow-md"
+                    className=" w-full !my-3 !px-5 !py-3 !bg-teal-400 hover:!bg-green-700 !text-white !font-semibold !rounded-md !shadow-md"
                 />
             </form>
         </div>
