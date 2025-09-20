@@ -7,6 +7,8 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import NewsPage from "./NewsPage";
+import { Timeline } from 'primereact/timeline';
+import TasksPage from "./TasksPage";
 
 export interface ListSchemaProps<T = News | Tasks> {
     dataTableValue: T[];
@@ -22,6 +24,7 @@ export default function ListViewSchema<T extends News | Tasks>({
     const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
     const [hoveredItem, setHoveredItem] = useState<News | Tasks | null>(null);
     const [createNews, setCreateNews] = useState<boolean>(false);
+    const [createTask, setCreateTask] = useState<boolean>(false);
 
     // Type guard függvények
     const isNews = (item: News | Tasks): item is News => {
@@ -86,7 +89,7 @@ export default function ListViewSchema<T extends News | Tasks>({
         const hoverProps = isHoverable
             ? {
                   onMouseEnter: () => setHoveredItem(tasks),
-                  onMouseLeave: () => setHoveredItem(null),
+                  //onMouseLeave: () => setHoveredItem(null),
                   style: { cursor: "pointer" },
               }
             : {};
@@ -141,7 +144,7 @@ export default function ListViewSchema<T extends News | Tasks>({
 
     // Komponens a jobb oldali részletekhez
     const renderItemDetails = () => {
-        if (!hoveredItem && !createNews) {
+        if (!hoveredItem && !createNews && !createTask) {
             return (
                 <div className="flex items-center justify-center h-full text-gray-400">
                     <div className="text-center">
@@ -171,7 +174,29 @@ export default function ListViewSchema<T extends News | Tasks>({
                     <NewsPage title="" content="" createdBy="" date="" />
                 </div>
             );
-        } else if (hoveredItem) {
+
+        } 
+
+        if (createTask) {
+            return (
+                <div className="p-4  rounded-lg h-fit">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-xl font-bold text-gray-100 mb-4">
+                            Új feladat létrehozása
+                        </h3>
+                        <i
+                            className="pi pi-times"
+                            style={{ fontSize: "2rem" }}
+                            onClick={() => setCreateTask(false)}
+                        ></i>
+                    </div>
+                    <TasksPage title="" description="" responsible="" status="" />
+                </div>
+            );
+
+        } 
+        
+        else if (hoveredItem) {
             return (
                 <div className="p-4  rounded-lg h-fit">
                     <div className="flex justify-between items-center mb-4">
@@ -195,40 +220,7 @@ export default function ListViewSchema<T extends News | Tasks>({
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            <div>
-                                <label className="text-sm font-semibold text-gray-300">
-                                    Cím:
-                                </label>
-                                <p className="text-gray-100">
-                                    {hoveredItem.title}
-                                </p>
-                            </div>
-                            <div>
-                                <label className="text-sm font-semibold text-gray-300">
-                                    Leírás:
-                                </label>
-                                <p className="text-gray-100">
-                                    {hoveredItem.description}
-                                </p>
-                            </div>
-                            {hoveredItem.responsible && (
-                                <div>
-                                    <label className="text-sm font-semibold text-gray-300">
-                                        Felelős:
-                                    </label>
-                                    <p className="text-gray-100">
-                                        {hoveredItem.responsible}
-                                    </p>
-                                </div>
-                            )}
-                            <div>
-                                <label className="text-sm font-semibold text-gray-300">
-                                    Státusz:
-                                </label>
-                                <p className="text-gray-100">
-                                    {hoveredItem.status}
-                                </p>
-                            </div>
+                           <TasksPage title={hoveredItem.title} description={hoveredItem.description} responsible={hoveredItem.responsible} status={hoveredItem.status} />
                         </div>
                     )}
                 </div>
@@ -268,12 +260,19 @@ export default function ListViewSchema<T extends News | Tasks>({
                     />
                 </IconField>
 
-                <Button
+               {type === "news" &&  <Button
                     icon="pi pi-plus"
                     tooltip="Új hír létrehozása"
                     onClick={() => setCreateNews(true)}
                     className="!p-2 !bg-teal-400  !text-white !font-semibold !rounded-md !shadow-md"
-                />
+                />}
+
+               {type === "tasks" &&  <Button
+                    icon="pi pi-plus"
+                    tooltip="Új feladat létrehozása"
+                    onClick={() => setCreateTask(true)}
+                    className="!p-2 !bg-teal-400  !text-white !font-semibold !rounded-md !shadow-md"
+                />}
             </div>
         );
     };
