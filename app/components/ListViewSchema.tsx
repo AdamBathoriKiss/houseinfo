@@ -38,7 +38,7 @@ export default function ListViewSchema<T extends News | Tasks>({
     const renderNewsTemplate = (news: News, isHoverable = false) => {
         const hoverProps = isHoverable ? {
             onMouseEnter: () => setHoveredItem(news),
-            onMouseLeave: () => setHoveredItem(null),
+            //onMouseLeave: () => setHoveredItem(null),
             style: { cursor: 'pointer' }
         } : {};
 
@@ -143,9 +143,11 @@ export default function ListViewSchema<T extends News | Tasks>({
         }
 
         return (
-            <div className="p-4 bg-[#3d4651] rounded-lg h-fit">
+            <div className="p-4  rounded-lg h-fit">
+                <div className="flex justify-between items-center mb-4">
                 <h3 className="text-xl font-bold text-gray-100 mb-4">Részletek</h3>
-                
+                <i className="pi pi-times" style={{ fontSize: '2rem' }} onClick={()=>setHoveredItem(null)}></i> 
+                </div>
                 {isNews(hoveredItem) ? (
                     <div className="space-y-3">
                        <NewsPage title={hoveredItem.title} content={hoveredItem.content} createdBy={hoveredItem.createdBy} date={hoveredItem.date} />
