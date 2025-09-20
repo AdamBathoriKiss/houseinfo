@@ -1,6 +1,7 @@
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
+import { useEffect } from "react";
 import useNews from "~/hooks/useNews";
 
 interface CurrentNews {
@@ -10,32 +11,36 @@ interface CurrentNews {
     date: string;
 }  
 
-export default function NewsPage({title,content,createdBy,date}: CurrentNews) {
+export default function NewsPage({title, content, createdBy, date}: CurrentNews) {
     const {
         onSubmit,
         toast,
-        //propertyTypes,
-        stepperRef,
         register,
         handleSubmit,
         formState: { errors },
-        watch,
+        setValue,
     } = useNews();
 
-    return (
-        <div className="h-full w-full ">
-            <Toast ref={toast} />
-            <div className="p-3">
+    // Amikor új adatok jönnek be (hover), beállítjuk a form értékeit
+    useEffect(() => {
+        if (title) setValue("title", title);
+        if (content) setValue("content", content);
+        if (createdBy) setValue("createdBy", createdBy);
+        if(date) setValue("date", date);
+    }, [title, content, createdBy, setValue]);
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    <div className="flex flex-col gap-2">
+    return (
+        <div className="h-full w-full">
+            <Toast ref={toast} />
+            <form onSubmit={handleSubmit(onSubmit)} className="p-3">
+                <div className="grid grid-cols-1 gap-4">
+                    <div className="flex flex-col col-start-1 col-end-12 gap-2">
                         <label className="font-semibold text-gray-100 text-sm">
                             Cím *
                         </label>
                         <input
                             {...register("title")}
                             type="text"
-                            value={title ? title : watch("title")}
                             placeholder="pl. Sunshine Társasház"
                             className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
@@ -46,14 +51,15 @@ export default function NewsPage({title,content,createdBy,date}: CurrentNews) {
                         )}
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                
+                    <div className="flex flex-row col-start-1 col-end-12 gap-2">
+                    <div className="w-1/2">
                         <label className="font-semibold text-gray-100 text-sm">
                             Létrehozta *
                         </label>
                         <input
                             {...register("createdBy")}
                             type="text"
-                            value={createdBy ? createdBy : watch("createdBy")}
                             placeholder="pl. Fő utca 123."
                             className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
@@ -62,19 +68,35 @@ export default function NewsPage({title,content,createdBy,date}: CurrentNews) {
                                 {errors.createdBy.message}
                             </span>
                         )}
+                        </div>
+                    <div className="w-1/2">
+                        <label className="font-semibold text-gray-100 text-sm">
+                            Létrehozva *
+                        </label>
+                        <input
+                            {...register("date")}
+                            type="text"
+                            placeholder="pl. Fő utca 123."
+                            className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        />
+                        {errors.date && (
+                            <span className="text-red-500 text-xs">
+                                {errors.date.message}
+                            </span>
+                        )}
+                        </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 col-start-1 col-end-12">
                         <label className="font-semibold text-gray-100 text-sm">
                             Hír szövege *
                         </label>
                         <InputTextarea
                             {...register("content")}
-                            value={content ? content : watch("content")}
                             rows={10}
-                            cols={75}
+                            cols={95}
                             placeholder="pl. Budapest"
-                            className="w-fit py-2.5 !bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                            className="w-full py-2.5 !bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
                         {errors.content && (
                             <span className="text-red-500 text-xs">
@@ -83,13 +105,14 @@ export default function NewsPage({title,content,createdBy,date}: CurrentNews) {
                         )}
                     </div>
                 </div>
-                    <Button
-                        label="Mentés"
-                        severity="success"
-                        type="submit"
-                        className="!my-3 !px-5 !py-3 !bg-green-600 hover:!bg-green-700 !text-white !font-semibold !rounded-md !shadow-md"
-                    />
-            </div>
+                
+                <Button
+                    label="Mentés"
+                    severity="success"
+                    type="submit"
+                    className="!my-3 !px-5 !py-3 !bg-green-600 hover:!bg-green-700 !text-white !font-semibold !rounded-md !shadow-md"
+                />
+            </form>
         </div>
     );
 }
