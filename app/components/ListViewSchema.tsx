@@ -5,12 +5,8 @@ import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
-import { Column } from "primereact/column";
-import { DataTable } from "primereact/datatable";
 import { Dialog } from "primereact/dialog";
-import dataTableColumns from "~/utils/dataTableColumns";
 import NewsPage from "./NewsPage";
-import { json } from "zod";
 
 export interface ListSchemaProps<T = News | Tasks> {
     dataTableValue: T[];
@@ -25,6 +21,7 @@ export default function ListViewSchema<T extends News | Tasks>({
 }: ListSchemaProps<T>) {
     const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
     const [hoveredItem, setHoveredItem] = useState<News | Tasks | null>(null);
+    const [createNews, setCreateNews] = useState<boolean>(false);
 
     // Type guard függvények
     const isNews = (item: News | Tasks): item is News => {
@@ -36,14 +33,16 @@ export default function ListViewSchema<T extends News | Tasks>({
     };
 
     const renderNewsTemplate = (news: News, isHoverable = false) => {
-        const hoverProps = isHoverable ? {
-            onMouseEnter: () => setHoveredItem(news),
-            //onMouseLeave: () => setHoveredItem(null),
-            style: { cursor: 'pointer' }
-        } : {};
+        const hoverProps = isHoverable
+            ? {
+                  onMouseEnter: () => setHoveredItem(news),
+                  //onMouseLeave: () => setHoveredItem(null),
+                  style: { cursor: "pointer" },
+              }
+            : {};
 
         return (
-            <div 
+            <div
                 className="flex flex-row justify-between text-gray-100 !bg-[#343d4a] p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
                 {...hoverProps}
             >
@@ -64,10 +63,12 @@ export default function ListViewSchema<T extends News | Tasks>({
                         <span className="text-sm font-semibold text-gray-100">
                             {news.date}
                         </span>
-                     {!isHoverable && <Button
-                            icon="pi pi-eye"
-                            className="p-button-rounded p-button-sm"
-                        />}
+                        {!isHoverable && (
+                            <Button
+                                icon="pi pi-eye"
+                                className="p-button-rounded p-button-sm"
+                            />
+                        )}
                     </div>
                 </div>
             </div>
@@ -75,14 +76,16 @@ export default function ListViewSchema<T extends News | Tasks>({
     };
 
     const renderTasksTemplate = (tasks: Tasks, isHoverable = false) => {
-        const hoverProps = isHoverable ? {
-            onMouseEnter: () => setHoveredItem(tasks),
-            onMouseLeave: () => setHoveredItem(null),
-            style: { cursor: 'pointer' }
-        } : {};
+        const hoverProps = isHoverable
+            ? {
+                  onMouseEnter: () => setHoveredItem(tasks),
+                  onMouseLeave: () => setHoveredItem(null),
+                  style: { cursor: "pointer" },
+              }
+            : {};
 
         return (
-            <div 
+            <div
                 className="flex flex-row justify-between text-gray-100 !bg-[#343d4a] p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
                 {...hoverProps}
             >
@@ -131,51 +134,99 @@ export default function ListViewSchema<T extends News | Tasks>({
 
     // Komponens a jobb oldali részletekhez
     const renderItemDetails = () => {
-        if (!hoveredItem) {
+        if (!hoveredItem && !createNews) {
             return (
                 <div className="flex items-center justify-center h-full text-gray-400">
                     <div className="text-center">
                         <i className="pi pi-info-circle text-4xl mb-4"></i>
-                        <p>Vigye az egeret egy elem fölé a részletek megtekintéséhez</p>
+                        <p>
+                            Vigye az egeret egy elem fölé a részletek
+                            megtekintéséhez
+                        </p>
                     </div>
                 </div>
             );
         }
 
-        return (
-            <div className="p-4  rounded-lg h-fit">
-                <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold text-gray-100 mb-4">Részletek</h3>
-                <i className="pi pi-times" style={{ fontSize: '2rem' }} onClick={()=>setHoveredItem(null)}></i> 
+        if (createNews) {
+            return (
+                <div className="p-4  rounded-lg h-fit">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-xl font-bold text-gray-100 mb-4">
+                            Új hír létrehozása
+                        </h3>
+                        <i
+                            className="pi pi-times"
+                            style={{ fontSize: "2rem" }}
+                            onClick={() => setCreateNews(false)}
+                        ></i>
+                    </div>
+                    <NewsPage title="" content="" createdBy="" date="" />
                 </div>
-                {isNews(hoveredItem) ? (
-                    <div className="space-y-3">
-                       <NewsPage title={hoveredItem.title} content={hoveredItem.content} createdBy={hoveredItem.createdBy} date={hoveredItem.date} />
+            );
+        } else if (hoveredItem) {
+            return (
+                <div className="p-4  rounded-lg h-fit">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-xl font-bold text-gray-100 mb-4">
+                            Részletek
+                        </h3>
+                        <i
+                            className="pi pi-times"
+                            style={{ fontSize: "2rem" }}
+                            onClick={() => setHoveredItem(null)}
+                        ></i>
                     </div>
-                ) : (
-                    <div className="space-y-3">
-                        <div>
-                            <label className="text-sm font-semibold text-gray-300">Cím:</label>
-                            <p className="text-gray-100">{hoveredItem.title}</p>
+                    {isNews(hoveredItem) ? (
+                        <div className="space-y-3">
+                            <NewsPage
+                                title={hoveredItem.title}
+                                content={hoveredItem.content}
+                                createdBy={hoveredItem.createdBy}
+                                date={hoveredItem.date}
+                            />
                         </div>
-                        <div>
-                            <label className="text-sm font-semibold text-gray-300">Leírás:</label>
-                            <p className="text-gray-100">{hoveredItem.description}</p>
-                        </div>
-                        {hoveredItem.responsible && (
+                    ) : (
+                        <div className="space-y-3">
                             <div>
-                                <label className="text-sm font-semibold text-gray-300">Felelős:</label>
-                                <p className="text-gray-100">{hoveredItem.responsible}</p>
+                                <label className="text-sm font-semibold text-gray-300">
+                                    Cím:
+                                </label>
+                                <p className="text-gray-100">
+                                    {hoveredItem.title}
+                                </p>
                             </div>
-                        )}
-                        <div>
-                            <label className="text-sm font-semibold text-gray-300">Státusz:</label>
-                            <p className="text-gray-100">{hoveredItem.status}</p>
+                            <div>
+                                <label className="text-sm font-semibold text-gray-300">
+                                    Leírás:
+                                </label>
+                                <p className="text-gray-100">
+                                    {hoveredItem.description}
+                                </p>
+                            </div>
+                            {hoveredItem.responsible && (
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-300">
+                                        Felelős:
+                                    </label>
+                                    <p className="text-gray-100">
+                                        {hoveredItem.responsible}
+                                    </p>
+                                </div>
+                            )}
+                            <div>
+                                <label className="text-sm font-semibold text-gray-300">
+                                    Státusz:
+                                </label>
+                                <p className="text-gray-100">
+                                    {hoveredItem.status}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div>
-        );
+                    )}
+                </div>
+            );
+        }
     };
 
     const header = () => {
@@ -201,16 +252,21 @@ export default function ListViewSchema<T extends News | Tasks>({
 
     const headerMaximalized = () => {
         return (
-            <div className="w-full flex flex-row justify-between items-center">
-                <div className="flex flex-row items-center justify-around gap-2">
-                    <IconField iconPosition="left">
-                        <InputIcon className="pi pi-search"> </InputIcon>
-                        <InputText
-                            className="mx-4 !bg-transparent w-[15vw] h-[2.5rem] !rounded-4xl"
-                            placeholder="Search"
-                        />
-                    </IconField>
-                </div>
+            <div className="flex flex-row items-center justify-between gap-2">
+                <IconField iconPosition="left">
+                    <InputIcon className="pi pi-search"> </InputIcon>
+                    <InputText
+                        className="mx-4 !bg-transparent w-[15vw] h-[2.5rem] !rounded-4xl"
+                        placeholder="Search"
+                    />
+                </IconField>
+
+                <Button
+                    icon="pi pi-plus"
+                    tooltip="Új hír létrehozása"
+                    onClick={() => setCreateNews(true)}
+                    className="!p-2 !bg-teal-400  !text-white !font-semibold !rounded-md !shadow-md"
+                />
             </div>
         );
     };
@@ -231,6 +287,7 @@ export default function ListViewSchema<T extends News | Tasks>({
             {onDialogOpened && (
                 <Dialog
                     header={title}
+                    headerStyle={{ marginLeft: "1.5rem" }}
                     visible={onDialogOpened}
                     onHide={() => {
                         setOnDialogOpened(false);
@@ -252,7 +309,7 @@ export default function ListViewSchema<T extends News | Tasks>({
                             header={headerMaximalized()}
                             className="!bg-[#343d4a]"
                         />
-                        
+
                         {/* Jobb oldali részletek panel */}
                         <div className="bg-[#343d4a] p-4 rounded-lg">
                             {renderItemDetails()}
