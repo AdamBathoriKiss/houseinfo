@@ -3,6 +3,7 @@ import ListSchema from "./ListSchema";
 import { Card } from "primereact/card";
 import ListViewSchema from "./ListViewSchema";
 import Diagrams from "./Diagrams";
+import DoughnutChart from "./DoughnutChart";
 
 export interface Residents {
     id: string;
@@ -864,7 +865,9 @@ export default function MainPage() {
                 </Card>
                 <Card className="!bg-[#343d4a] m-4 h-35 rounded-lg">
                     <div className="flex flex-row justify-between">
-                        <p className="text-gray-400 font-bold">Aktív feladatok</p>
+                        <p className="text-gray-400 font-bold">
+                            Aktív feladatok
+                        </p>
                         <i className="pi pi-list-check mr-2"></i>
                     </div>
                     <p className="text-gray-400 !text-3xl">22 db</p>
@@ -878,7 +881,9 @@ export default function MainPage() {
                 </Card>
                 <Card className="!bg-[#343d4a] m-4 h-35 rounded-lg">
                     <div className="flex flex-row justify-between">
-                        <p className="text-gray-400 font-bold">Applikáción regisztrált</p>
+                        <p className="text-gray-400 font-bold">
+                            Applikáción regisztrált
+                        </p>
                         <i className="pi pi-user mr-2"></i>
                     </div>
                     <p className="text-gray-400 !text-3xl">315 fő</p>
@@ -890,12 +895,12 @@ export default function MainPage() {
                     <div className="surface-card shadow-2xl rounded-md h-fit overflow-hidden backdrop-blur-2xl">
                         <Diagrams />
                     </div>
-                    <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-                        <ListSchema
-                            dataTableValue={bills}
-                            title={"Számlák"}
-                            type="bills"
-                        />
+                    
+                    <div className="shadow-2xl rounded-md h-96 overflow-hidden grid grid-cols-3 justify-between items-center px-4 ">
+                        <p className="col-start-1 col-end-12 text-center ">Összes parkoló száma: 43</p>
+                        <DoughnutChart title="Felszíni parkoló" />
+                        <DoughnutChart title="Mélygarázs parkoló" />
+                        <DoughnutChart title="Elektromos töltővel rendelkező parkoló" />
                     </div>
                 </div>
 
