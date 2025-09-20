@@ -79,7 +79,7 @@ export default function ListSchema({
                     header={title}
                     visible={onDialogOpened}
                     onHide={() => setOnDialogOpened(false)}
-                    className="lg:w-[90vw] lg:h-[80vh]"
+                    className="lg:w-[90vw] lg:h-[80vh]!bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300 px-3"
                     contentClassName="h-full p-0"
                     draggable={false}
                     resizable={false}
