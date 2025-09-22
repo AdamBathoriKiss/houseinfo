@@ -24,6 +24,7 @@ export default function DataTableSchema({
         return (
             <div className="flex justify-between px-3 py-4 !bg-[#343d4a] backdrop-blur-lg shadow-sm">
                 <h4 className="font-semibold">{title}</h4>
+                <div className="flex items-center gap-3">
                 <IconField iconPosition="left">
                     <InputIcon className="pi pi-search"> </InputIcon>
                     <InputText
@@ -31,10 +32,24 @@ export default function DataTableSchema({
                         placeholder="Search"
                     />
                 </IconField>
-                <Button icon="pi pi-upload"/>
+                <Button icon="pi pi-upload" tooltip="Dokumentum feltöltése"/>
+                </div>
             </div>
         );
     };
+
+    const bodyTemplate = (rowData: any, field: string) => {
+        if(field === 'actions') { 
+            return (
+                <div className="flex items-center text-start">
+                    <Button icon="pi pi-eye" tooltip="Szerkesztés" className="p-button-rounded p-button-sm"/>
+                    <Button icon="pi pi-download" tooltip="Letöltés" className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50"/>
+                    <Button icon="pi pi-trash" tooltip="Törlés" className="!bg-transparent !text-gray-100 border-none hover:!bg-red-600/70 hover:text-gray-50"/>
+                </div>
+            )
+        }
+        return rowData[field];
+    }
 
     return (
         <div className="h-full flex flex-col">
@@ -72,6 +87,7 @@ export default function DataTableSchema({
                             key={col.field}
                             field={col.field}
                             header={col.header}
+                            body={(rowData) => bodyTemplate(rowData, col.field)}
                             bodyClassName="px-1 py-3 whitespace-nowrap"
                         />
                     ))}

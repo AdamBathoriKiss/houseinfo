@@ -54,13 +54,14 @@ const billExpandedCols = [
 const documentCols = [
   { field: 'name', header: 'Dokumentum neve' },
   { field: 'createdBy', header: 'Feltöltő' },
-  { field: 'date', header: 'Dátum' }
 ];
 
 const documentExpandedCols = [
   ...documentCols,
   { field: 'type', header: 'Típus' },
-  { field: 'size', header: 'Méret' }
+  { field: 'size', header: 'Méret' },
+  { field: 'date', header: 'Dátum' },
+  { field: 'actions', header: 'Műveletek' },
 ];
 
 export default function dataTableColumns(type:string) {
