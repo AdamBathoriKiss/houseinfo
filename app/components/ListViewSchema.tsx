@@ -22,7 +22,9 @@ export default function ListViewSchema<T extends News | Tasks>({
     type,
 }: ListSchemaProps<T>) {
     const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
+    const [onViewDialogOpened, setOnViewDialogOpened] = useState<boolean>(false);
     const [hoveredItem, setHoveredItem] = useState<News | Tasks | null>(null);
+    const [selectedItem, setSelectedItem] = useState<News | Tasks | null>(null); // Új state a kiválasztott elemhez
     const [createNews, setCreateNews] = useState<boolean>(false);
     const [createTask, setCreateTask] = useState<boolean>(false);
 
@@ -77,6 +79,10 @@ export default function ListViewSchema<T extends News | Tasks>({
                             <Button
                                 icon="pi pi-eye"
                                 className="p-button-rounded p-button-sm"
+                                onClick={() => {
+                                    setSelectedItem(news);
+                                    setOnViewDialogOpened(true);
+                                }}
                             />
                         )}
                     </div>
@@ -118,6 +124,10 @@ export default function ListViewSchema<T extends News | Tasks>({
                         <Button
                             icon="pi pi-eye"
                             className="p-button-rounded p-button-sm"
+                            onClick={() => {
+                                setSelectedItem(tasks);
+                                setOnViewDialogOpened(true);
+                            }}
                         />
                         <div className="text-xs my-3 text-gray-400">
                             <i className="pi pi-wave-pulse mr-2"></i>
@@ -166,7 +176,7 @@ export default function ListViewSchema<T extends News | Tasks>({
                             Új hír létrehozása
                         </h3>
                         <i
-                            className="pi pi-times"
+                            className="pi pi-times cursor-pointer"
                             style={{ fontSize: "2rem" }}
                             onClick={() => setCreateNews(false)}
                         ></i>
@@ -174,7 +184,6 @@ export default function ListViewSchema<T extends News | Tasks>({
                     <NewsPage title="" content="" createdBy="" date="" />
                 </div>
             );
-
         } 
 
         if (createTask) {
@@ -185,7 +194,7 @@ export default function ListViewSchema<T extends News | Tasks>({
                             Új feladat létrehozása
                         </h3>
                         <i
-                            className="pi pi-times"
+                            className="pi pi-times cursor-pointer"
                             style={{ fontSize: "2rem" }}
                             onClick={() => setCreateTask(false)}
                         ></i>
@@ -193,10 +202,9 @@ export default function ListViewSchema<T extends News | Tasks>({
                     <TasksPage title="" description="" responsible="" status="" />
                 </div>
             );
-
         } 
         
-        else if (hoveredItem) {
+        if (hoveredItem) {
             return (
                 <div className="p-4  rounded-lg h-fit">
                     <div className="flex justify-between items-center mb-4">
@@ -204,7 +212,7 @@ export default function ListViewSchema<T extends News | Tasks>({
                             Részletek
                         </h3>
                         <i
-                            className="pi pi-times"
+                            className="pi pi-times cursor-pointer"
                             style={{ fontSize: "2rem" }}
                             onClick={() => setHoveredItem(null)}
                         ></i>
@@ -220,7 +228,12 @@ export default function ListViewSchema<T extends News | Tasks>({
                         </div>
                     ) : (
                         <div className="space-y-3">
-                           <TasksPage title={hoveredItem.title} description={hoveredItem.description} responsible={hoveredItem.responsible} status={hoveredItem.status} />
+                           <TasksPage 
+                               title={hoveredItem.title} 
+                               description={hoveredItem.description} 
+                               responsible={hoveredItem.responsible || ""} 
+                               status={hoveredItem.status} 
+                           />
                         </div>
                     )}
                 </div>
@@ -323,6 +336,44 @@ export default function ListViewSchema<T extends News | Tasks>({
                     </div>
                 </Dialog>
             )}
+
+             {onViewDialogOpened && selectedItem && (
+                <Dialog
+                    header={title}
+                    headerStyle={{ marginLeft: "1.5rem" }}
+                    visible={onViewDialogOpened}
+                    onHide={() => {
+                        setOnViewDialogOpened(false);
+                        setSelectedItem(null);
+                    }}
+                    className="min-h-[96vh] w-[46vw] !bg-[#343d4a] text-gray-300 px-3 overflow-hidden"
+                    contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300 px-3"
+                    headerClassName="!bg-[#343d4a] text-gray-300 px-3"
+                    draggable={false}
+                    resizable={false}
+                >
+                    <div className="grid grid-cols-1 gap-4">
+                        <div className="bg-[#343d4a] p-4 rounded-lg">
+                            {isNews(selectedItem) ? (
+                                <NewsPage
+                                    title={selectedItem.title}
+                                    content={selectedItem.content}
+                                    createdBy={selectedItem.createdBy}
+                                    date={selectedItem.date}
+                                />
+                            ) : (
+                                <TasksPage
+                                    title={selectedItem.title}
+                                    description={selectedItem.description}
+                                    responsible={selectedItem.responsible || ""}
+                                    status={selectedItem.status}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </Dialog>
+            )}
+
         </div>
     );
 }
