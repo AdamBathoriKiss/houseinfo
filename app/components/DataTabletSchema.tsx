@@ -7,6 +7,7 @@ import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import FileUploader from "./FileUploader";
 
 export interface DataTableSchemaProps {
     dataTableValue: Residents[] | News[] | Tasks[] | Bills[] | Documents[];
@@ -32,7 +33,7 @@ export default function DataTableSchema({
                         placeholder="Search"
                     />
                 </IconField>
-                <Button icon="pi pi-upload" tooltip="Dokumentum feltöltése"/>
+               <FileUploader/>
                 </div>
             </div>
         );
@@ -44,7 +45,7 @@ export default function DataTableSchema({
                 <div className="flex items-center text-start">
                     <Button icon="pi pi-eye" tooltip="Szerkesztés" className="p-button-rounded p-button-sm"/>
                     <Button icon="pi pi-download" tooltip="Letöltés" className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50"/>
-                    <Button icon="pi pi-trash" tooltip="Törlés" className="!bg-transparent !text-gray-100 border-none hover:!bg-red-600/70 hover:text-gray-50"/>
+                    <Button icon="pi pi-trash" tooltip="Törlés" className="!bg-transparent border-none  !text-red-600 !hover:text-gray-50 "/>
                 </div>
             )
         }
