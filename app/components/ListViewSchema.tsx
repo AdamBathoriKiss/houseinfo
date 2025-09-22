@@ -116,7 +116,7 @@ export default function ListViewSchema<T extends News | Tasks>({
                         {tasks.responsible && (
                             <div className="text-xs text-green-400">
                                 <i className="pi pi-user-plus mr-2"></i>
-                                Assigned to: {tasks.responsible}
+                                Felelős: {tasks.responsible}
                             </div>
                         )}
                     </div>
