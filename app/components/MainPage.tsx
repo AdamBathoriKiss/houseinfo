@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ListSchema from "./ListSchema";
+import DataTableSchema from "./DataTabletSchema";
 import { Card } from "primereact/card";
-import ListViewSchema from "./ListViewSchema";
+import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
 import DoughnutChart from "./DoughnutChart";
 import MainPageHeader from "./MainPageHeader";
@@ -875,26 +875,26 @@ export default function MainPage() {
                 {/* Jobb oldali oszlop */}
                 <div className="flex flex-col gap-6">
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-                        <ListViewSchema
+                        <DataScrollerSchema
                             dataTableValue={news}
                             title={"Hírek"}
                             type="news"
                         />
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-                        <ListViewSchema
+                        <DataScrollerSchema
                             dataTableValue={tasks}
                             title={"Feladatok"}
                             type="tasks"
                         />
-                        {/*<ListSchema dataTableValue={residents} title={"Lakók"} type="residents" />*/}
+                        {/*<DataTableSchema dataTableValue={residents} title={"Lakók"} type="residents" />*/}
                     </div>
                 </div>
             </div>
 
             <div className="px-4 my-4">
                 <div className=" gap-6 surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-                    <ListSchema
+                    <DataTableSchema
                         dataTableValue={documents}
                         title={"Dokumentumok"}
                         type="documents"
