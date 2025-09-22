@@ -21,7 +21,7 @@ export default function ListSchema({
 
     const header = () => {
         return (
-            <div className="flex justify-between p-4 !bg-[#343d4a] backdrop-blur-lg   shadow-sm">
+            <div className="flex justify-between px-3 py-4 !bg-[#343d4a] backdrop-blur-lg   shadow-sm">
                 <h4 className="font-semibold">{title}</h4>
                 <span
                     className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
@@ -53,7 +53,7 @@ export default function ListSchema({
                         },
                         thead: {
                             className:
-                                "!px-1 bg-transparent text-gray-50 text-left px-3",
+                                "!px-1 bg-transparent text-gray-50 text-left",
                         },
                         tbody: { className: "align-start" }, // tbody-ra alkalmazott stílus pl.
                         bodyRow: {
@@ -77,17 +77,17 @@ export default function ListSchema({
             {onDialogOpened && (
                 <Dialog
                     header={title}
+                    headerClassName="!bg-[#343d4a] text-gray-300"
                     visible={onDialogOpened}
                     onHide={() => setOnDialogOpened(false)}
-                    className="lg:w-[90vw] lg:h-[80vh]!bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300 px-3"
-                    contentClassName="h-full p-0"
+                    className="lg:w-[90vw] lg:h-[80vh] backdrop-blur-lg shadow-sm text-gray-300"
                     draggable={false}
                     resizable={false}
                 >
-                    <div className="h-full">
+                    
                         <DataTable
                             value={dataTableValue}
-                            //stripedRows
+                            className="h-full !bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300"
                             unstyled
                             emptyMessage="Nincs megjelenítendő adat"
                             scrollable
@@ -97,20 +97,21 @@ export default function ListSchema({
                             }}
                             pt={{
                                 wrapper: {
-                                    className: "h-full overflow-auto",
+                                    className:
+                                        "h-full overflow-auto backdrop-blur-3xl",
                                 },
                                 table: {
                                     className:
-                                        "w-full table-auto border-collapse",
+                                        "!w-full text-start table-auto border-collapse",
                                 },
-                                header: {
+                                thead: {
                                     className:
-                                        "bg-gray-100 text-gray-700 font-semibold p-3 border-b border-gray-300 select-none",
+                                        "!px-1 bg-transparent text-gray-50 text-left",
                                 },
-                                tbody: { className: "align-middle" }, // tbody-ra alkalmazott stílus pl.
+                                tbody: { className: "align-start !w-full" }, // tbody-ra alkalmazott stílus pl.
                                 bodyRow: {
                                     className:
-                                        "hover:bg-gray-50 even:bg-gray-50 border-b border-gray-200",
+                                        "hover:bg-gray-600/30 hover:text-gray-50 text-start border-b",
                                 },
                             }}
                         >
@@ -124,7 +125,7 @@ export default function ListSchema({
                                 )
                             )}
                         </DataTable>
-                    </div>
+                        
                 </Dialog>
             )}
         </div>

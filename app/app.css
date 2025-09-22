@@ -40,3 +40,8 @@
 .p-datascroller-header {
 	background-color: #343d4a !important;
 }
+
+.p-dialog .p-dialog-content {
+	background-color: #343d4a !important;
+	padding: 1rem !important;
+}
