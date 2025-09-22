@@ -7,20 +7,19 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import NewsPage from "./NewsPage";
-import { Timeline } from 'primereact/timeline';
 import TasksPage from "./TasksPage";
 
-export interface ListSchemaProps<T = News | Tasks> {
+export interface DataScrollerSchemaProps<T = News | Tasks> {
     dataTableValue: T[];
     title: string;
     type: "news" | "tasks";
 }
 
-export default function ListViewSchema<T extends News | Tasks>({
+export default function DataScrollerSchema<T extends News | Tasks>({
     dataTableValue,
     title,
     type,
-}: ListSchemaProps<T>) {
+}: DataScrollerSchemaProps<T>) {
     const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
     const [onViewDialogOpened, setOnViewDialogOpened] = useState<boolean>(false);
     const [hoveredItem, setHoveredItem] = useState<News | Tasks | null>(null);

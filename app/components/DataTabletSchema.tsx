@@ -8,17 +8,17 @@ import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 
-export interface ListSchemaProps {
+export interface DataTableSchemaProps {
     dataTableValue: Residents[] | News[] | Tasks[] | Bills[] | Documents[];
     title: string;
     type: string;
 }
 
-export default function ListSchema({
+export default function DataTableSchema({
     dataTableValue,
     title,
     type,
-}: ListSchemaProps) {
+}: DataTableSchemaProps) {
 
     const header = () => {
         return (
