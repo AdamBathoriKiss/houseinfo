@@ -14,6 +14,8 @@
 * {
 	font-family: var(--font-sans);
 	font-size: 0.9rem !important;
+	scrollbar-color: #9fa8da gray;
+	scrollbar-width: thin;
 }
 
 .p-dialog-mask {
