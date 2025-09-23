@@ -18,7 +18,7 @@ export default function Diagrams() {
 					fill: false,
 					borderColor: documentStyle.getPropertyValue("--blue-500"),
 					yAxisID: "y",
-					tension: 0.4,
+					tension: 0.3,
 					data: [65, 59, 80, 81, 56, 55, 10],
 				},
 				{
@@ -34,7 +34,7 @@ export default function Diagrams() {
 		const options = {
 			stacked: false,
 			maintainAspectRatio: false,
-			aspectRatio: 0.6,
+			aspectRatio: 0.3,
 			plugins: {
 				legend: {
 					labels: {
@@ -81,9 +81,5 @@ export default function Diagrams() {
 		setChartOptions(options);
 	}, []);
 
-	return (
-		<div className="card">
-			<Chart className="!h-[50vh]" type="line" data={chartData} options={chartOptions} />
-		</div>
-	);
+	return <Chart className="h-96" type="line" data={chartData} options={chartOptions} />;
 }
