@@ -301,6 +301,7 @@ export default function DataScrollerSchema<T extends News | Tasks>({
 					onHide={() => {
 						setOnDialogOpened(false);
 						setHoveredItem(null); // Reset hover state when closing
+						setFilteredItem(dataTableValue);
 					}}
 					className="min-h-[96vh] w-[96vw] !bg-[#343d4a] text-gray-300 px-3 overflow-hidden"
 					contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300 px-3"
