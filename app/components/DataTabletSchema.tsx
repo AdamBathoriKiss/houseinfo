@@ -6,6 +6,7 @@ import "../app.css";
 import { Button } from "primereact/button";
 import FileUploader from "./FileUploader";
 import SearchBar from "./SearchBar";
+import { useState } from "react";
 
 export interface DataTableSchemaProps {
 	dataTableValue: Residents[] | News[] | Tasks[] | Bills[] | Documents[];
@@ -14,8 +15,25 @@ export interface DataTableSchemaProps {
 }
 
 export default function DataTableSchema({ dataTableValue, title, type }: DataTableSchemaProps) {
+	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>(dataTableValue);
+
 	const filter = (searchTerm: string) => {
-		console.log(searchTerm);
+		let filtered: typeof dataTableValue = [];
+
+		if (searchTerm.length >= 3) {
+			filtered = dataTableValue.filter((item) => {
+				return Object.entries(item).some(([key, value]) => {
+					if (typeof value === "string") {
+						return value.toLowerCase().includes(searchTerm.toLowerCase());
+					}
+					return false;
+				});
+			}) as typeof dataTableValue;
+		} else {
+			filtered = dataTableValue;
+		}
+
+		setFilteredItem(filtered);
 	};
 
 	const header = () => {
@@ -63,7 +81,7 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 			{/* DataTable konténer - flex-1 használja a maradék helyet */}
 			<div className="flex-1 overflow-hidden">
 				<DataTable
-					value={dataTableValue}
+					value={filteredItem}
 					unstyled
 					className="h-full !bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300 px-3"
 					emptyMessage="Nincs megjelenítendő adat"

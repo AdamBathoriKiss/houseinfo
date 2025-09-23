@@ -24,6 +24,26 @@ export default function DataScrollerSchema<T extends News | Tasks>({
 	const [selectedItem, setSelectedItem] = useState<News | Tasks | null>(null); // Új state a kiválasztott elemhez
 	const [createNews, setCreateNews] = useState<boolean>(false);
 	const [createTask, setCreateTask] = useState<boolean>(false);
+	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>(dataTableValue);
+
+	const filter = (searchTerm: string) => {
+		let filtered: typeof dataTableValue = [];
+
+		if (searchTerm.length >= 3) {
+			filtered = dataTableValue.filter((item) => {
+				return Object.entries(item).some(([key, value]) => {
+					if (typeof value === "string") {
+						return value.toLowerCase().includes(searchTerm.toLowerCase());
+					}
+					return false;
+				});
+			}) as typeof dataTableValue;
+		} else {
+			filtered = dataTableValue;
+		}
+
+		setFilteredItem(filtered);
+	};
 
 	// Type guard függvények
 	const isNews = (item: News | Tasks): item is News => {
@@ -219,10 +239,6 @@ export default function DataScrollerSchema<T extends News | Tasks>({
 		}
 	};
 
-	const filter = (searchTerm: string) => {
-		console.log(searchTerm);
-	};
-
 	const header = () => {
 		return (
 			<div className="w-full flex flex-row justify-between items-center">
@@ -267,7 +283,7 @@ export default function DataScrollerSchema<T extends News | Tasks>({
 	return (
 		<div>
 			<DataScroller
-				value={dataTableValue}
+				value={filteredItem}
 				itemTemplate={itemTemplate}
 				rows={5}
 				inline
@@ -294,7 +310,7 @@ export default function DataScrollerSchema<T extends News | Tasks>({
 				>
 					<div className="grid grid-cols-2 gap-4">
 						<DataScroller
-							value={dataTableValue}
+							value={filteredItem}
 							itemTemplate={hoverableItemTemplate}
 							rows={15}
 							inline
