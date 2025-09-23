@@ -6,6 +6,7 @@ import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import type { House } from "~/hooks/useMain";
+import SearchBar from "./SearchBar";
 
 interface FilteredHouses {
 	id: number;
@@ -35,10 +36,7 @@ export default function Header({ houses }: { houses: House[] }) {
 
 	return (
 		<header className="pb-3 text-white fixed z-30  shadow-neutral-400-500 bg-dark-500/30  backdrop-blur-2xl">
-			<nav
-				aria-label="Global"
-				className="flex flex-row min-w-screen px-8 items-center justify-between"
-			>
+			<nav aria-label="Global" className="flex flex-row min-w-screen px-8 items-center justify-between">
 				<div className="flex lg:flex-1">
 					<a href="#" className="-m-1.5 p-1.5">
 						<span className="sr-only">HouseInfo</span>
@@ -110,14 +108,7 @@ export default function Header({ houses }: { houses: House[] }) {
 				}}
 			>
 				<div className="flex flex-row justify-center p-4 gap-1 border-bottom-1 border-amber-400">
-					<IconField iconPosition="left" className="w-96">
-						<InputIcon className="pi pi-search" />
-						<InputText
-							placeholder="Search"
-							className="w-full"
-							onChange={(e) => houseFiltering(e.target.value)}
-						/>
-					</IconField>
+					<SearchBar filterFunction={houseFiltering} />
 				</div>
 
 				<div className="flex flex-row justify-center flex-wrap p-4 gap-4">

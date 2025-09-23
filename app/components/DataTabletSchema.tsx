@@ -3,11 +3,9 @@ import { DataTable } from "primereact/datatable";
 import type { Residents, News, Tasks, Bills, Documents } from "./MainPage";
 import dataTableColumns from "~/utils/dataTableColumns";
 import "../app.css";
-import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import FileUploader from "./FileUploader";
+import SearchBar from "./SearchBar";
 
 export interface DataTableSchemaProps {
 	dataTableValue: Residents[] | News[] | Tasks[] | Bills[] | Documents[];
@@ -16,18 +14,16 @@ export interface DataTableSchemaProps {
 }
 
 export default function DataTableSchema({ dataTableValue, title, type }: DataTableSchemaProps) {
+	const filter = (searchTerm: string) => {
+		console.log(searchTerm);
+	};
+
 	const header = () => {
 		return (
 			<div className="flex justify-between px-3 py-4 !bg-[#343d4a] backdrop-blur-lg shadow-sm">
 				<h4 className="font-semibold">{title}</h4>
 				<div className="flex items-center gap-3">
-					<IconField iconPosition="left">
-						<InputIcon className="pi pi-search"> </InputIcon>
-						<InputText
-							className="mx-4 !bg-transparent w-[15vw] h-[2.5rem] !rounded-4xl"
-							placeholder="Search"
-						/>
-					</IconField>
+					<SearchBar filterFunction={filter} />
 					<FileUploader />
 				</div>
 			</div>
