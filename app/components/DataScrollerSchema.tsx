@@ -87,14 +87,21 @@ export default function DataScrollerSchema<T extends News | Tasks>({
 							/>
 						)}
 						{!isHoverable && (
-							<Button
-								icon="pi pi-eye"
-								className="p-button-rounded p-button-sm"
-								onClick={() => {
-									setSelectedItem(news);
-									setOnViewDialogOpened(true);
-								}}
-							/>
+							<div className="flex justify-center items-center gap-3">
+								<Button
+									icon="pi pi-eye"
+									className="p-button-rounded p-button-sm"
+									onClick={() => {
+										setSelectedItem(news);
+										setOnViewDialogOpened(true);
+									}}
+								/>
+								<Button
+									icon="pi pi-trash"
+									tooltip="Hír törlése"
+									className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+								/>
+							</div>
 						)}
 					</div>
 				</div>
@@ -128,14 +135,30 @@ export default function DataScrollerSchema<T extends News | Tasks>({
 						)}
 					</div>
 					<div className="flex flex-col justify-center items-end">
-						<Button
-							icon="pi pi-eye"
-							className="p-button-rounded p-button-sm"
-							onClick={() => {
-								setSelectedItem(tasks);
-								setOnViewDialogOpened(true);
-							}}
-						/>
+						{isHoverable && (
+							<Button
+								icon="pi pi-trash"
+								tooltip="Feladat törlése"
+								className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+							/>
+						)}
+						{!isHoverable && (
+							<div className="flex justify-center items-center gap-3">
+								<Button
+									icon="pi pi-eye"
+									className="p-button-rounded p-button-sm"
+									onClick={() => {
+										setSelectedItem(tasks);
+										setOnViewDialogOpened(true);
+									}}
+								/>
+								<Button
+									icon="pi pi-trash"
+									tooltip="Feladat törlése"
+									className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+								/>
+							</div>
+						)}
 						<div className="text-xs my-3 text-gray-400">
 							<i className="pi pi-wave-pulse mr-2"></i>
 							{tasks.status}
