@@ -98,8 +98,8 @@ export default function Header({ houses }: { houses: House[] }) {
 			</nav>
 
 			<Dialog
-				header="Houses"
-				headerStyle={{ textAlign: "center" }}
+				header="Házak"
+				headerClassName="text-center !bg-[#343d4a]"
 				className="w-2xl"
 				visible={visible}
 				onHide={() => {
