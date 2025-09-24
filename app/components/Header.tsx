@@ -100,7 +100,7 @@ export default function Header({ houses }: { houses: House[] }) {
 			<Dialog
 				header="Házak"
 				headerClassName="text-center !bg-[#343d4a]"
-				className="w-2xl"
+				className="w-2xl h-96"
 				visible={visible}
 				onHide={() => {
 					setVisible(false);
