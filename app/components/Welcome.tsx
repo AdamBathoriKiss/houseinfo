@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
+import Authorization from "~/utils/dialogs/Authorization";
 
 export default function Welcome() {
 	const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Welcome() {
 		threshold: 0,
 	});
 	const [currentSection, setCurrentSection] = useState(false);
+	const [loginDialog, setLoginDialog] = useState(false);
 
 	useEffect(() => {
 		setCurrentSection(inView);
@@ -49,7 +51,7 @@ export default function Welcome() {
 					</ul>
 
 					<div className="flex space-x-4">
-						<button className={textColorClass} onClick={handleLogin}>
+						<button className={textColorClass} onClick={()=>setLoginDialog(true)}>
 							Bejelentkezés
 						</button>
 					</div>
@@ -292,6 +294,7 @@ export default function Welcome() {
 					<p className="my-4">&copy; {new Date().getFullYear()} HázInfó. Minden jog fenntartva.</p>
 				</div>
 			</footer>
+			{loginDialog && <Authorization loginDialog={loginDialog} setLoginDialog={setLoginDialog} handleLogin={handleLogin} handleRegister={handleRegister}/>}
 		</div>
 	);
 }
