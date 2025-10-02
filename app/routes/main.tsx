@@ -8,7 +8,7 @@ export default function Main() {
 
 	return (
 		<div className="flex flex-col min-h-screen surface-ground bg-dark-500">
-			<Header houses={houses} />
+			<Header houses={houses ?? []} />
 			<div className="mt-[7vh]">{houses && houses.length > 0 ? <MainPage /> : <HouseRegistration />}</div>
 		</div>
 	);
