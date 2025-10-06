@@ -9,18 +9,16 @@ export default function DoughnutChart({title}: {title: string}) {
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
         const data = {
-            labels: ['Használatban lévő', 'Használaton kívüli'],
+            labels: ['Aktív', 'Szabad'],
             datasets: [
                 {
                     data: [150, 100],
                     backgroundColor: [
                         documentStyle.getPropertyValue('--blue-500'), 
-                        //documentStyle.getPropertyValue('--yellow-500'), 
                         documentStyle.getPropertyValue('--green-500')
                     ],
                     hoverBackgroundColor: [
                         documentStyle.getPropertyValue('--blue-400'), 
-                        //documentStyle.getPropertyValue('--yellow-400'), 
                         documentStyle.getPropertyValue('--green-400')
                     ]
                 }
@@ -36,8 +34,8 @@ export default function DoughnutChart({title}: {title: string}) {
 
     return (
         <div className="flex flex-col h-full justify-center items-center">
-            <h6> {title}</h6>
-            <Chart type="doughnut" data={chartData} options={chartOptions} className="w-45 flex flex-col items-center justify-between" />
+            <h6>{title}</h6>
+            <Chart type="doughnut" data={chartData} options={chartOptions} className="w-35 flex flex-col items-center justify-between" />
         </div>
     )
 }

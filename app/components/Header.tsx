@@ -149,20 +149,15 @@ export default function Header({ houses }: { houses: House[] }) {
                                   {house.name}
                               </NavLink>
                           ))
-                        : houseList.map(
-                              (house: House) => (
-                                  console.log("Rendering house:", house),
-                                  (
-                                      <NavLink
-                                          key={house.id}
-                                          to="/"
-                                          className="text-sm/6 font-semibold text-dark block my-2"
-                                      >
-                                          {house.name}
-                                      </NavLink>
-                                  )
-                              )
-                          )}
+                        : houseList.map((house: House) => (
+                              <NavLink
+                                  key={house.id}
+                                  to="/"
+                                  className="text-sm/6 font-semibold text-dark block my-2"
+                              >
+                                  {house.name}
+                              </NavLink>
+                          ))}
                 </div>
             </Dialog>
         </header>

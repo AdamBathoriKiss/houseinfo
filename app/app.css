@@ -44,7 +44,26 @@
 	background-color: #343d4a !important;
 }
 
-/*.p-dialog .p-dialog-content {
+.p-datepicker-inline {
 	background-color: #343d4a !important;
-	padding: 1rem !important;
 }
+
+
+  /* kulcs: cella padding és nap span méret */
+  .mini-cal .p-datepicker-calendar tbody td {
+    padding: 2px !important;
+  }
+  
+  .p-datepicker-header{
+    background-color: transparent !important;
+  }
+  .mini-cal .p-datepicker-calendar tbody td > span {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .mini-cal .p-datepicker-calendar tbody td > span.p-highlight {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+
