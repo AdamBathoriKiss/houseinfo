@@ -893,7 +893,6 @@ export default function MainPage() {
                             title={"Feladatok"}
                             type="tasks"
                         />
-                        {/*<DataTableSchema dataTableValue={residents} title={"Lakók"} type="residents" />*/}
                     </div>
                 </div>
             </div>

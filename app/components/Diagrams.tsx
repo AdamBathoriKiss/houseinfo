@@ -11,24 +11,25 @@ export default function Diagrams() {
 		const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
 		const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
 		const data = {
-			labels: ["January", "February", "March", "April", "May", "June", "July"],
+			labels: ["January", "February", "March", "April", "May", "June", "July", "August" , "September", "October", "November", "December"],
 			datasets: [
 				{
-					label: "Dataset 1",
+					label: "Bevétel",
 					fill: false,
-					borderColor: documentStyle.getPropertyValue("--blue-500"),
+					borderColor: documentStyle.getPropertyValue("--teal-500"),
 					yAxisID: "y",
 					tension: 0.3,
-					data: [65, 59, 80, 81, 56, 55, 10],
+					data: [65, 59, 80, 81, 56, 55, 10, 40, 19, 86, 27, 90],
 				},
 				{
-					label: "Dataset 2",
+					label: "Kiadás",
 					fill: false,
-					borderColor: documentStyle.getPropertyValue("--green-500"),
+					borderColor: documentStyle.getPropertyValue("--red-500"),
 					yAxisID: "y1",
 					tension: 0.4,
-					data: [28, 48, 40, 19, 86, 27, 90],
+					data: [28, 48, 40, 19, 86, 27, 90, 80, 81, 56, 55, 10],
 				},
+			
 			],
 		};
 		const options = {
