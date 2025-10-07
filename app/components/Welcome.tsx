@@ -27,7 +27,8 @@ export default function Welcome() {
 
 	const handleLogin = () => {
 		// Bejelentkezés logika
-		navigate("/main");
+		localStorage.setItem("token", "dummy-token");
+		window.location.reload();
 	};
 
 	const handleRegister = () => {

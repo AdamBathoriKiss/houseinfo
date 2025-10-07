@@ -4,6 +4,7 @@ import { Dialog } from "primereact/dialog";
 import { useEffect, useState } from "react";
 import type { House } from "~/hooks/useMain";
 import SearchBar from "./SearchBar";
+import UserMenu from "./UserMenu";
 
 interface FilteredHouses {
     id: number;
@@ -114,13 +115,7 @@ export default function Header({ houses }: { houses: House[] }) {
                     )}
                 </div>
                 <div className=" lg:flex lg:flex-1 lg:justify-end">
-                    <a
-                        href="#"
-                        className="text-sm/6 font-semibold text-dark justify-items-center flex gap-4"
-                    >
-                        UserName
-                        <FaUser className="my-auto" />
-                    </a>
+                    <UserMenu/>
                 </div>
             </nav>
 

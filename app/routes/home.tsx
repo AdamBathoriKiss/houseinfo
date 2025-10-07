@@ -1,14 +1,43 @@
 import Welcome from "~/components/Welcome";
 import type { Route } from "./+types/home";
-
+import useMain from "~/hooks/useMain";
+import Header from "~/components/Header";
+import LoggedIn from "~/components/LoggedIn";
+import HouseRegistration from "~/components/HouseRegistration";
+import { useEffect, useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "House-Info" },
-    { name: "description", content: "House-Info offical site." },
-  ];
+    return [
+        { title: "House-Info" },
+        { name: "description", content: "House-Info offical site." },
+    ];
 }
 
 export default function Home() {
-  return <Welcome />;
+    const token = Boolean(localStorage.getItem("token"));
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { houses } = useMain();
+
+    useEffect(() => {
+      token && token !== null ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    }, [token]);
+
+    return (
+        <>
+            {isLoggedIn ? (
+                <div className="flex flex-col min-h-screen surface-ground bg-dark-500">
+                    <Header houses={houses ?? []} />
+                    <div className="mt-[7vh]">
+                        {houses && houses.length > 0 ? (
+                            <LoggedIn />
+                        ) : (
+                            <HouseRegistration />
+                        )}
+                    </div>
+                </div>
+            ) : (
+                <Welcome />
+            )}
+        </>
+    );
 }
