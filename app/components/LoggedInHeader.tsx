@@ -1,6 +1,6 @@
 import { Card } from 'primereact/card';
 
-export default function MainPageHeader() {
+export default function LoggedInHeader() {
     return (
                     <div className="grid grid-cols-4 mt-4">
                         <Card className="!bg-[#777BF1]/70 m-4 h-35 rounded-lg">

@@ -3,7 +3,7 @@ import DataTableSchema from "./DataTabletSchema";
 import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
 import DoughnutChart from "./DoughnutChart";
-import MainPageHeader from "./MainPageHeader";
+import LoggedInHeader from "./LoggedInHeader";
 import { Dialog } from "primereact/dialog";
 import EventCalendar from "./EventCalendar";
 
@@ -51,7 +51,7 @@ export interface Documents {
     size: string;
 }
 
-export default function MainPage() {
+export default function LoggedIn() {
     // Lakók
     const [residents, setResidents] = useState([
         {
@@ -859,7 +859,7 @@ export default function MainPage() {
 
     return (
         <div className="flex flex-col min-h-screen px-6 ">
-            <MainPageHeader />
+            <LoggedInHeader />
             <div className="grid grid-cols-2 gap-6 px-4 my-4">
                 {/* Bal oldali oszlop */}
                 <div className="flex flex-col gap-6">

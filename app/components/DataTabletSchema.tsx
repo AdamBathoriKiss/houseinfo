@@ -1,6 +1,6 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import type { Residents, News, Tasks, Bills, Documents } from "./MainPage";
+import type { Residents, News, Tasks, Bills, Documents } from "./LoggedIn";
 import dataTableColumns from "~/utils/dataTableColumns";
 import "../app.css";
 import { Button } from "primereact/button";

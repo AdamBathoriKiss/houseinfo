@@ -1,5 +1,5 @@
 import { DataScroller } from "primereact/datascroller";
-import type { News, Tasks } from "./MainPage";
+import type { News, Tasks } from "./LoggedIn";
 import { Button } from "primereact/button";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
