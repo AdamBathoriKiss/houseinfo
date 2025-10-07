@@ -4,9 +4,8 @@ import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
 import DoughnutChart from "./DoughnutChart";
 import MainPageHeader from "./MainPageHeader";
-import { Calendar } from "primereact/calendar";
-import type { Nullable } from "primereact/ts-helpers";
 import { Dialog } from "primereact/dialog";
+import EventCalendar from "./EventCalendar";
 
 export interface Residents {
     id: string;
@@ -856,63 +855,7 @@ export default function MainPage() {
         },
     ]);
 
-    const [selectedEvents, setSelectedEvents] = useState<Event[]>([]);
-    // Példa események - dátum: események párok
-    type Event = { title: string; time: string };
-    type EventsMap = { [date: string]: Event[] };
-
-    const events: EventsMap = {
-        "2025-10-10": [
-            { title: "Csapatmegbeszélés", time: "10:00" },
-            { title: "Projekt deadline", time: "17:00" },
-        ],
-        "2025-10-15": [{ title: "Prezentáció", time: "14:00" }],
-        "2025-10-20": [
-            { title: "Képzés", time: "09:00" },
-            { title: "Ebéd üzleti partnerrel", time: "12:30" },
-            { title: "Workshop", time: "15:00" },
-        ],
-        "2025-10-25": [{ title: "Havi értékelés", time: "11:00" }],
-    };
-    const [date, setDate] = useState<Nullable<Date>>(null);
-    const [visible, setVisible] = useState(false);
-
-    const formatDate = (date: any) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
-
-    // Get events for the selected date
-    const dateTemplate = (date: any) => {
-        const dateStr = formatDate(new Date(date.year, date.month, date.day));
-        const hasEvents = events[dateStr];
-
-        return (
-            <div className="relative">
-                <span>{date.day}</span>
-                {hasEvents && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full"></div>
-                )}
-            </div>
-        );
-    };
-
-    const handleDateSelect = (e: any) => {
-        const selectedDate = e.value;
-        setDate(selectedDate);
-
-        if (selectedDate) {
-            const dateStr = formatDate(selectedDate);
-            const dayEvents = events[dateStr];
-
-            if (dayEvents) {
-                setSelectedEvents(dayEvents);
-                setVisible(true);
-            }
-        }
-    };
+   
 
     return (
         <div className="flex flex-col min-h-screen px-6 ">
@@ -928,15 +871,7 @@ export default function MainPage() {
                             <DoughnutChart title="Normál"/>
                             <DoughnutChart title="Elektromos" />
                         </div>
-                        <Calendar
-                            value={date}
-                            onChange={handleDateSelect}
-                            dateTemplate={dateTemplate}
-                            inline
-                            showWeek
-                            className="shadow-2xl rounded-md mini-cal w-[50%] max-w-[260px]" // ne adj h-96-ot
-                            panelClassName="!bg-transparent"
-                        />
+                     <EventCalendar/>
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
                         <Diagrams />
@@ -972,30 +907,6 @@ export default function MainPage() {
                     />
                 </div>
             </div>
-
-            <Dialog
-                header={date ? `Események - ${formatDate(date)}` : "Események"}
-                visible={visible}
-                style={{ width: "450px" }}
-                onHide={() => setVisible(false)}
-            >
-                <div className="space-y-4">
-                    {selectedEvents.map((event, index) => (
-                        <div
-                            key={index}
-                            className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded"
-                        >
-                            <div className="font-semibold text-gray-800">
-                                {event.title}
-                            </div>
-                            <div className="text-sm text-gray-600 mt-1">
-                                <i className="pi pi-clock mr-2"></i>
-                                {event.time}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </Dialog>
         </div>
     );
 }
