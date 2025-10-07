@@ -22,25 +22,11 @@ export default function UserMenu() {
                     icon: "pi pi-upload",
                 },
                 {
-                    label: "Custom template",
-                    template: (item, options) => {
-                        return (
-                            <div
-                                className="p-menuitem-content"
-                                data-pc-section="content"
-                            >
-                                <a
-                                    href="/"
-                                    className="p-menuitem-link"
-                                    onClick={() => {
-                                        localStorage.removeItem("token");
-                                        window.location.reload();
-                                    }}
-                                >
-                                    Logout
-                                </a>
-                            </div>
-                        );
+                    label: "Logout",
+                    icon: "pi pi-sign-out",
+                    command: () => {
+                        localStorage.removeItem("token");
+                        window.location.reload();
                     },
                 },
             ],
