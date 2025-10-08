@@ -16,20 +16,20 @@ export default function HouseRegistration() {
 		watch,
 	} = useHouseRegistration();
 	return (
-		<div className="h-full bg-gray-50 py-4 px-4 sm:px-6 lg:px-8">
+		<div className="h-full bg-transparent py-4 px-4 sm:px-6 lg:px-8">
 			<Toast ref={toast} />
 			<div className="max-w-4xl mx-auto h-full">
-				<Stepper ref={stepperRef} className="card shadow-lg rounded-lg border-0 bg-white w-full" linear>
+				<Stepper ref={stepperRef} className="card shadow-lg rounded-lg border-0 !bg-[#343d4a] w-full" linear>
 					<StepperPanel header="Alapadatok">
 						<div className="p-4 sm:p-6 lg:p-8">
 							<div className="text-center mb-8">
-								<h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Üdvözöljük!</h2>
-								<p className="text-gray-600">Kezdjük az ingatlan alapadataival</p>
+								<h2 className="text-2xl sm:text-3xl font-bold text-gray-50 mb-2">Üdvözöljük!</h2>
+								<p className="text-gray-50">Kezdjük az ingatlan alapadataival</p>
 							</div>
 
 							<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 								<div className="flex flex-col gap-2">
-									<label className="font-semibold text-gray-700 text-sm">Ingatlan neve *</label>
+									<label className="font-semibold text-gray-400 text-sm">Ingatlan neve *</label>
 									<input
 										{...register("propertyName")}
 										type="text"
@@ -42,7 +42,7 @@ export default function HouseRegistration() {
 								</div>
 
 								<div className="flex flex-col gap-2">
-									<label className="font-semibold text-gray-700 text-sm">Város *</label>
+									<label className="font-semibold text-gray-400 text-sm">Város *</label>
 									<input
 										{...register("city")}
 										type="text"
@@ -53,7 +53,7 @@ export default function HouseRegistration() {
 								</div>
 
 								<div className="flex flex-col gap-2">
-									<label className="font-semibold text-gray-700 text-sm">Cím *</label>
+									<label className="font-semibold text-gray-400 text-sm">Cím *</label>
 									<input
 										{...register("address")}
 										type="text"
@@ -66,7 +66,7 @@ export default function HouseRegistration() {
 								</div>
 
 								<div className="flex flex-col gap-2">
-									<label className="font-semibold text-gray-700 text-sm">Irányítószám</label>
+									<label className="font-semibold text-gray-400 text-sm">Irányítószám</label>
 									<input
 										{...register("postalCode")}
 										type="text"
@@ -91,16 +91,16 @@ export default function HouseRegistration() {
 					<StepperPanel header="Ingatlan részletei">
 						<div className="p-4 sm:p-6 lg:p-8">
 							<div className="text-center mb-8">
-								<h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+								<h2 className="text-2xl sm:text-3xl font-bold text-gray-50 mb-2">
 									Ingatlan részletei
 								</h2>
-								<p className="text-gray-600">Adja meg az épület jellemzőit</p>
+								<p className="text-gray-50">Adja meg az épület jellemzőit</p>
 							</div>
 
 							<div className="space-y-6">
 								<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 									<div className="flex flex-col gap-2">
-										<label className="font-semibold text-gray-700 text-sm">Ingatlan típusa *</label>
+										<label className="font-semibold text-gray-400 text-sm">Ingatlan típusa *</label>
 										<select
 											{...register("propertyType")}
 											className="w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
@@ -118,7 +118,7 @@ export default function HouseRegistration() {
 									</div>
 
 									<div className="flex flex-col gap-2">
-										<label className="font-semibold text-gray-700 text-sm">Építés éve</label>
+										<label className="font-semibold text-gray-400 text-sm">Építés éve</label>
 										<input
 											{...register("buildingYear", {
 												valueAsNumber: true,
@@ -135,7 +135,7 @@ export default function HouseRegistration() {
 									</div>
 
 									<div className="flex flex-col gap-2">
-										<label className="font-semibold text-gray-700 text-sm">Lakások száma *</label>
+										<label className="font-semibold text-gray-400 text-sm">Lakások száma *</label>
 										<input
 											{...register("totalUnits", {
 												valueAsNumber: true,
@@ -151,7 +151,7 @@ export default function HouseRegistration() {
 									</div>
 
 									<div className="flex flex-col gap-2">
-										<label className="font-semibold text-gray-700 text-sm">Szintek száma *</label>
+										<label className="font-semibold text-gray-400 text-sm">Szintek száma *</label>
 										<input
 											{...register("floors", {
 												valueAsNumber: true,
@@ -174,7 +174,7 @@ export default function HouseRegistration() {
 											type="checkbox"
 											className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
 										/>
-										<span className="text-gray-700 text-sm">Van lift</span>
+										<span className="text-gray-400 text-sm">Van lift</span>
 									</label>
 
 									<label className="flex items-center">
@@ -183,7 +183,7 @@ export default function HouseRegistration() {
 											type="checkbox"
 											className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
 										/>
-										<span className="text-gray-700 text-sm">Van parkoló</span>
+										<span className="text-gray-400 text-sm">Van parkoló</span>
 									</label>
 								</div>
 							</div>
@@ -210,16 +210,16 @@ export default function HouseRegistration() {
 					<StepperPanel header="Pénzügyi információk">
 						<div className="p-4 sm:p-6 lg:p-8">
 							<div className="text-center mb-8">
-								<h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+								<h2 className="text-2xl sm:text-3xl font-bold text-gray-50 mb-2">
 									Pénzügyi információk
 								</h2>
-								<p className="text-gray-600">A közös költség és bankszámla adatai</p>
+								<p className="text-gray-50">A közös költség és bankszámla adatai</p>
 							</div>
 
 							<div className="space-y-6">
 								<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 									<div className="flex flex-col gap-2">
-										<label className="font-semibold text-gray-700 text-sm">
+										<label className="font-semibold text-gray-400 text-sm">
 											Havi közös költség (Ft/m²) *
 										</label>
 										<input
@@ -238,7 +238,7 @@ export default function HouseRegistration() {
 									</div>
 
 									<div className="flex flex-col gap-2">
-										<label className="font-semibold text-gray-700 text-sm">Tartalékalap (Ft)</label>
+										<label className="font-semibold text-gray-400 text-sm">Tartalékalap (Ft)</label>
 										<input
 											{...register("reserveFund", {
 												valueAsNumber: true,
@@ -255,7 +255,7 @@ export default function HouseRegistration() {
 								</div>
 
 								<div className="flex flex-col gap-2">
-									<label className="font-semibold text-gray-700 text-sm">Bankszámlaszám *</label>
+									<label className="font-semibold text-gray-400 text-sm">Bankszámlaszám *</label>
 									<input
 										{...register("bankAccount")}
 										type="text"
@@ -302,15 +302,15 @@ export default function HouseRegistration() {
 					<StepperPanel header="Összefoglaló és befejezés">
 						<form className="p-4 sm:p-6 lg:p-8" onSubmit={handleSubmit(onSubmit)}>
 							<div className="text-center mb-8">
-								<h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Majdnem kész! ✅</h2>
-								<p className="text-gray-600">Ellenőrizze az adatokat és fejezze be a regisztrációt</p>
+								<h2 className="text-2xl sm:text-3xl font-bold text-gray-50 mb-2">Majdnem kész! ✅</h2>
+								<p className="text-gray-50">Ellenőrizze az adatokat és fejezze be a regisztrációt</p>
 							</div>
 
 							<div className="space-y-6">
-								<div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border">
+								<div className="bg-transparent p-4 sm:p-6 rounded-lg shadow-sm border">
 									<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 text-sm">
 										<div>
-											<h4 className="font-medium text-gray-700 mb-2">Alapadatok</h4>
+											<h4 className="font-medium text-gray-400 mb-2">Alapadatok</h4>
 											<div className="space-y-1">
 												<p>
 													<strong>Név:</strong> {watch("propertyName")}
@@ -325,7 +325,7 @@ export default function HouseRegistration() {
 										</div>
 
 										<div>
-											<h4 className="font-medium text-gray-700 mb-2">Részletek</h4>
+											<h4 className="font-medium text-gray-400 mb-2">Részletek</h4>
 											<div className="space-y-1">
 												<p>
 													<strong>Lakások:</strong> {watch("totalUnits")} db
@@ -350,7 +350,7 @@ export default function HouseRegistration() {
 										type="checkbox"
 										className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0"
 									/>
-									<span className="text-sm text-gray-700">
+									<span className="text-sm text-gray-400">
 										Elfogadom a{" "}
 										<a href="#" className="text-blue-600 hover:text-blue-800 underline">
 											felhasználási feltételeket
