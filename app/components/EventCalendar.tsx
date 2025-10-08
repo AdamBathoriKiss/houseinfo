@@ -70,7 +70,6 @@ export default function EventCalendar() {
                 onChange={handleDateSelect}
                 dateTemplate={dateTemplate}
                 inline
-                showWeek
                 className="shadow-2xl rounded-md mini-cal w-[50%] max-w-[260px]"
                 panelClassName="!bg-transparent !border-0"
             />
