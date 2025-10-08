@@ -44,8 +44,7 @@ export default function UserMenu() {
                 popupAlignment="right"
             />
 
-            <a
-                href="#"
+            <span
                 className="text-sm/6 font-semibold text-dark justify-items-center flex gap-4"
                 onClick={(event) => menuRight?.current?.toggle(event)}
                 aria-controls="popup_menu_right"
@@ -53,7 +52,7 @@ export default function UserMenu() {
             >
                 UserName
                 <FaUser className="my-auto" />
-            </a>
+            </span>
         </div>
     );
 }
