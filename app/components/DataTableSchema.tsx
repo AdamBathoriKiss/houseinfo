@@ -6,7 +6,7 @@ import "../app.css";
 import { Button } from "primereact/button";
 import FileUploader from "./FileUploader";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface DataTableSchemaProps {
 	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[];
@@ -15,7 +15,11 @@ export interface DataTableSchemaProps {
 }
 
 export default function DataTableSchema({ dataTableValue, title, type }: DataTableSchemaProps) {
-	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>(dataTableValue);
+	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>([]);
+
+	useEffect(() => {
+		setFilteredItem(dataTableValue);
+	}, [dataTableValue]);
 
 	const filter = (searchTerm: string) => {
 		let filtered: typeof dataTableValue = [];
@@ -101,7 +105,7 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 						},
 					}}
 				>
-					{dataTableColumns(type).expandedColumns.map((col) => (
+					{dataTableColumns(type).columns.map((col) => (
 						<Column
 							key={col.field}
 							field={col.field}

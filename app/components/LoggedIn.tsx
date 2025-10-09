@@ -51,8 +51,13 @@ export interface Documents {
     size: string;
 }
 
-export default function LoggedIn({houses, selectedHouse}: {houses: any[], selectedHouse: any}) {
-
+export default function LoggedIn({
+    houses,
+    selectedHouse,
+}: {
+    houses: any[];
+    selectedHouse: any;
+}) {
     // Lakók
     const [residents, setResidents] = useState([
         {
@@ -391,18 +396,18 @@ export default function LoggedIn({houses, selectedHouse}: {houses: any[], select
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
-        if(selectedHouse !== null && selectedHouse !== undefined){
-        DashboardService.getDashboardData(selectedHouse?.id)
-        .then((response) => {
-            setNews(response.data.selectedBuilding.announcements);
-            setMaintence(response.data.selectedBuilding.maintenanceRequest);
-            setDocuments(response.data.selectedBuilding.document);
-        })
-        
+        if (selectedHouse !== null && selectedHouse !== undefined) {
+            DashboardService.getDashboardData(selectedHouse?.id).then(
+                (response) => {
+                    setNews(response.data.selectedBuilding.announcements);
+                    setMaintence(
+                        response.data.selectedBuilding.maintenanceRequest
+                    );
+                    setDocuments(response.data.selectedBuilding.document);
+                }
+            );
         }
-
-    }, [selectedHouse])
-
+    }, [selectedHouse]);
 
     return (
         <div className="flex flex-col min-h-screen px-6 ">
@@ -415,10 +420,10 @@ export default function LoggedIn({houses, selectedHouse}: {houses: any[], select
                             <p className="col-start-1 col-end-12 text-center">
                                 Összes parkoló száma: 43
                             </p>
-                            <DoughnutChart title="Normál"/>
+                            <DoughnutChart title="Normál" />
                             <DoughnutChart title="Elektromos" />
                         </div>
-                     <EventCalendar/>
+                        <EventCalendar />
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
                         <Diagrams />

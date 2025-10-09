@@ -52,8 +52,13 @@ const billExpandedCols = [
 
 // Dokumentumok
 const documentCols = [
-  { field: 'name', header: 'Dokumentum neve' },
-  { field: 'createdBy', header: 'Feltöltő' },
+  { field: 'id', header: 'Azonosító' },
+  { field: 'fileName', header: 'Dokumentum neve' },
+  { field: 'fileSize', header: 'Méret' },
+  { field: 'fileType', header: 'Típus' },
+  { field: 'category', header: 'Kategória' },
+  { field: 'uploadedAt', header: 'Feltöltve' },
+  { field: 'actions', header: 'Műveletek' },
 ];
 
 const documentExpandedCols = [
