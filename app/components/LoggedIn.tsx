@@ -1,10 +1,9 @@
 import { use, useEffect, useState } from "react";
-import DataTableSchema from "./DataTabletSchema";
+import DataTableSchema from "./DataTableSchema";
 import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
 import DoughnutChart from "./DoughnutChart";
 import LoggedInHeader from "./LoggedInHeader";
-import { Dialog } from "primereact/dialog";
 import EventCalendar from "./EventCalendar";
 import DashboardService from "~/services/dashboard.service";
 
@@ -392,12 +391,15 @@ export default function LoggedIn({houses, selectedHouse}: {houses: any[], select
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
+        if(selectedHouse !== null && selectedHouse !== undefined){
         DashboardService.getDashboardData(selectedHouse?.id)
         .then((response) => {
             setNews(response.data.selectedBuilding.announcements);
             setMaintence(response.data.selectedBuilding.maintenanceRequest);
             setDocuments(response.data.selectedBuilding.document);
         })
+        
+        }
 
     }, [selectedHouse])
 

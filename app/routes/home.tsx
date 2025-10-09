@@ -4,7 +4,7 @@ import useMain from "~/hooks/useMain";
 import Header from "~/components/Header";
 import LoggedIn from "~/components/LoggedIn";
 import HouseRegistration from "~/components/HouseRegistration";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
     return [

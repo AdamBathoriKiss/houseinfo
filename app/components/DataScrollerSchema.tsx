@@ -308,7 +308,6 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 	};
 
 	return (
-		console.log(filteredItem),
 		<div>
 			<DataScroller
 				value={filteredItem}

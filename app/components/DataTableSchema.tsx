@@ -1,6 +1,6 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import type { Residents, News, Maintences, Bills, Documents } from "./LoggedIn";
+import type { Residents, News, Maintence, Bills, Documents } from "./LoggedIn";
 import dataTableColumns from "~/utils/dataTableColumns";
 import "../app.css";
 import { Button } from "primereact/button";
@@ -9,7 +9,7 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 
 export interface DataTableSchemaProps {
-	dataTableValue: Residents[] | News[] | Maintences[] | Bills[] | Documents[];
+	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[];
 	title: string;
 	type: string;
 }

@@ -8,8 +8,8 @@ const instance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const getDashboardData = (buildingId:string) => {
-  const response =  instance.get(`/dashboard/${buildingId}`);
+const getDashboardData = async (buildingId:string) => {
+  const response = await instance.get(`/dashboard/${buildingId}`);
   return response;
 };
 
