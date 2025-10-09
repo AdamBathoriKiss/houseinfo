@@ -394,6 +394,7 @@ export default function LoggedIn({
 
     // Dokumentumok
     const [documents, setDocuments] = useState([]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         if (selectedHouse !== null && selectedHouse !== undefined) {
@@ -404,6 +405,7 @@ export default function LoggedIn({
                         response.data.selectedBuilding.maintenanceRequest
                     );
                     setDocuments(response.data.selectedBuilding.document);
+                    setEvents(response.data.selectedBuilding.events);
                 }
             );
         }
@@ -423,7 +425,7 @@ export default function LoggedIn({
                             <DoughnutChart title="Normál" />
                             <DoughnutChart title="Elektromos" />
                         </div>
-                        <EventCalendar />
+                        <EventCalendar events={events}/>
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
                         <Diagrams />

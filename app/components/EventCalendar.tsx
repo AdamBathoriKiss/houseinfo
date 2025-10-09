@@ -1,28 +1,21 @@
 import type { Nullable } from "primereact/ts-helpers";
 import { Calendar } from "primereact/calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EventDialog from "~/utils/dialogs/EventDialog";
 
 export type Event = { title: string; time: string };
 export type EventsMap = { [date: string]: Event[] };
 
-export default function EventCalendar() {
+export default function EventCalendar(eventsData: { events: any }) {
+    const [events, setEvents] = useState<EventsMap>({});
     const [selectedEvents, setSelectedEvents] = useState<Event[]>([]);
     // Példa események - dátum: események párok
 
-    const events: EventsMap = {
-        "2025-10-10": [
-            { title: "Csapatmegbeszélés", time: "10:00" },
-            { title: "Projekt deadline", time: "17:00" },
-        ],
-        "2025-10-15": [{ title: "Prezentáció", time: "14:00" }],
-        "2025-10-20": [
-            { title: "Képzés", time: "09:00" },
-            { title: "Ebéd üzleti partnerrel", time: "12:30" },
-            { title: "Workshop", time: "15:00" },
-        ],
-        "2025-10-25": [{ title: "Havi értékelés", time: "11:00" }],
-    };
+    useEffect(()=>{
+        setEvents(eventsData.events);
+    },[eventsData]);
+
+
     const [date, setDate] = useState<Nullable<Date>>(null);
     const [visible, setVisible] = useState(false);
 
@@ -64,6 +57,7 @@ export default function EventCalendar() {
     };
 
     return (
+        console.log(events),
         <>
             <Calendar
                 value={date}
