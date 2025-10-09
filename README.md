@@ -30,12 +30,12 @@ git clone https://github.com/neved/house-info.git
 ## 🇬🇧 English
 
 ### Description
-The **House-Info** system aims to facilitate administrative tasks for property managers and stabilize tracking of issues. Incoming reports are efficiently managed and processed, while residents receive timely updates and information through the app.
+The **House-Info** system aims to facilitate administrative Maintences for property managers and stabilize tracking of issues. Incoming reports are efficiently managed and processed, while residents receive timely updates and information through the app.
 
 ### Main Features
 - Receive and process reports
 - Notify residents via the app
-- Track tasks and workflows
+- Track Maintences and workflows
 
 ### Installation
 1. Clone the repository:

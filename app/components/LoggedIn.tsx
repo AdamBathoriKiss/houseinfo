@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import DataTableSchema from "./DataTabletSchema";
 import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
@@ -6,6 +6,7 @@ import DoughnutChart from "./DoughnutChart";
 import LoggedInHeader from "./LoggedInHeader";
 import { Dialog } from "primereact/dialog";
 import EventCalendar from "./EventCalendar";
+import DashboardService from "~/services/dashboard.service";
 
 export interface Residents {
     id: string;
@@ -19,12 +20,12 @@ export interface Residents {
 export interface News {
     id: string;
     title: string;
-    date: string;
+    publishedAt: string;
     createdBy: string;
     content: string;
 }
 
-export interface Tasks {
+export interface Maintence {
     id: string;
     title: string;
     deadline: string;
@@ -51,7 +52,8 @@ export interface Documents {
     size: string;
 }
 
-export default function LoggedIn() {
+export default function LoggedIn({houses, selectedHouse}: {houses: any[], selectedHouse: any}) {
+
     // Lakók
     const [residents, setResidents] = useState([
         {
@@ -217,315 +219,10 @@ export default function LoggedIn() {
     ]);
 
     // Hírek
-    const [news, setNews] = useState([
-        {
-            id: "1",
-            title: "Közgyűlés időpontja",
-            date: "2025-09-15",
-            createdBy: "Lakóközösség",
-            content:
-                "A következő közgyűlés 2025. október 1-jén lesz 18 órakor a közösségi házban.",
-        },
-        {
-            id: "2",
-            title: "Új parkolóhelyek",
-            date: "2025-09-10",
-            createdBy: "Karbantartás",
-            content:
-                "Új parkolóhelyeket alakítottunk ki az udvarban, kérjük, használják!",
-        },
-        {
-            id: "3",
-            title: "Fűnyírás a kertben",
-            date: "2025-09-12",
-            createdBy: "Karbantartás",
-            content: "Szeptember 14-én fűnyírás lesz a közös kertben.",
-        },
-        {
-            id: "4",
-            title: "Internet leállás",
-            date: "2025-09-20",
-            createdBy: "Szolgáltató",
-            content:
-                "Tervezett karbantartás miatt szeptember 20-án 8-12 óráig internet kimaradás várható.",
-        },
-        {
-            id: "5",
-            title: "Új szemetes konténerek",
-            date: "2025-09-18",
-            createdBy: "Karbantartás",
-            content: "Új szemetes konténereket helyeztünk ki a lakóház körül.",
-        },
-        {
-            id: "6",
-            title: "Rendkívüli közgyűlés",
-            date: "2025-09-22",
-            createdBy: "Lakóközösség",
-            content: "Sürgős közgyűlés lesz szeptember 25-én 19 órakor.",
-        },
-        {
-            id: "7",
-            title: "Közvilágítás javítása",
-            date: "2025-09-14",
-            createdBy: "Karbantartás",
-            content: "A közvilágítást javítják szeptember 16-án este.",
-        },
-        {
-            id: "8",
-            title: "Lift karbantartás",
-            date: "2025-09-21",
-            createdBy: "Szolgáltató",
-            content: "A lift karbantartása szeptember 23-án lesz.",
-        },
-        {
-            id: "9",
-            title: "Új lakótársi szabályok",
-            date: "2025-09-13",
-            createdBy: "Lakóközösség",
-            content: "Új szabályokat vezettünk be a lakók kényelméért.",
-        },
-        {
-            id: "10",
-            title: "Vízóra leolvasás",
-            date: "2025-09-19",
-            createdBy: "Karbantartás",
-            content: "Szeptember 21-én lesz a vízóra leolvasás.",
-        },
-        {
-            id: "11",
-            title: "Karbantartás a parkolóban",
-            date: "2025-09-25",
-            createdBy: "Karbantartás",
-            content: "A parkoló burkolatának javítása várható.",
-        },
-        {
-            id: "12",
-            title: "Hulladék elszállítás",
-            date: "2025-09-17",
-            createdBy: "Karbantartás",
-            content: "Szeptember 19-én hulladék elszállítás lesz.",
-        },
-        {
-            id: "13",
-            title: "Újbejárati ajtó felszerelése",
-            date: "2025-09-16",
-            createdBy: "Szolgáltató",
-            content: "Új bejárati ajtók felszerelése elkezdődött.",
-        },
-        {
-            id: "14",
-            title: "Fűtés szezon kezdete",
-            date: "2025-09-20",
-            createdBy: "Lakóközösség",
-            content: "Szeptember 25-től indul a fűtési szezon.",
-        },
-        {
-            id: "15",
-            title: "Szemétszállítás Ünnepnapokon",
-            date: "2025-09-23",
-            createdBy: "Karbantartás",
-            content: "Ünnepnapokon változik a szemétszállítás rendje.",
-        },
-        {
-            id: "16",
-            title: "Új csendrendelet érvényben",
-            date: "2025-09-15",
-            createdBy: "Lakóközösség",
-            content: "Új csendrendelet lépett életbe.",
-        },
-        {
-            id: "17",
-            title: "Lépcsőházi világítás csere",
-            date: "2025-09-24",
-            createdBy: "Karbantartás",
-            content: "Lépcsőházi világítás cseréje várható.",
-        },
-        {
-            id: "18",
-            title: "Közös költség befizetés",
-            date: "2025-09-28",
-            createdBy: "Lakóközösség",
-            content: "Közös költség befizetési határidő szeptember 30.",
-        },
-        {
-            id: "19",
-            title: "Új zöldterület kialakítása",
-            date: "2025-09-29",
-            createdBy: "Karbantartás",
-            content: "Új zöldterület létesül a parkban.",
-        },
-        {
-            id: "20",
-            title: "Kötbér szabályozás módosítása",
-            date: "2025-10-01",
-            createdBy: "Lakóközösség",
-            content: "Kötbér fizetés szabályai módosultak.",
-        },
-    ]);
+    const [news, setNews] = useState([]);
 
     // Feladatok
-    const [tasks, setTasks] = useState([
-        {
-            id: "1",
-            title: "Lépcsőház takarítása",
-            deadline: "2025-09-20",
-            status: "Folyamatban",
-            description: "A lépcsőház napi takarítása szükséges.",
-            responsible: "Kovács János",
-        },
-        {
-            id: "2",
-            title: "Kerti növények locsolása",
-            deadline: "2025-09-18",
-            status: "Nem kezdődött",
-            description: "A közös kert locsolása hetente kétszer.",
-            responsible: "Nagy Éva",
-        },
-        {
-            id: "3",
-            title: "Konyha takarítása",
-            deadline: "2025-09-22",
-            status: "Nem kezdődött",
-            description: "Közös konyha takarítása szükséges minden hétvégén.",
-            responsible: "Tóth Anna",
-        },
-        {
-            id: "4",
-            title: "Hulladék elszállítás",
-            deadline: "2025-09-19",
-            status: "Folyamatban",
-            description: "Heti hulladék elszállítás megszervezése.",
-            responsible: "Szabó Péter",
-        },
-        {
-            id: "5",
-            title: "Láncszem olajozása",
-            deadline: "2025-09-25",
-            status: "Nem kezdődött",
-            description: "Kerékpár lánc karbantartása.",
-            responsible: "Kiss Balázs",
-        },
-        {
-            id: "6",
-            title: "Épület festése",
-            deadline: "2025-10-10",
-            status: "Nem kezdődött",
-            description: "Épület külső falainak festése.",
-            responsible: "Németh Eszter",
-        },
-        {
-            id: "7",
-            title: "Közös kert öntözése",
-            deadline: "2025-09-21",
-            status: "Folyamatban",
-            description: "Élőlénnyel rendelkező kert öntözése.",
-            responsible: "Farkas László",
-        },
-        {
-            id: "8",
-            title: "Lift karbantartás",
-            deadline: "2025-09-30",
-            status: "Nem kezdődött",
-            description: "Lift ellenőrzése és javítása.",
-            responsible: "Molnár Judit",
-        },
-        {
-            id: "9",
-            title: "Fűtés beállítása",
-            deadline: "2025-09-28",
-            status: "Nem kezdődött",
-            description: "Fűtés időzítésének beállítása.",
-            responsible: "Varga Gábor",
-        },
-        {
-            id: "10",
-            title: "Tisztító vegyszerek beszerzése",
-            deadline: "2025-09-24",
-            status: "Folyamatban",
-            description: "Közös használatú tisztítószerek beszerzése.",
-            responsible: "Horváth Zsófia",
-        },
-        {
-            id: "11",
-            title: "Közös helyiségek takarítása",
-            deadline: "2025-09-27",
-            status: "Nem kezdődött",
-            description: "Közös helyiségek rendszeres takarítása.",
-            responsible: "Papp István",
-        },
-        {
-            id: "12",
-            title: "Fűnyírás szervezése",
-            deadline: "2025-09-26",
-            status: "Nem kezdődött",
-            description: "Közös fűnyírás szervezése.",
-            responsible: "Balogh Katalin",
-        },
-        {
-            id: "13",
-            title: "Parkoló burkolat javítása",
-            deadline: "2025-09-29",
-            status: "Nem kezdődött",
-            description: "Parkoló burkolatának javítása.",
-            responsible: "Kelemen Dávid",
-        },
-        {
-            id: "14",
-            title: "Kazán karbantartás",
-            deadline: "2025-10-05",
-            status: "Nem kezdődött",
-            description: "Kazán ellenőrzése és karbantartása.",
-            responsible: "Major Erika",
-        },
-        {
-            id: "15",
-            title: "Kaputelefon javítás",
-            deadline: "2025-09-23",
-            status: "Folyamatban",
-            description: "Kaputelefon működésének javítása.",
-            responsible: "Szalai Bence",
-        },
-        {
-            id: "16",
-            title: "Szemétszállítás koordinálása",
-            deadline: "2025-09-28",
-            status: "Nem kezdődött",
-            description: "Szemétszállítás időpontjának egyeztetése.",
-            responsible: "Vass Mariann",
-        },
-        {
-            id: "17",
-            title: "Közös csatorna takarítás",
-            deadline: "2025-10-01",
-            status: "Nem kezdődött",
-            description: "Csatorna tisztítása a közös területeken.",
-            responsible: "Török Attila",
-        },
-        {
-            id: "18",
-            title: "Bejárati ajtó cseréje",
-            deadline: "2025-10-03",
-            status: "Nem kezdődött",
-            description: "Bejárati ajtók cseréje és karbantartás.",
-            responsible: "Szűcs Réka",
-        },
-        {
-            id: "19",
-            title: "Világítás karbantartás",
-            deadline: "2025-09-29",
-            status: "Nem kezdődött",
-            description: "Lépcsőházi világítás cseréje.",
-            responsible: "Fekete Lajos",
-        },
-        {
-            id: "20",
-            title: "Biztonsági kamera ellenőrzés",
-            deadline: "2025-10-02",
-            status: "Nem kezdődött",
-            description: "Kamerák működésének ellenőrzése és karbantartása.",
-            responsible: "Horváth Éva",
-        },
-    ]);
+    const [maintence, setMaintence] = useState([]);
 
     // Számlák
     const [bills, setBills] = useState([
@@ -692,170 +389,18 @@ export default function LoggedIn() {
     ]);
 
     // Dokumentumok
-    const [documents, setDocuments] = useState([
-        {
-            id: "1",
-            name: "Alapító Okirat",
-            createdBy: "Nagy Éva",
-            date: "2025-01-10",
-            type: "PDF",
-            size: "1.2 MB",
-        },
-        {
-            id: "2",
-            name: "Közgyűlési jegyzőkönyv",
-            createdBy: "Kovács János",
-            date: "2025-08-01",
-            type: "DOCX",
-            size: "500 KB",
-        },
-        {
-            id: "3",
-            name: "Szabályzat",
-            createdBy: "Lakóközösség",
-            date: "2025-02-15",
-            type: "PDF",
-            size: "750 KB",
-        },
-        {
-            id: "4",
-            name: "Éves jelentés",
-            createdBy: "Karbantartás",
-            date: "2025-03-20",
-            type: "DOCX",
-            size: "1.1 MB",
-        },
-        {
-            id: "5",
-            name: "Közös költség számla",
-            createdBy: "Papp István",
-            date: "2025-04-10",
-            type: "PDF",
-            size: "800 KB",
-        },
-        {
-            id: "6",
-            name: "Tűzvédelmi előírások",
-            createdBy: "Németh Eszter",
-            date: "2025-05-12",
-            type: "PDF",
-            size: "1.3 MB",
-        },
-        {
-            id: "7",
-            name: "Vállalkozói szerződés",
-            createdBy: "Szabó Péter",
-            date: "2025-06-25",
-            type: "DOCX",
-            size: "600 KB",
-        },
-        {
-            id: "8",
-            name: "Parkolási rendelet",
-            createdBy: "Lakóközösség",
-            date: "2025-07-15",
-            type: "PDF",
-            size: "900 KB",
-        },
-        {
-            id: "9",
-            name: "Közgyűlési jelenléti ív",
-            createdBy: "Kovács János",
-            date: "2025-08-11",
-            type: "DOCX",
-            size: "400 KB",
-        },
-        {
-            id: "10",
-            name: "Személyzeti szabályzat",
-            createdBy: "Kiss Balázs",
-            date: "2025-09-01",
-            type: "PDF",
-            size: "1.4 MB",
-        },
-        {
-            id: "11",
-            name: "Építési engedély",
-            createdBy: "Varga Gábor",
-            date: "2025-01-22",
-            type: "PDF",
-            size: "1.0 MB",
-        },
-        {
-            id: "12",
-            name: "Karbantartási napló",
-            createdBy: "Major Erika",
-            date: "2025-02-18",
-            type: "DOCX",
-            size: "700 KB",
-        },
-        {
-            id: "13",
-            name: "Hulladékkezelési szabályok",
-            createdBy: "Karbantartás",
-            date: "2025-03-08",
-            type: "PDF",
-            size: "650 KB",
-        },
-        {
-            id: "14",
-            name: "Általános szerződési feltételek",
-            createdBy: "Lakóközösség",
-            date: "2025-04-30",
-            type: "DOCX",
-            size: "1.5 MB",
-        },
-        {
-            id: "15",
-            name: "Vállalati beszámoló",
-            createdBy: "Szűcs Réka",
-            date: "2025-05-21",
-            type: "PDF",
-            size: "900 KB",
-        },
-        {
-            id: "16",
-            name: "Technikai leírás",
-            createdBy: "Fekete Lajos",
-            date: "2025-06-13",
-            type: "DOCX",
-            size: "850 KB",
-        },
-        {
-            id: "17",
-            name: "Biztonsági előírások",
-            createdBy: "Horváth Éva",
-            date: "2025-07-01",
-            type: "PDF",
-            size: "950 KB",
-        },
-        {
-            id: "18",
-            name: "Éves karbantartási terv",
-            createdBy: "Nagy Éva",
-            date: "2025-08-14",
-            type: "DOCX",
-            size: "1.2 MB",
-        },
-        {
-            id: "19",
-            name: "Közös képviseleti szerződés",
-            createdBy: "Kovács János",
-            date: "2025-09-03",
-            type: "PDF",
-            size: "600 KB",
-        },
-        {
-            id: "20",
-            name: "Munkavédelmi szabályzat",
-            createdBy: "Kiss Balázs",
-            date: "2025-09-10",
-            type: "DOCX",
-            size: "700 KB",
-        },
-    ]);
+    const [documents, setDocuments] = useState([]);
 
-   
+    useEffect(() => {
+        DashboardService.getDashboardData(selectedHouse?.id)
+        .then((response) => {
+            setNews(response.data.selectedBuilding.announcements);
+            setMaintence(response.data.selectedBuilding.maintenanceRequest);
+            setDocuments(response.data.selectedBuilding.document);
+        })
+
+    }, [selectedHouse])
+
 
     return (
         <div className="flex flex-col min-h-screen px-6 ">
@@ -889,9 +434,9 @@ export default function LoggedIn() {
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
                         <DataScrollerSchema
-                            dataTableValue={tasks}
+                            dataTableValue={maintence}
                             title={"Feladatok"}
-                            type="tasks"
+                            type="maintence"
                         />
                     </div>
                 </div>

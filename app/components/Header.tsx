@@ -1,17 +1,16 @@
-import { FaUser } from "react-icons/fa6";
-import { NavLink } from "react-router";
 import { Dialog } from "primereact/dialog";
 import { useEffect, useState } from "react";
 import type { House } from "~/hooks/useMain";
 import SearchBar from "./SearchBar";
 import UserMenu from "./UserMenu";
+import { Button } from "primereact/button";
 
 interface FilteredHouses {
     id: number;
     name: string;
 }
 
-export default function Header({ houses }: { houses: House[] }) {
+export default function Header({ houses, setSelectedHouse }: { houses: House[], setSelectedHouse: (house: any) => void }) {
     const [visible, setVisible] = useState(false);
     const [houseList, setHouseList] = useState<any>(houses);
     const [filteredHouses, setFilteredHouses] = useState<FilteredHouses[]>([]);
@@ -83,29 +82,30 @@ export default function Header({ houses }: { houses: House[] }) {
                 <div className="hidden lg:flex lg:gap-x-8">
                     {houseList && houseList.length <= 3 ? (
                         houseList.map((house: House) => (
-                            <NavLink
+                            <Button
                                 key={house.id}
-                                to="/"
-                                className="text-sm/6 font-semibold text-dark"
+                                onClick={() => setSelectedHouse(house)}
+                                className="text-sm/6 font-semibold text-grey-50"
                             >
                                 {house.name}
-                            </NavLink>
+                            </Button>
                         ))
                     ) : (
                         <>
                             {houseList &&
                                 houseList.slice(0, 3).map((house: House) => (
-                                    <NavLink
+                                    <Button
                                         key={house.id}
-                                        to="/main"
-                                        className="text-sm/6 font-semibold text-dark"
+                                        unstyled
+                                        onClick={() => setSelectedHouse(house)}
+                                        className="text-sm/6 font-semibold text-grey-50"
                                     >
                                         {house.name}
-                                    </NavLink>
+                                    </Button>
                                 ))}
                             {houseList && (
                                 <span
-                                    className="text-sm/6 font-semibold text-dark"
+                                    className="text-sm/6 font-semibold text-grey-50"
                                     onClick={() => setVisible(true)}
                                 >
                                     ...
@@ -136,22 +136,24 @@ export default function Header({ houses }: { houses: House[] }) {
                 <div className="flex flex-row justify-center flex-wrap p-4 gap-4">
                     {filteredHouses.length !== 0
                         ? filteredHouses.map((house: House) => (
-                              <NavLink
+                              <Button
                                   key={house.id}
-                                  to="/"
-                                  className="text-sm/6 font-semibold text-dark block my-2"
+                                  unstyled
+                                  onClick={() => setSelectedHouse(house)}
+                                  className="text-sm/6 font-semibold text-grey-50 block my-2"
                               >
                                   {house.name}
-                              </NavLink>
+                              </Button>
                           ))
                         : houseList.map((house: House) => (
-                              <NavLink
+                              <Button
                                   key={house.id}
-                                  to="/"
-                                  className="text-sm/6 font-semibold text-dark block my-2"
+                                  unstyled
+                                  onClick={() => setSelectedHouse(house)}
+                                  className="text-sm/6 font-semibold text-grey-50 block my-2"
                               >
                                   {house.name}
-                              </NavLink>
+                              </Button>
                           ))}
                 </div>
             </Dialog>

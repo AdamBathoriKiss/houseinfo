@@ -4,7 +4,7 @@ import useMain from "~/hooks/useMain";
 import Header from "~/components/Header";
 import LoggedIn from "~/components/LoggedIn";
 import HouseRegistration from "~/components/HouseRegistration";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -16,20 +16,25 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
     const token = Boolean(localStorage.getItem("token"));
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [selectedHouse, setSelectedHouse] = useState<any>(null);
     const { houses } = useMain();
 
     useEffect(() => {
       token && token !== null ? setIsLoggedIn(true) : setIsLoggedIn(false);
     }, [token]);
 
+    useEffect(() => {
+      houses && houses !== null && selectedHouse === null && setSelectedHouse(houses[0]);
+    }, [houses]);
+
     return (
         <>
             {isLoggedIn ? (
                 <div className="flex flex-col min-h-screen surface-ground bg-dark-500">
-                    <Header houses={houses ?? []} />
+                    <Header houses={houses ?? []} setSelectedHouse={setSelectedHouse} />
                     <div className="mt-[7vh]">
                         {houses && houses.length > 0 ? (
-                            <LoggedIn />
+                            <LoggedIn houses={houses} selectedHouse={selectedHouse}/>
                         ) : (
                             <HouseRegistration />
                         )}

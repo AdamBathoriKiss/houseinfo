@@ -3,7 +3,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
 import { useEffect } from "react";
 import useNews from "~/hooks/useNews";
-import useTasks from "~/hooks/useTasks";
+import useMaintences from "~/hooks/useMaintences";
 
 interface CurrentNews {
     title: string;
@@ -12,7 +12,7 @@ interface CurrentNews {
     status: string;
 }  
 
-export default function TasksPage({title, description, responsible, status}: CurrentNews) {
+export default function Maintences({title, description, responsible, status}: CurrentNews) {
     const {
         onSubmit,
         toast,
@@ -20,7 +20,7 @@ export default function TasksPage({title, description, responsible, status}: Cur
         handleSubmit,
         formState: { errors },
         setValue,
-    } = useTasks();
+    } = useMaintences();
 
     // Amikor új adatok jönnek be (hover), beállítjuk a form értékeit
     useEffect(() => {

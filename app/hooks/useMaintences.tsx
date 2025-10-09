@@ -14,7 +14,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function useTasks() {
+export default function useMaintences() {
     const toast = useRef<Toast>(null);
     const stepperRef = useRef<Stepper | null>(null);
 

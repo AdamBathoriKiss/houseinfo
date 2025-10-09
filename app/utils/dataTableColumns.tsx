@@ -70,7 +70,7 @@ export default function dataTableColumns(type:string) {
             return { columns: residentCols, expandedColumns: residentExpandedCols };
         case 'news':
             return { columns: newsCol, expandedColumns: newsExpandedCols };
-        case 'tasks':
+        case 'Maintences':
             return { columns: taskCols, expandedColumns: taskExpandedCols };
         case 'bills':
             return { columns: billCols, expandedColumns: billExpandedCols };
