@@ -35,7 +35,7 @@ export default function EventCalendar(eventsData: { events: any }) {
             <div className="relative">
                 <span>{date.day}</span>
                 {hasEvents && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-teal-500 rounded-full"></div>
                 )}
             </div>
         );

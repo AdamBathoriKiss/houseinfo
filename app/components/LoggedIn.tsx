@@ -6,6 +6,7 @@ import DoughnutChart from "./DoughnutChart";
 import LoggedInHeader from "./LoggedInHeader";
 import EventCalendar from "./EventCalendar";
 import DashboardService from "~/services/dashboard.service";
+import { set } from "zod";
 
 export interface Residents {
     id: string;
@@ -221,180 +222,14 @@ export default function LoggedIn({
             birthOfDate: "1997-04-14",
         },
     ]);
-
-    // Hírek
     const [news, setNews] = useState([]);
-
-    // Feladatok
     const [maintence, setMaintence] = useState([]);
-
-    // Számlák
-    const [bills, setBills] = useState([
-        {
-            id: "1",
-            accountNumber: "SZ0001",
-            amount: 15000,
-            invoiceDate: "2025-08-30",
-            paymentDeadline: "2025-09-15",
-            status: "Fizetett",
-        },
-        {
-            id: "2",
-            accountNumber: "SZ0002",
-            amount: 12000,
-            invoiceDate: "2025-09-05",
-            paymentDeadline: "2025-09-25",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "3",
-            accountNumber: "SZ0003",
-            amount: 18000,
-            invoiceDate: "2025-09-10",
-            paymentDeadline: "2025-09-30",
-            status: "Fizetett",
-        },
-        {
-            id: "4",
-            accountNumber: "SZ0004",
-            amount: 14000,
-            invoiceDate: "2025-09-12",
-            paymentDeadline: "2025-10-05",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "5",
-            accountNumber: "SZ0005",
-            amount: 20000,
-            invoiceDate: "2025-09-08",
-            paymentDeadline: "2025-09-28",
-            status: "Fizetett",
-        },
-        {
-            id: "6",
-            accountNumber: "SZ0006",
-            amount: 13000,
-            invoiceDate: "2025-08-25",
-            paymentDeadline: "2025-09-10",
-            status: "Fizetett",
-        },
-        {
-            id: "7",
-            accountNumber: "SZ0007",
-            amount: 17000,
-            invoiceDate: "2025-09-03",
-            paymentDeadline: "2025-09-23",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "8",
-            accountNumber: "SZ0008",
-            amount: 16000,
-            invoiceDate: "2025-09-11",
-            paymentDeadline: "2025-10-01",
-            status: "Fizetett",
-        },
-        {
-            id: "9",
-            accountNumber: "SZ0009",
-            amount: 19000,
-            invoiceDate: "2025-09-15",
-            paymentDeadline: "2025-10-07",
-            status: "Fizetési késedelem",
-        },
-        {
-            id: "10",
-            accountNumber: "SZ0010",
-            amount: 12500,
-            invoiceDate: "2025-09-14",
-            paymentDeadline: "2025-09-30",
-            status: "Fizetett",
-        },
-        {
-            id: "11",
-            accountNumber: "SZ0011",
-            amount: 14500,
-            invoiceDate: "2025-09-16",
-            paymentDeadline: "2025-10-05",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "12",
-            accountNumber: "SZ0012",
-            amount: 15500,
-            invoiceDate: "2025-09-17",
-            paymentDeadline: "2025-10-10",
-            status: "Fizetett",
-        },
-        {
-            id: "13",
-            accountNumber: "SZ0013",
-            amount: 13500,
-            invoiceDate: "2025-09-19",
-            paymentDeadline: "2025-10-12",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "14",
-            accountNumber: "SZ0014",
-            amount: 18500,
-            invoiceDate: "2025-09-20",
-            paymentDeadline: "2025-10-15",
-            status: "Fizetési késedelem",
-        },
-        {
-            id: "15",
-            accountNumber: "SZ0015",
-            amount: 16500,
-            invoiceDate: "2025-09-21",
-            paymentDeadline: "2025-10-18",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "16",
-            accountNumber: "SZ0016",
-            amount: 17500,
-            invoiceDate: "2025-09-22",
-            paymentDeadline: "2025-10-20",
-            status: "Fizetett",
-        },
-        {
-            id: "17",
-            accountNumber: "SZ0017",
-            amount: 19500,
-            invoiceDate: "2025-09-23",
-            paymentDeadline: "2025-10-22",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "18",
-            accountNumber: "SZ0018",
-            amount: 20500,
-            invoiceDate: "2025-09-24",
-            paymentDeadline: "2025-10-25",
-            status: "Fizetett",
-        },
-        {
-            id: "19",
-            accountNumber: "SZ0019",
-            amount: 15000,
-            invoiceDate: "2025-09-25",
-            paymentDeadline: "2025-10-28",
-            status: "Fizetés alatt",
-        },
-        {
-            id: "20",
-            accountNumber: "SZ0020",
-            amount: 22000,
-            invoiceDate: "2025-09-26",
-            paymentDeadline: "2025-10-30",
-            status: "Fizetési késedelem",
-        },
-    ]);
-
-    // Dokumentumok
     const [documents, setDocuments] = useState([]);
     const [events, setEvents] = useState([]);
+    const [financeTotal, setFinanceTotal] = useState(0);
+    const [activeTasks, setActiveTasks] = useState(0);
+    const [expenseTotal, setExpenseTotal] = useState(0);
+    const [applicationRegistered, setApplicationRegistered] = useState(0);
 
     useEffect(() => {
         if (selectedHouse !== null && selectedHouse !== undefined) {
@@ -406,6 +241,9 @@ export default function LoggedIn({
                     );
                     setDocuments(response.data.selectedBuilding.document);
                     setEvents(response.data.selectedBuilding.events);
+                    setFinanceTotal(response.data.selectedBuilding.finances);
+                    setActiveTasks(response.data.selectedBuilding.maintenances);
+                    setExpenseTotal(response.data.selectedBuilding.expenseTotal);
                 }
             );
         }
@@ -413,7 +251,7 @@ export default function LoggedIn({
 
     return (
         <div className="flex flex-col min-h-screen px-6 ">
-            <LoggedInHeader />
+            <LoggedInHeader financeTotal={financeTotal} activeTasks={activeTasks} expenseTotal={expenseTotal}/>
             <div className="grid grid-cols-2 gap-6 px-4 my-4">
                 {/* Bal oldali oszlop */}
                 <div className="flex flex-col gap-6">
