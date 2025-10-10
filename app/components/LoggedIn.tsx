@@ -52,6 +52,16 @@ export interface Documents {
     size: string;
 }
 
+export interface ChartData {
+    parkings: number;
+    normalParkings: number;
+    occupiedNormal: number;
+    freeNormal: number;
+    electricParkings: number;
+    occupiedElectric: number;
+    freeElectric: number;
+}
+
 export default function LoggedIn({
     houses,
     selectedHouse,
@@ -230,6 +240,7 @@ export default function LoggedIn({
     const [activeTasks, setActiveTasks] = useState(0);
     const [expenseTotal, setExpenseTotal] = useState(0);
     const [applicationRegistered, setApplicationRegistered] = useState(0);
+    const [chartData, setChartData] = useState<ChartData>();
 
     useEffect(() => {
         if (selectedHouse !== null && selectedHouse !== undefined) {
@@ -243,7 +254,10 @@ export default function LoggedIn({
                     setEvents(response.data.selectedBuilding.events);
                     setFinanceTotal(response.data.selectedBuilding.finances);
                     setActiveTasks(response.data.selectedBuilding.maintenances);
-                    setExpenseTotal(response.data.selectedBuilding.expenseTotal);
+                    setExpenseTotal(
+                        response.data.selectedBuilding.expenseTotal
+                    );
+                    setChartData(response.data.selectedBuilding.chartData);
                 }
             );
         }
@@ -251,19 +265,26 @@ export default function LoggedIn({
 
     return (
         <div className="flex flex-col min-h-screen px-6 ">
-            <LoggedInHeader financeTotal={financeTotal} activeTasks={activeTasks} expenseTotal={expenseTotal}/>
+            <LoggedInHeader
+                financeTotal={financeTotal}
+                activeTasks={activeTasks}
+                expenseTotal={expenseTotal}
+            />
             <div className="grid grid-cols-2 gap-6 px-4 my-4">
                 {/* Bal oldali oszlop */}
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-row gap-2">
                         <div className="shadow-2xl rounded-md w-[60%] h-96 overflow-hidden grid grid-cols-2 justify-between items-center">
                             <p className="col-start-1 col-end-12 text-center">
-                                Összes parkoló száma: 43
+                                Összes parkoló száma:{" "}
+                                {chartData && chartData !== null
+                                    ? chartData.parkings
+                                    : 0}
                             </p>
-                            <DoughnutChart title="Normál" />
-                            <DoughnutChart title="Elektromos" />
+                            <DoughnutChart title="Normál" free={chartData?.freeNormal} occupied={chartData?.occupiedNormal}/>
+                            <DoughnutChart title="Elektromos" free={chartData?.freeElectric} occupied={chartData?.occupiedElectric}/>
                         </div>
-                        <EventCalendar events={events}/>
+                        <EventCalendar events={events} />
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
                         <Diagrams />

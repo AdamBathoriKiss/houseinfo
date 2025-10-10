@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
+import type { ChartData } from "./LoggedIn";
 
-export default function DoughnutChart({ title }: { title: string }) {
+export default function DoughnutChart({ title, occupied, free  }: { title: string, occupied: number | undefined , free: number | undefined}) {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
@@ -11,7 +12,7 @@ export default function DoughnutChart({ title }: { title: string }) {
             labels: ["Aktív", "Szabad"],
             datasets: [
                 {
-                    data: [150, 100],
+                    data: [free, occupied],
                     backgroundColor: [
                         documentStyle.getPropertyValue("--blue-500"),
                         documentStyle.getPropertyValue("--green-500"),
@@ -43,7 +44,7 @@ export default function DoughnutChart({ title }: { title: string }) {
 
         setChartData(data);
         setChartOptions(options);
-    }, []);
+    }, [free, occupied]);
 
     return (
         <div className="flex flex-col h-full justify-center items-center">
