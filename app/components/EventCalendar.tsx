@@ -57,7 +57,6 @@ export default function EventCalendar(eventsData: { events: any }) {
     };
 
     return (
-        console.log(events),
         <>
             <Calendar
                 value={date}

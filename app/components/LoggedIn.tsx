@@ -62,6 +62,12 @@ export interface ChartData {
     freeElectric: number;
 }
 
+export interface FinanceIncome {
+    paidDate: string;
+    amount: string;
+}
+
+
 export default function LoggedIn({
     houses,
     selectedHouse,
@@ -241,6 +247,7 @@ export default function LoggedIn({
     const [expenseTotal, setExpenseTotal] = useState(0);
     const [applicationRegistered, setApplicationRegistered] = useState(0);
     const [chartData, setChartData] = useState<ChartData>();
+    const [financeReports, setFinanceReports] = useState<FinanceIncome[]>([]);
 
     useEffect(() => {
         if (selectedHouse !== null && selectedHouse !== undefined) {
@@ -258,8 +265,9 @@ export default function LoggedIn({
                         response.data.selectedBuilding.expenseTotal
                     );
                     setChartData(response.data.selectedBuilding.chartData);
-                }
-            );
+                    setFinanceReports(response.data.selectedBuilding.financeIncomes)
+                    setFinanceReports(response.data.selectedBuilding.financeIncomes || [])
+            });
         }
     }, [selectedHouse]);
 
@@ -287,7 +295,7 @@ export default function LoggedIn({
                         <EventCalendar events={events} />
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
-                        <Diagrams />
+                        <Diagrams financialIncomes={financeReports}/>
                     </div>
                 </div>
 
