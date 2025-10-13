@@ -62,11 +62,16 @@ export interface ChartData {
     freeElectric: number;
 }
 
-export interface FinanceIncome {
-    paidDate: string;
-    amount: string;
+export interface FinanceReports {
+    financeIncomes: Array<{
+        paidDate: string;
+        amount: string;
+    }>;
+    financeOutcomes: Array<{
+        paidDate: string;
+        amount: string;
+    }>;
 }
-
 
 export default function LoggedIn({
     houses,
@@ -247,7 +252,7 @@ export default function LoggedIn({
     const [expenseTotal, setExpenseTotal] = useState(0);
     const [applicationRegistered, setApplicationRegistered] = useState(0);
     const [chartData, setChartData] = useState<ChartData>();
-    const [financeReports, setFinanceReports] = useState<FinanceIncome[]>([]);
+    const [financeReports, setFinanceReports] = useState<FinanceReports>();
 
     useEffect(() => {
         if (selectedHouse !== null && selectedHouse !== undefined) {
@@ -265,9 +270,14 @@ export default function LoggedIn({
                         response.data.selectedBuilding.expenseTotal
                     );
                     setChartData(response.data.selectedBuilding.chartData);
-                    setFinanceReports(response.data.selectedBuilding.financeIncomes)
-                    setFinanceReports(response.data.selectedBuilding.financeIncomes || [])
-            });
+                    setFinanceReports(
+                        response.data.selectedBuilding.financeReports || {
+                            financeIncomes: [],
+                            financeOutcomes: [],
+                        }
+                    );
+                }
+            );
         }
     }, [selectedHouse]);
 
@@ -289,13 +299,28 @@ export default function LoggedIn({
                                     ? chartData.parkings
                                     : 0}
                             </p>
-                            <DoughnutChart title="Normál" free={chartData?.freeNormal} occupied={chartData?.occupiedNormal}/>
-                            <DoughnutChart title="Elektromos" free={chartData?.freeElectric} occupied={chartData?.occupiedElectric}/>
+                            <DoughnutChart
+                                title="Normál"
+                                free={chartData?.freeNormal}
+                                occupied={chartData?.occupiedNormal}
+                            />
+                            <DoughnutChart
+                                title="Elektromos"
+                                free={chartData?.freeElectric}
+                                occupied={chartData?.occupiedElectric}
+                            />
                         </div>
                         <EventCalendar events={events} />
                     </div>
                     <div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
-                        <Diagrams financialIncomes={financeReports}/>
+                        <Diagrams
+                            financeReports={
+                                financeReports ?? {
+                                    financeIncomes: [],
+                                    financeOutcomes: [],
+                                }
+                            }
+                        />
                     </div>
                 </div>
 

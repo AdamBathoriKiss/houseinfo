@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 import { format } from "date-fns";
-import type { FinanceIncome } from "./LoggedIn";
 
-export default function Diagrams({ financialIncomes }: { financialIncomes: FinanceIncome[] }) {
+export default function Diagrams({
+    financeReports,
+}: {
+    financeReports: {
+        financeIncomes: Array<{ paidDate: string; amount: string }>;
+        financeOutcomes: Array<{ paidDate: string; amount: string }>;
+    };
+}) {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
     useEffect(() => {
-        console.log("financialIncomes:", financialIncomes);
-        
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue("--text-color");
         const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
         const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
-        
+
         // Aktuális hónap napjainak generálása
         const currentDay = new Date();
         const year = currentDay.getFullYear();
         const month = currentDay.getMonth();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
-        
+
         // Minden nap létrehozása 0-val
         const allDaysData: { [date: string]: number } = {};
         for (let day = 1; day <= daysInMonth; day++) {
@@ -28,25 +32,41 @@ export default function Diagrams({ financialIncomes }: { financialIncomes: Finan
             const dateKey = format(date, "yyyy-MM-dd");
             allDaysData[dateKey] = 0;
         }
-        
+
+        const allDaysDataOut: { [date: string]: number } = {};
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(year, month, day);
+            const dateKey = format(date, "yyyy-MM-dd");
+            allDaysDataOut[dateKey] = 0;
+        }
+
         // Bevételek hozzáadása a megfelelő napokhoz
-        financialIncomes.forEach(income => {
+        financeReports.financeIncomes?.forEach((income) => {
             const dateKey = format(new Date(income.paidDate), "yyyy-MM-dd");
             if (allDaysData.hasOwnProperty(dateKey)) {
                 allDaysData[dateKey] += Number(income.amount);
             }
         });
-        
+
+        // Kiadások hozzáadása a megfelelő napokhoz
+        financeReports.financeOutcomes?.forEach((outcome) => {
+            const dateKey = format(new Date(outcome.paidDate), "yyyy-MM-dd");
+            if (allDaysDataOut.hasOwnProperty(dateKey)) {
+                allDaysDataOut[dateKey] += Number(outcome.amount);
+            }
+        });
+
         // Rendezés és szétválasztás
         const sortedDates = Object.keys(allDaysData).sort();
-        const amounts = sortedDates.map(date => allDaysData[date]);
-        
+        const sortedDatesOut = Object.keys(allDaysDataOut).sort();
+        const amounts = sortedDates.map((date) => allDaysData[date]);
+        const amountsOut = sortedDatesOut.map((date) => allDaysDataOut[date]);
+
         // Szebb formátum a labelekhez: "10-01", "10-02", ...
-        const labels = sortedDates.map(date => format(new Date(date), "MM-dd"));
-        
-        console.log("Labels:", labels);
-        console.log("Data:", amounts);
-        
+        const labels = sortedDates.map((date) =>
+            format(new Date(date), "MM-dd")
+        );
+
         const data = {
             labels: labels,
             datasets: [
@@ -54,13 +74,23 @@ export default function Diagrams({ financialIncomes }: { financialIncomes: Finan
                     label: "Bevétel",
                     fill: false,
                     borderColor: documentStyle.getPropertyValue("--teal-500"),
-                    backgroundColor: documentStyle.getPropertyValue("--teal-500"),
+                    backgroundColor:
+                        documentStyle.getPropertyValue("--teal-500"),
                     tension: 0.3,
                     data: amounts,
                 },
+                {
+                    label: "Kiadás",
+                    fill: false,
+                    borderColor: documentStyle.getPropertyValue("--red-500"),
+                    backgroundColor:
+                        documentStyle.getPropertyValue("--red-500"),
+                    tension: 0.3,
+                    data: amountsOut,
+                },
             ],
         };
-        
+
         const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.3,
@@ -97,7 +127,14 @@ export default function Diagrams({ financialIncomes }: { financialIncomes: Finan
 
         setChartData(data);
         setChartOptions(options);
-    }, [financialIncomes]);
+    }, [financeReports]);
 
-    return <Chart className="h-96" type="line" data={chartData} options={chartOptions} />;
+    return (
+        <Chart
+            className="h-96"
+            type="line"
+            data={chartData}
+            options={chartOptions}
+        />
+    );
 }
