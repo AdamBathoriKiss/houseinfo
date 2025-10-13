@@ -281,8 +281,8 @@ export default function LoggedIn({
             <div className="grid grid-cols-2 gap-6 px-4 my-4">
                 {/* Bal oldali oszlop */}
                 <div className="flex flex-col gap-6">
-                    <div className="flex flex-row gap-2">
-                        <div className="shadow-2xl rounded-md w-[60%] h-96 overflow-hidden grid grid-cols-2 justify-between items-center">
+                    <div className="flex flex-row gap-3">
+                        <div className="shadow-2xl rounded-md w-[50%] h-96 overflow-hidden grid grid-cols-2 justify-between items-center">
                             <p className="col-start-1 col-end-12 text-center">
                                 Összes parkoló száma:{" "}
                                 {chartData && chartData !== null
