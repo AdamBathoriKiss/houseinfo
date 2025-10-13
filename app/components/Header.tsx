@@ -40,7 +40,13 @@ export default function Header({ houses, setSelectedHouse }: { houses: House[], 
         setFilteredHouses(filtered);
     };
 
+    const onHouseSelect = (house:House) => {
+        setSelectedHouse(house)
+        setVisible(false);
+    }
+
     return (
+        console.log(visible),
         <header className="pb-3 text-white fixed z-30  shadow-neutral-400-500 bg-dark-500/30  backdrop-blur-2xl">
             <nav
                 aria-label="Global"
@@ -123,6 +129,7 @@ export default function Header({ houses, setSelectedHouse }: { houses: House[], 
                 header="Házak"
                 headerClassName="text-center !bg-[#343d4a]"
                 className="w-2xl h-96"
+                contentClassName="!bg-[#343d4a]"
                 visible={visible}
                 onHide={() => {
                     setVisible(false);
@@ -139,7 +146,7 @@ export default function Header({ houses, setSelectedHouse }: { houses: House[], 
                               <Button
                                   key={house.id}
                                   unstyled
-                                  onClick={() => setSelectedHouse(house)}
+                                  onClick={() => onHouseSelect(house)}
                                   className="text-sm/6 font-semibold text-grey-50 block my-2"
                               >
                                   {house.name}
@@ -149,7 +156,7 @@ export default function Header({ houses, setSelectedHouse }: { houses: House[], 
                               <Button
                                   key={house.id}
                                   unstyled
-                                  onClick={() => setSelectedHouse(house)}
+                                  onClick={() => onHouseSelect(house)}
                                   className="text-sm/6 font-semibold text-grey-50 block my-2"
                               >
                                   {house.name}
