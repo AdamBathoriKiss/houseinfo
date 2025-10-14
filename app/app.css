@@ -35,6 +35,10 @@
 	border: transparent !important;
 }
 
+.p-dialog-footer{
+	background-color: transparent;
+}
+
 /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
 /* Custom styles for the landing page */

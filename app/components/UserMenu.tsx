@@ -26,7 +26,7 @@ export default function UserMenu() {
 			label: "Options",
 			items: [
 				{
-					label: "Refresh",
+					label: "My account",
 					icon: "pi pi-user-edit",
 					command: () => {
 						setVisible(true);
