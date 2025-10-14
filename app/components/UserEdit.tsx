@@ -35,16 +35,21 @@ export default function UserEdit({
         setVisible(false);
     };
 
+	const onSave = () => {
+		console.log(userEdit)
+	} 
+
     const footer = () => {
         return (
             <>
                 <Button
                     label="Szerkesztés"
-                    className="!bg-transparent !border-1 !border-gray-500 !text-gray-50 hover:!bg-teal-500 "
+                    className="!bg-transparent !border-1 !border-gray-500 !text-gray-50 hover:!bg-teal-500"
+					onClick={onSave}
                 />
                 <Button
                     label="Fiók törlése"
-                    className="!bg-transparent !border-1 !border-gray-500 !text-gray-50 hover:!bg-red-500 "
+                    className="!bg-transparent !border-1 !border-gray-500 !text-gray-50 hover:!bg-red-500"
                 />
             </>
         );
