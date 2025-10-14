@@ -4,43 +4,63 @@ import { InputText } from "primereact/inputtext";
 import { useEffect, useState } from "react";
 
 export default function UserEdit({
-	visible,
-	setVisible,
-	user,
+    visible,
+    setVisible,
+    user,
 }: {
-	visible: boolean;
-	setVisible: (visible: boolean) => void;
-	user: User;
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    user: User;
 }) {
-	const [id, setId] = useState("");
-	const [userName, setUserName] = useState("");
-	const [email, setEmail] = useState("");
+    const [userEdit, setUserEdit] = useState<User | null>(null);
 
-	useEffect(() => {
-		user && (setId(user.id), setUserName(user.name), setEmail(user.email));
-	}, [user]);
+    useEffect(() => {
+        if (visible && user) {
+            setUserEdit({ ...user });
+        }
+    }, [user, visible]);
 
-	const onHide = () => {
-		(setId(user.id), setUserName(user.name));
-		setEmail(user.email);
-		setVisible(false);
-	};
+    const onChange = (e: any) => {
+        if (!userEdit) return;
 
-	return (
-		<Dialog header="Header" visible={visible} style={{ width: "50vw" }} onHide={onHide}>
-			<InputText value={id} className="w-75 h-1.5 !my-3.5 !bg-transparent" placeholder="Azonosító" disabled />
-			<InputText
-				value={userName}
-				className="w-75 h-1.5 !my-3.5 !bg-transparent"
-				placeholder="Azonosító"
-				onChange={(e) => setUserName(e.target.value)}
-			/>
-			<InputText
-				value={email}
-				className="w-75 h-1.5 !my-3.5 !bg-transparent"
-				placeholder="Azonosító"
-				onChange={(e) => setEmail(e.target.value)}
-			/>
-		</Dialog>
-	);
+        setUserEdit({
+            ...userEdit,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const onHide = () => {
+        setUserEdit(null);
+        setVisible(false);
+    };
+
+    return (
+        <Dialog
+            header="Header"
+            visible={visible}
+            style={{ width: "50vw" }}
+            onHide={onHide}
+        >
+            <InputText
+                value={userEdit ? userEdit.id : ""}
+                className="w-75 h-1.5 !my-3.5 !bg-transparent"
+                placeholder="Azonosító"
+                disabled
+            />
+            <InputText
+                value={userEdit ? userEdit.name : ""}
+                name="name"
+                className="w-75 h-1.5 !my-3.5 !bg-transparent"
+                placeholder="Azonosító"
+                onChange={onChange}
+            />
+            <InputText
+                value={userEdit ? userEdit.email : ""}
+                name="email"
+                className="w-75 h-1.5 !my-3.5 !bg-transparent"
+                placeholder="Azonosító"
+                onChange={onChange}
+            />
+        </Dialog>
+    );
 }
