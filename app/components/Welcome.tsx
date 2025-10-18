@@ -8,13 +8,18 @@ import { InputText } from "primereact/inputtext";
 import Authorization from "~/utils/dialogs/Authorization";
 
 export default function Welcome() {
-	const navigate = useNavigate();
 	const { ref, inView, entry } = useInView({
 		/* Optional options */
 		threshold: 0,
 	});
 	const [currentSection, setCurrentSection] = useState(false);
-	const [loginDialog, setLoginDialog] = useState(false);
+	const [authDialog, setAuthDialog] = useState(false);
+	const [type, setType] = useState("");
+
+	const onSelect = (type:string) => {
+		setAuthDialog(true);
+		setType(type)
+	}
 
 	useEffect(() => {
 		setCurrentSection(inView);
@@ -24,17 +29,6 @@ export default function Welcome() {
 	const textColorClass = "flex space-x-6 text-white";
 	const headerColorClass =
 		"flex items-center px-3 justify-between fixed top-0 left-0 w-full h-18 z-30 backdrop-blur-sm text-gray-800 transition duration-500";
-
-	const handleLogin = () => {
-		// Bejelentkezés logika
-		localStorage.setItem("token", "dummy-token");
-		window.location.reload();
-	};
-
-	const handleRegister = () => {
-		// Regisztráció logika
-		console.log("Regisztráció gomb megnyomva");
-	};
 
 	return (
 		<div className="flex flex-col min-h-screen overflow-auto ">
@@ -52,7 +46,7 @@ export default function Welcome() {
 					</ul>
 
 					<div className="flex space-x-4">
-						<button className={textColorClass} onClick={()=>setLoginDialog(true)}>
+						<button className={textColorClass} onClick={()=>onSelect("login")}>
 							Bejelentkezés
 						</button>
 					</div>
@@ -70,7 +64,7 @@ export default function Welcome() {
 						<div className="hero-buttons">
 							<Button
 								className="!bg-lime-50 !text-purple-900 !border-0 !px-6 !py-3 !mt-6 !text-lg !font-semibold transition delay-150 duration-600 hover:scale-x-110"
-								onClick={handleRegister}
+								onClick={()=> onSelect("registration")}
 							>
 								Kezdjük el
 							</Button>
@@ -285,7 +279,7 @@ export default function Welcome() {
 					/>
 					<Button
 						className="!bg-lime-50 w-fit !mt-5 !text-purple-900 !border-0 !text-lg !font-semibold"
-						onClick={handleRegister}
+						onClick={()=> setAuthDialog(true)}
 					>
 						Kérem az árajánlatot
 					</Button>
@@ -295,7 +289,7 @@ export default function Welcome() {
 					<p className="my-4">&copy; {new Date().getFullYear()} HázInfó. Minden jog fenntartva.</p>
 				</div>
 			</footer>
-			{loginDialog && <Authorization loginDialog={loginDialog} setLoginDialog={setLoginDialog} handleLogin={handleLogin} handleRegister={handleRegister}/>}
+			{authDialog && <Authorization authDialog={authDialog} setAuthDialog={setAuthDialog} type={type}/>}
 		</div>
 	);
 }
