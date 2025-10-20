@@ -2,6 +2,7 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
+import AuthService from "~/services/auth.service";
 
 export default function Authorization({
 	visible,
@@ -12,11 +13,31 @@ export default function Authorization({
 	setVisible: (value: boolean) => void;
 	type: string;
 }) {
-	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const title = type === "login" ? "Bejelentkezés" : "Regisztráció";
 
-	const handleLogin = () => {};
+	const handleLogin = () => {
+		AuthService.login(email, password)
+			.then((response) => {
+				const data = response.data;
+				if (data.error) {
+					// Hibás bejelentkezési adatok
+					alert(data.error);
+					console.log(data.error);
+					return;
+				}
+				// Sikeres login
+				console.log(data.message);
+				console.log(data.token);
+				// Ide mehet a token feldolgozása és továbbnavigálás
+			})
+			.catch((error) => {
+				// Hálózati, szerver vagy egyéb hiba
+				console.log(error);
+				alert("Szerverhiba vagy hálózati hiba!");
+			});
+	};
 
 	const handleRegistration = () => {};
 
@@ -29,8 +50,8 @@ export default function Authorization({
 			onHide={() => setVisible(false)}
 		>
 			<InputText
-				value={username}
-				onChange={(e) => setUsername(e.target.value)}
+				value={email}
+				onChange={(e) => setEmail(e.target.value)}
 				className="w-75 h-1.5 !my-3.5 !bg-transparent"
 				placeholder="Felhasználónév"
 			/>
