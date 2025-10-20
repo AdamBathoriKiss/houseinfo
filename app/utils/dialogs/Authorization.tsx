@@ -1,8 +1,10 @@
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AuthService from "~/services/auth.service";
+import { Toast } from 'primereact/toast';
+		
 
 export default function Authorization({
 	visible,
@@ -16,32 +18,35 @@ export default function Authorization({
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const title = type === "login" ? "Bejelentkezés" : "Regisztráció";
+	const toast = useRef<Toast | null>(null);
 
 	const handleLogin = () => {
 		AuthService.login(email, password)
 			.then((response) => {
+				console.log("Response data:", response);
 				const data = response.data;
 				if (data.error) {
+					console.log("Login error:", data.error);
 					// Hibás bejelentkezési adatok
-					alert(data.error);
-					console.log(data.error);
+				toast.current?.show({severity:'error', summary: 'Sikertelen bejelentkezés', detail:data.error, life: 3000});
 					return;
 				}
-				// Sikeres login
-				console.log(data.message);
+				//Sikeres login
+				toast.current?.show({severity:'success', summary: 'Sikeres bejelentkezés', detail:data.message, life: 3000});
 				console.log(data.token);
-				// Ide mehet a token feldolgozása és továbbnavigálás
+				// Ide mehet a token feldolgozása és továbbnavigálás */
 			})
 			.catch((error) => {
 				// Hálózati, szerver vagy egyéb hiba
-				console.log(error);
-				alert("Szerverhiba vagy hálózati hiba!");
+				toast.current?.show({severity:'error', summary: 'Sikertelen bejelentkezés', detail:error, life: 3000});
 			});
 	};
 
 	const handleRegistration = () => {};
 
 	return (
+		<>
+		<Toast ref={toast} />
 		<Dialog
 			header={title}
 			visible={visible}
@@ -73,5 +78,6 @@ export default function Authorization({
 
 			<hr className="my-10" />
 		</Dialog>
+		</>
 	);
 }
