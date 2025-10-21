@@ -1,22 +1,12 @@
-  import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
-  const baseUrl = "http://localhost:3000/api";
+const login = async (email: string, password: string) => {
+    const response = await axiosInstance.post("/auth/login", { email, password });
+    return response;
+};
 
-  const instance = axios.create({
-    baseURL: baseUrl,
-    timeout: 10000,
-    headers: { "Content-Type": "application/json" },
-  });
+const AuthService = {
+    login,
+};
 
-
-    const login = async (email: string, password: string ) => {
-        const response = await instance.post("/auth/login", {email,password})
-        return response
-    }
-
-  const AuthService = {
-    login
-  };
-
-  export default AuthService;
-
+export default AuthService;
