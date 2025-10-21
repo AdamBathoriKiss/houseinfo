@@ -12,6 +12,7 @@ import "./app.css";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import { PrimeReactProvider } from "primereact/api";
+import AuthProvider from "./utils/AuthProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -48,9 +49,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
 AOS.init();
   return (
+    <AuthProvider>
     <PrimeReactProvider>
       <Outlet />
     </PrimeReactProvider>
+    </AuthProvider>
   );
 }
 

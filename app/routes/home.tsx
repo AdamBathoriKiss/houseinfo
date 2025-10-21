@@ -5,6 +5,7 @@ import Header from "~/components/Header";
 import LoggedIn from "~/components/LoggedIn";
 import HouseRegistration from "~/components/HouseRegistration";
 import { useEffect, useState } from "react";
+import { useAuth } from "~/utils/AuthProvider";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -14,12 +15,13 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-    const token = Boolean(localStorage.getItem("token"));
+    const { token } = useAuth();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [selectedHouse, setSelectedHouse] = useState<any>(null);
     const { houses } = useMain();
 
     useEffect(() => {
+        console.log("Token changed:", token);
       token && token !== null ? setIsLoggedIn(true) : setIsLoggedIn(false);
     }, [token]);
 
