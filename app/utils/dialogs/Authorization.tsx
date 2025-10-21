@@ -23,7 +23,7 @@ export default function Authorization({
 	const handleLogin = () => {
 		AuthService.login(email, password)
 			.then((response) => {
-				console.log("Response data:", response);
+
 				const data = response.data;
 				if (data.error) {
 					console.log("Login error:", data.error);
@@ -34,6 +34,7 @@ export default function Authorization({
 				//Sikeres login
 				toast.current?.show({severity:'success', summary: 'Sikeres bejelentkezés', detail:data.message, life: 3000});
 				console.log(data.token);
+				
 				// Ide mehet a token feldolgozása és továbbnavigálás */
 			})
 			.catch((error) => {
