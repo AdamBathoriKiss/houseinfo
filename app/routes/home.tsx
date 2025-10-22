@@ -26,8 +26,8 @@ export default function Home() {
     }, [token]);
 
     useEffect(() => {
-      houses && houses !== null && selectedHouse === null && setSelectedHouse(houses[0]);
-    }, [houses]);
+      token && houses && selectedHouse === null && setSelectedHouse(houses[0]);
+    }, [token,houses]);
 
     return (
         <>

@@ -6,6 +6,11 @@ const login = async (email: string, password: string) => {
     return response.data; // ✅ Csak a data-t add vissza
 };
 
+const registration = async (email: string, password: string) => {
+    const response = await axiosInstance.post("/auth/registration", { email, password });
+    return response.data; // ✅ Csak a data-t add vissza
+};
+
 const refreshToken = async () => {
     const response = await axiosInstance.post("/auth/refresh"); // ✅ POST, nem GET!
     return response.data;
@@ -18,6 +23,7 @@ const logout = async () => {
 
 const AuthService = {
     login,
+    registration,
     refreshToken,
     logout,
 };

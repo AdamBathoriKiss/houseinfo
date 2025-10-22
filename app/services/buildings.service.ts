@@ -1,7 +1,7 @@
 import axiosInstance from "~/api/axiosInstance";
 
-const getBuildings =  () => {
-  const response =  axiosInstance.get("/buildings");
+const getBuildings =  (userId:string) => {
+  const response =  axiosInstance.get(`/buildings/${userId}`);
   return response;
 };
 
