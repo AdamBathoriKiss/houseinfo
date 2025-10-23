@@ -4,6 +4,7 @@ import type { MenuItem } from "primereact/menuitem";
 import { Toast } from "primereact/toast";
 import { FaUser } from "react-icons/fa6";
 import UserEdit from "./UserEdit";
+import { useAuth } from "~/utils/AuthProvider";
 
 export interface User {
 	id: string;
@@ -12,6 +13,7 @@ export interface User {
 }
 
 export default function UserMenu() {
+	const {setToken} = useAuth();	
 	const menuLeft = useRef<Menu>(null);
 	const menuRight = useRef<Menu>(null);
 	const toast = useRef<Toast>(null);
@@ -40,7 +42,7 @@ export default function UserMenu() {
 					label: "Logout",
 					icon: "pi pi-sign-out",
 					command: () => {
-						localStorage.removeItem("token");
+						setToken(null);
 						window.location.reload();
 					},
 				},

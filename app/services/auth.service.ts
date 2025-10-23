@@ -1,9 +1,10 @@
 // src/services/auth.service.ts
 import axiosInstance from "../api/axiosInstance";
+import authAxios from "~/api/authAxios";
 
 const login = async (email: string, password: string) => {
-    const response = await axiosInstance.post("/auth/login", { email, password });
-    return response.data; 
+    const response = await authAxios.post("/auth/login", { email, password });
+    return response.data;
 };
 
 const registration = async (email: string, password: string) => {
@@ -12,7 +13,7 @@ const registration = async (email: string, password: string) => {
 };
 
 const refreshToken = async () => {
-    const response = await axiosInstance.post("/auth/refresh"); // ✅ POST, nem GET!
+    const response = await authAxios.post("/auth/refresh");
     return response.data;
 };
 

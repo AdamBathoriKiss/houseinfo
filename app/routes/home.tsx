@@ -21,7 +21,6 @@ export default function Home() {
     const { houses } = useMain();
 
     useEffect(() => {
-        console.log("Token changed:", token);
       token && token !== null ? setIsLoggedIn(true) : setIsLoggedIn(false);
     }, [token]);
 

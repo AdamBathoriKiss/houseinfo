@@ -9,23 +9,22 @@ import {
 import type { InternalAxiosRequestConfig } from "axios";
 import AuthService from "~/services/auth.service";
 
-// TypeScript interface a custom _retry property-hez
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
     _retry?: boolean;
+    _skipAuthRefresh?: boolean; // ✅ Új flag a refresh kérések jelölésére
 }
 
-// Context létrehozása
 interface AuthContextType {
     token: string | null;
     setToken: (token: string | null) => void;
     user: any;
     setUser: (user: any) => void;
     logout: () => Promise<void>;
+    isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Hook a context használatához
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
@@ -41,52 +40,78 @@ export default function AuthProvider({
 }) {
     const [token, setToken] = useState<string | null>(null);
     const [user, setUser] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
+    // ✅ Oldal betöltésekor próbáld meg helyreállítani a sessiont
+    useEffect(() => {
+        const restoreSession = async () => {
+            try {
+                const response = await AuthService.refreshToken();
+                setToken(response.accessToken);
+            } catch (error: any) {
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        restoreSession();
+    }, []);
+
+    // Request interceptor - Token hozzáadása
     useLayoutEffect(() => {
         const authInterceptor = axiosInstance.interceptors.request.use(
             (config: CustomAxiosRequestConfig) => {
-                config.headers.Authorization =
-                    !config._retry && token
-                        ? `Bearer ${token}`
-                        : config.headers.Authorization;
+                if (!config._retry && token) {
+                    config.headers.Authorization = `Bearer ${token}`;
+                }
                 return config;
             }
         );
-        // Cleanup: Interceptor eltávolítása, amikor a komponens unmount-ol
+        
         return () => {
             axiosInstance.interceptors.request.eject(authInterceptor);
         };
     }, [token]);
 
+    // Response interceptor - 401 kezelés
     useLayoutEffect(() => {
         const refreshInterceptor = axiosInstance.interceptors.response.use(
             (response) => response,
             async (error) => {
-                const originalRequest = error.config;
+                const originalRequest: CustomAxiosRequestConfig = error.config;
 
+                // ✅ Ha ez egy refresh kérés volt, NE próbáld újra
+                if (originalRequest._skipAuthRefresh) {
+                    return Promise.reject(error);
+                }
+
+                // ✅ 401 hiba és még nem próbáltuk újra
                 if (error.response?.status === 401 && !originalRequest._retry) {
                     originalRequest._retry = true;
+                    
                     try {
                         const response = await AuthService.refreshToken();
-                        console.log("Token refreshed:", response.data.token);
-                        setToken(response.data.token);
-                        originalRequest.headers.Authorization = `Bearer ${response.data.token}`;
-                        originalRequest._retry = true;
+                        const newToken = response.accessToken;
+
+                        setToken(newToken);
+                        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                        
                         return axiosInstance(originalRequest);
-                    } catch (err) {
+                    } catch (refreshError) {
                         setToken(null);
-                        setUser(null); 
+                        setUser(null);
+                        return Promise.reject(refreshError);
                     }
                 }
+                
                 return Promise.reject(error);
             }
         );
-        // Cleanup
+        
         return () => {
             axiosInstance.interceptors.response.eject(refreshInterceptor);
         };
     }, []);
-
 
     const logout = async () => {
         try {
@@ -99,9 +124,8 @@ export default function AuthProvider({
         }
     };
 
-
     return (
-        <AuthContext.Provider value={{ token, setToken, user, setUser, logout }}>
+        <AuthContext.Provider value={{ token, setToken, user, setUser, logout, isLoading }}>
             {children}
         </AuthContext.Provider>
     );
