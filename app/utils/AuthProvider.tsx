@@ -68,6 +68,7 @@ export default function AuthProvider({
                     originalRequest._retry = true;
                     try {
                         const response = await AuthService.refreshToken();
+                        console.log("Token refreshed:", response.data.token);
                         setToken(response.data.token);
                         originalRequest.headers.Authorization = `Bearer ${response.data.token}`;
                         originalRequest._retry = true;

@@ -3,12 +3,12 @@ import axiosInstance from "../api/axiosInstance";
 
 const login = async (email: string, password: string) => {
     const response = await axiosInstance.post("/auth/login", { email, password });
-    return response.data; // ✅ Csak a data-t add vissza
+    return response.data; 
 };
 
 const registration = async (email: string, password: string) => {
     const response = await axiosInstance.post("/auth/registration", { email, password });
-    return response.data; // ✅ Csak a data-t add vissza
+    return response.data; 
 };
 
 const refreshToken = async () => {
