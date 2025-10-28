@@ -7,6 +7,7 @@ import NewsPage from "./NewsPage";
 import Maintences from "./Maintences";
 import DataScrollerHeader from "../utils/DataScrollerHeader";
 import Maximalized from "~/utils/dialogs/Maximalized";
+import Selected from "~/utils/dialogs/Selected";
 
 export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
@@ -214,40 +215,14 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 			)}
 
 			{onViewDialogOpened && selectedItem && (
-				<Dialog
-					header={title}
-					headerStyle={{ marginLeft: "1.5rem" }}
-					visible={onViewDialogOpened}
-					onHide={() => {
-						setOnViewDialogOpened(false);
-						setSelectedItem(null);
-					}}
-					className="min-h-[96vh] w-[46vw] !bg-[#343d4a] text-gray-300 px-3 overflow-hidden"
-					contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300 px-3"
-					headerClassName="!bg-[#343d4a] text-gray-300 px-3"
-					draggable={false}
-					resizable={false}
-				>
-					<div className="grid grid-cols-1 gap-4">
-						<div className="bg-[#343d4a] p-4 rounded-lg">
-							{isNews(selectedItem) ? (
-								<NewsPage
-									title={selectedItem.title}
-									content={selectedItem.content}
-									createdBy={selectedItem.createdBy}
-									date={selectedItem.publishedAt}
-								/>
-							) : (
-								<Maintences
-									title={selectedItem.title}
-									description={selectedItem.description}
-									responsible={selectedItem.responsible || ""}
-									status={selectedItem.status}
-								/>
-							)}
-						</div>
-					</div>
-				</Dialog>
+				<Selected
+					title={title}
+					onViewDialogOpened={onViewDialogOpened}
+					setOnViewDialogOpened={setOnViewDialogOpened}
+					selectedItem={selectedItem}
+					setSelectedItem={setSelectedItem}
+					isNews={isNews}
+				/>
 			)}
 		</div>
 	);
