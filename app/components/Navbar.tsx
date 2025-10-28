@@ -83,8 +83,9 @@ export default function Navbar({
 						houseList.map((house: House) => (
 							<Button
 								key={house.id}
+								unstyled
 								onClick={() => setSelectedHouse(house)}
-								className="text-sm/6 font-semibold text-grey-50"
+								className="text-sm/6 font-semibold text-grey-50 block my-2"
 							>
 								{house.name}
 							</Button>
@@ -97,7 +98,7 @@ export default function Navbar({
 										key={house.id}
 										unstyled
 										onClick={() => setSelectedHouse(house)}
-										className="text-sm/6 font-semibold text-grey-50"
+										className="text-sm/6 font-semibold text-grey-50 block my-2"
 									>
 										{house.name}
 									</Button>
