@@ -1,22 +1,52 @@
 import { DataScroller } from "primereact/datascroller";
 import { Dialog } from "primereact/dialog";
+import { useState } from "react";
 import Maintences from "~/components/Maintences";
 import NewsPage from "~/components/NewsPage";
 import type { Maintence, News } from "~/interfaces/Dashboard";
+import DataScrollerHeader from "../DataScrollerHeader";
 
-export default function Maximalized() {
-	const itemTemplate = (item: News | Maintence, isHoverable = false) => {
-		if (isNews(item)) {
-			return renderNewsTemplate(item, isHoverable);
-		} else if (isMaintence(item)) {
-			return renderMaintenceTemplate(item, isHoverable);
-		}
+interface Maximalized<T = News | Maintence> {
+	title: string;
+	type: "news" | "maintence";
+	onMaximizedHide: () => void;
+	onMaximizedOpened: boolean;
+	filter?: (searchTerm: string) => void;
+	filteredItem: T[];
+	itemTemplate: (item: T, isHoverable: boolean) => React.ReactNode;
+	hoveredItem: News | Maintence | null; // Új prop
+	setHoveredItem: (item: News | Maintence | null) => void;
+}
+
+export default function Maximalized({
+	title,
+	type,
+	onMaximizedHide,
+	onMaximizedOpened,
+	filter,
+	filteredItem,
+	itemTemplate,
+	hoveredItem,
+	setHoveredItem,
+}: Maximalized) {
+	const [createNews, setCreateNews] = useState<boolean>(false);
+	const [createTask, setCreateTask] = useState<boolean>(false);
+	// Type guard függvények
+	const isNews = (item: News | Maintence): item is News => {
+		return type === "news";
 	};
 
 	// Külön template a dialog-ban lévő DataScroller-hez (hover funkcionalitással)
 	const hoverableItemTemplate = (item: News | Maintence) => {
 		return itemTemplate(item, true);
 	};
+
+	const maximizedHeader = DataScrollerHeader.headerMaximalized({
+		type,
+		filter,
+		setCreateNews,
+		setCreateTask,
+	});
 
 	// Komponens a jobb oldali részletekhez
 	const renderItemDetails = () => {

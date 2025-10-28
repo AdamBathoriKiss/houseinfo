@@ -6,6 +6,7 @@ import { Dialog } from "primereact/dialog";
 import NewsPage from "./NewsPage";
 import Maintences from "./Maintences";
 import DataScrollerHeader from "../utils/DataScrollerHeader";
+import Maximalized from "~/utils/dialogs/Maximalized";
 
 export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
@@ -21,9 +22,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 	const [onMaximizedOpened, setOnMaximizedOpened] = useState<boolean>(false);
 	const [onViewDialogOpened, setOnViewDialogOpened] = useState<boolean>(false);
 	const [hoveredItem, setHoveredItem] = useState<News | Maintence | null>(null);
-	const [selectedItem, setSelectedItem] = useState<News | Maintence | null>(null); // Új state a kiválasztott elemhez
-	const [createNews, setCreateNews] = useState<boolean>(false);
-	const [createTask, setCreateTask] = useState<boolean>(false);
+	const [selectedItem, setSelectedItem] = useState<News | Maintence | null>(null);
 	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>([]);
 
 	useEffect(() => {
@@ -48,13 +47,6 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 
 		setFilteredItem(filtered);
 	};
-
-	const maximizedHeader = DataScrollerHeader.headerMaximalized({
-		type,
-		filter,
-		setCreateNews,
-		setCreateTask,
-	});
 
 	const onMaximizedHide = () => {
 		setOnMaximizedOpened(false);
@@ -194,91 +186,6 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 		}
 	};
 
-	// Külön template a dialog-ban lévő DataScroller-hez (hover funkcionalitással)
-	const hoverableItemTemplate = (item: News | Maintence) => {
-		return itemTemplate(item, true);
-	};
-
-	// Komponens a jobb oldali részletekhez
-	const renderItemDetails = () => {
-		if (!hoveredItem && !createNews && !createTask) {
-			return (
-				<div className="flex items-center justify-center h-full text-gray-400">
-					<div className="text-center">
-						<i className="pi pi-info-circle text-4xl mb-4"></i>
-						<p>Vigye az egeret egy elem fölé a részletek megtekintéséhez</p>
-					</div>
-				</div>
-			);
-		}
-
-		if (createNews) {
-			return (
-				<div className="p-4  rounded-lg h-fit">
-					<div className="flex justify-between items-center mb-4">
-						<h3 className="text-xl font-bold text-gray-100 mb-4">Új hír létrehozása</h3>
-						<i
-							className="pi pi-times cursor-pointer"
-							style={{ fontSize: "2rem" }}
-							onClick={() => setCreateNews(false)}
-						></i>
-					</div>
-					<NewsPage title="" content="" createdBy="" date="" />
-				</div>
-			);
-		}
-
-		if (createTask) {
-			return (
-				<div className="p-4  rounded-lg h-fit">
-					<div className="flex justify-between items-center mb-4">
-						<h3 className="text-xl font-bold text-gray-100 mb-4">Új feladat létrehozása</h3>
-						<i
-							className="pi pi-times cursor-pointer"
-							style={{ fontSize: "2rem" }}
-							onClick={() => setCreateTask(false)}
-						></i>
-					</div>
-					<Maintences title="" description="" responsible="" status="" />
-				</div>
-			);
-		}
-
-		if (hoveredItem) {
-			return (
-				<div className="p-4  rounded-lg h-fit">
-					<div className="flex justify-between items-center mb-4">
-						<h3 className="text-xl font-bold text-gray-100 mb-4">Részletek</h3>
-						<i
-							className="pi pi-times cursor-pointer"
-							style={{ fontSize: "2rem" }}
-							onClick={() => setHoveredItem(null)}
-						></i>
-					</div>
-					{isNews(hoveredItem) ? (
-						<div className="space-y-3">
-							<NewsPage
-								title={hoveredItem.title}
-								content={hoveredItem.content}
-								createdBy={hoveredItem.createdBy}
-								date={hoveredItem.publishedAt}
-							/>
-						</div>
-					) : (
-						<div className="space-y-3">
-							<Maintences
-								title={hoveredItem.title}
-								description={hoveredItem.description}
-								responsible={hoveredItem.responsible || ""}
-								status={hoveredItem.status}
-							/>
-						</div>
-					)}
-				</div>
-			);
-		}
-	};
-
 	return (
 		<div>
 			<DataScroller
@@ -293,32 +200,17 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 
 			{/* Dialog */}
 			{onMaximizedOpened && (
-				<Dialog
-					header={title}
-					headerStyle={{ marginLeft: "1.5rem" }}
-					visible={onMaximizedOpened}
-					onHide={onMaximizedHide}
-					className="min-h-[96vh] w-[96vw] !bg-[#343d4a] text-gray-300 px-3 overflow-hidden"
-					contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300 px-3"
-					headerClassName="!bg-[#343d4a] text-gray-300 px-3"
-					draggable={false}
-					resizable={false}
-				>
-					<div className="grid grid-cols-2 gap-4">
-						<DataScroller
-							value={filteredItem}
-							itemTemplate={hoverableItemTemplate}
-							rows={15}
-							inline
-							scrollHeight="510px"
-							header={maximizedHeader}
-							className="!bg-[#343d4a]"
-						/>
-
-						{/* Jobb oldali részletek panel */}
-						<div className="bg-[#343d4a] p-4 rounded-lg">{renderItemDetails()}</div>
-					</div>
-				</Dialog>
+				<Maximalized
+					title={title}
+					type={type}
+					onMaximizedHide={onMaximizedHide}
+					onMaximizedOpened={onMaximizedOpened}
+					filter={filter}
+					filteredItem={filteredItem}
+					itemTemplate={itemTemplate}
+					hoveredItem={hoveredItem}
+					setHoveredItem={setHoveredItem}
+				/>
 			)}
 
 			{onViewDialogOpened && selectedItem && (
