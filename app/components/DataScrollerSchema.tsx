@@ -18,7 +18,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 	title,
 	type,
 }: DataScrollerSchemaProps<T>) {
-	const [onDialogOpened, setOnDialogOpened] = useState<boolean>(false);
+	const [onMaximizedOpened, setOnMaximizedOpened] = useState<boolean>(false);
 	const [onViewDialogOpened, setOnViewDialogOpened] = useState<boolean>(false);
 	const [hoveredItem, setHoveredItem] = useState<News | Maintence | null>(null);
 	const [selectedItem, setSelectedItem] = useState<News | Maintence | null>(null); // Új state a kiválasztott elemhez
@@ -47,6 +47,19 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 		}
 
 		setFilteredItem(filtered);
+	};
+
+	const maximizedHeader = DataScrollerHeader.headerMaximalized({
+		type,
+		filter,
+		setCreateNews,
+		setCreateTask,
+	});
+
+	const onMaximizedHide = () => {
+		setOnMaximizedOpened(false);
+		setHoveredItem(null); // Reset hover state when closing
+		setFilteredItem(dataTableValue);
 	};
 
 	// Type guard függvények
@@ -274,21 +287,17 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 				rows={5}
 				inline
 				scrollHeight="310px"
-				header={DataScrollerHeader.header({ title, filter, onDialogOpened, setOnDialogOpened })}
+				header={DataScrollerHeader.header({ title, filter, onMaximizedOpened, setOnMaximizedOpened })}
 				className="!bg-[#343d4a]"
 			/>
 
 			{/* Dialog */}
-			{onDialogOpened && (
+			{onMaximizedOpened && (
 				<Dialog
 					header={title}
 					headerStyle={{ marginLeft: "1.5rem" }}
-					visible={onDialogOpened}
-					onHide={() => {
-						setOnDialogOpened(false);
-						setHoveredItem(null); // Reset hover state when closing
-						setFilteredItem(dataTableValue);
-					}}
+					visible={onMaximizedOpened}
+					onHide={onMaximizedHide}
 					className="min-h-[96vh] w-[96vw] !bg-[#343d4a] text-gray-300 px-3 overflow-hidden"
 					contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300 px-3"
 					headerClassName="!bg-[#343d4a] text-gray-300 px-3"
@@ -302,12 +311,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							rows={15}
 							inline
 							scrollHeight="510px"
-							header={DataScrollerHeader.headerMaximalized({
-								type,
-								filter,
-								setCreateNews,
-								setCreateTask,
-							})}
+							header={maximizedHeader}
 							className="!bg-[#343d4a]"
 						/>
 

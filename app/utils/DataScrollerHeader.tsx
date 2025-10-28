@@ -5,22 +5,22 @@ export interface HeaderInterface {
 	title?: string;
 	type?: string;
 	filter?: (searchTerm: string) => void;
-	onDialogOpened?: boolean;
-	setOnDialogOpened?: (onDialogOpened: boolean) => void;
+	onMaximizedOpened?: boolean;
+	setOnMaximizedOpened?: (onDialogOpened: boolean) => void;
 	setCreateNews?: (item: boolean) => void;
 	setCreateTask?: (item: boolean) => void;
 }
 
-const header = ({ title, filter, onDialogOpened, setOnDialogOpened }: HeaderInterface) => {
+const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened }: HeaderInterface) => {
 	return (
 		<div className="w-full flex flex-row justify-between items-center">
 			<p className="mx-4 text-dark-200 font-black">{title}</p>
 			<div className="flex flex-row items-center justify-around gap-2">
 				{filter && <SearchBar filterFunction={filter} />}
-				{setOnDialogOpened !== undefined && (
+				{setOnMaximizedOpened !== undefined && (
 					<span
 						className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
-						onClick={() => setOnDialogOpened(!onDialogOpened)}
+						onClick={() => setOnMaximizedOpened(!onMaximizedOpened)}
 					></span>
 				)}
 			</div>
