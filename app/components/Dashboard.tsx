@@ -3,75 +3,10 @@ import DataTableSchema from "./DataTableSchema";
 import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
 import DoughnutChart from "./DoughnutChart";
-import LoggedInHeader from "./DashboardHeader";
+import DashboardHeader from "./DashboardHeader";
 import EventCalendar from "./EventCalendar";
 import DashboardService from "~/services/dashboard.service";
-import { set } from "zod";
-
-export interface Residents {
-	id: string;
-	name: string;
-	address: string;
-	phoneNumber: string;
-	email: string;
-	birthOfDate: string;
-}
-
-export interface News {
-	id: string;
-	title: string;
-	publishedAt: string;
-	createdBy: string;
-	content: string;
-}
-
-export interface Maintence {
-	id: string;
-	title: string;
-	deadline: string;
-	status: string;
-	description: string;
-	responsible: string;
-}
-
-export interface Bills {
-	id: string;
-	accountNumber: string;
-	amount: number;
-	invoiceDate: string;
-	paymentDeadline: string;
-	status: string;
-}
-
-export interface Documents {
-	id: string;
-	name: string;
-	createdBy: string;
-	date: string;
-	type: string;
-	size: string;
-}
-
-export interface ChartData {
-	parkings: number;
-	normalParkings: number;
-	occupiedNormal: number;
-	freeNormal: number;
-	electricParkings: number;
-	occupiedElectric: number;
-	freeElectric: number;
-}
-
-export interface FinanceReports {
-	financeIncomes: Array<{
-		paidDate: string;
-		amount: string;
-	}>;
-	financeOutcomes: Array<{
-		paidDate: string;
-		amount: string;
-	}>;
-}
+import type { ChartData, FinanceReports } from "~/interfaces/Dashboard";
 
 export default function Dashboard({ houses, selectedHouse }: { houses: any[]; selectedHouse: any }) {
 	// Lakók
@@ -271,7 +206,7 @@ export default function Dashboard({ houses, selectedHouse }: { houses: any[]; se
 
 	return (
 		<div className="flex flex-col min-h-screen px-6 ">
-			<LoggedInHeader financeTotal={financeTotal} activeTasks={activeTasks} expenseTotal={expenseTotal} />
+			<DashboardHeader financeTotal={financeTotal} activeTasks={activeTasks} expenseTotal={expenseTotal} />
 			<div className="grid grid-cols-2 gap-6 px-4 my-4">
 				{/* Bal oldali oszlop */}
 				<div className="flex flex-col gap-6">

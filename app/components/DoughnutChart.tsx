@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
-import type { ChartData } from "./Dashboard";
 
 export default function DoughnutChart({
 	title,

@@ -1,5 +1,5 @@
 import { DataScroller } from "primereact/datascroller";
-import type { News, Maintence } from "./Dashboard";
+import type { News, Maintence } from "../interfaces/Dashboard";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
