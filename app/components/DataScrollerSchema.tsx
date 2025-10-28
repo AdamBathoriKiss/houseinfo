@@ -1,11 +1,11 @@
 import { DataScroller } from "primereact/datascroller";
-import type { News, Maintence } from "./LoggedIn";
+import type { News, Maintence } from "./Dashboard";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import NewsPage from "./NewsPage";
 import Maintences from "./Maintences";
-import SearchBar from "./SearchBar";
+import DataScrollerHeader from "../utils/DataScrollerHeader";
 
 export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
@@ -266,47 +266,6 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 		}
 	};
 
-	const header = () => {
-		return (
-			<div className="w-full flex flex-row justify-between items-center">
-				<p className="mx-4 text-dark-200 font-black">{title}</p>
-				<div className="flex flex-row items-center justify-around gap-2">
-					<SearchBar filterFunction={filter} />
-					<span
-						className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
-						onClick={() => setOnDialogOpened(!onDialogOpened)}
-					></span>
-				</div>
-			</div>
-		);
-	};
-
-	const headerMaximalized = () => {
-		return (
-			<div className="flex flex-row items-center justify-between gap-2">
-				<SearchBar filterFunction={filter} />
-
-				{type === "news" && (
-					<Button
-						icon="pi pi-plus"
-						tooltip="Új hír létrehozása"
-						onClick={() => setCreateNews(true)}
-						className="!p-2 !bg-teal-400  !text-white !font-semibold !rounded-md !shadow-md"
-					/>
-				)}
-
-				{type === "maintence" && (
-					<Button
-						icon="pi pi-plus"
-						tooltip="Új feladat létrehozása"
-						onClick={() => setCreateTask(true)}
-						className="!p-2 !bg-teal-400  !text-white !font-semibold !rounded-md !shadow-md"
-					/>
-				)}
-			</div>
-		);
-	};
-
 	return (
 		<div>
 			<DataScroller
@@ -315,7 +274,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 				rows={5}
 				inline
 				scrollHeight="310px"
-				header={header()}
+				header={DataScrollerHeader.header({ title, filter, onDialogOpened, setOnDialogOpened })}
 				className="!bg-[#343d4a]"
 			/>
 
@@ -343,7 +302,12 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							rows={15}
 							inline
 							scrollHeight="510px"
-							header={headerMaximalized()}
+							header={DataScrollerHeader.headerMaximalized({
+								type,
+								filter,
+								setCreateNews,
+								setCreateTask,
+							})}
 							className="!bg-[#343d4a]"
 						/>
 

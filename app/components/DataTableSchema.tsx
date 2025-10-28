@@ -1,11 +1,11 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import type { Residents, News, Maintence, Bills, Documents } from "./LoggedIn";
+import type { Residents, News, Maintence, Bills, Documents } from "./Dashboard";
 import dataTableColumns from "~/utils/dataTableColumns";
 import "../app.css";
 import { Button } from "primereact/button";
 import FileUploader from "./FileUploader";
-import SearchBar from "./SearchBar";
+import SearchBar from "../utils/SearchBar";
 import { useEffect, useState } from "react";
 
 export interface DataTableSchemaProps {

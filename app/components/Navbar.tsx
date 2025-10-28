@@ -1,7 +1,7 @@
 import { Dialog } from "primereact/dialog";
 import { useEffect, useState } from "react";
 import type { House } from "~/hooks/useMain";
-import SearchBar from "./SearchBar";
+import SearchBar from "../utils/SearchBar";
 import UserMenu from "./UserMenu";
 import { Button } from "primereact/button";
 
@@ -10,7 +10,7 @@ interface FilteredHouses {
 	name: string;
 }
 
-export default function Header({
+export default function Navbar({
 	houses,
 	setSelectedHouse,
 }: {
