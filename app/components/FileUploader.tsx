@@ -10,6 +10,7 @@ export default function FileUploader() {
 		<React.Fragment>
 			<Button
 				icon="pi pi-upload"
+				unstyled
 				tooltip="Dokumentum feltöltése"
 				className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 				onClick={() => setOnShow(true)}

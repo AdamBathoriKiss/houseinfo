@@ -22,7 +22,8 @@ const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened, fileUp
 
 				<Button
 					icon="pi pi-plus"
-					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+					unstyled
+					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 !mx-2 !px-0"
 					onClick={() => alert("Megnyomva")}
 				/>
 				{setOnMaximizedOpened !== undefined && (
