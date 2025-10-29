@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import { Menu } from "primereact/menu";
 import type { MenuItem } from "primereact/menuitem";
 import { Toast } from "primereact/toast";
@@ -14,16 +15,12 @@ export interface User {
 }
 
 export default function UserMenu() {
-	const {setToken} = useAuth();	
-	const menuLeft = useRef<Menu>(null);
+	const { token } = useAuth();
 	const menuRight = useRef<Menu>(null);
 	const toast = useRef<Toast>(null);
 	const [visible, setVisible] = useState(false);
-	const [user, setUser] = useState({
-		id: "1",
-		name: "Teszt",
-		email: "teszt@teszt.hu",
-	});
+	const [user, setUser] = useState<User | null>(null);
+
 	const items: MenuItem[] = [
 		{
 			label: "Options",
@@ -51,6 +48,12 @@ export default function UserMenu() {
 		},
 	];
 
+	useEffect(() => {
+		if (token && user === null) {
+			setUser(jwtDecode(token));
+		}
+	}, [token]);
+
 	return (
 		<div className="card flex justify-content-center">
 			<Toast ref={toast}></Toast>
@@ -62,10 +65,10 @@ export default function UserMenu() {
 				aria-controls="popup_menu_right"
 				aria-haspopup
 			>
-				UserName
+				{user?.email}
 				<FaUser className="my-auto" />
 			</span>
-			<UserEdit visible={visible} setVisible={setVisible} user={user} />
+			{user && <UserEdit visible={visible} setVisible={setVisible} user={user} />}
 		</div>
 	);
 }
