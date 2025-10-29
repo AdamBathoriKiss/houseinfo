@@ -69,7 +69,7 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 					<Button
 						icon="pi pi-trash"
 						tooltip="Törlés"
-						className="!bg-transparent border-none  !text-red-600 !hover:text-gray-50 hover:!bg-gray-600/30"
+						className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 					/>
 				</div>
 			);

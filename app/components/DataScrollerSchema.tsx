@@ -93,14 +93,14 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<Button
 								icon="pi pi-trash"
 								tooltip="Hír törlése"
-								className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+								className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 							/>
 						)}
 						{!isHoverable && (
 							<div className="flex justify-center items-center gap-3">
 								<Button
 									icon="pi pi-eye"
-									className="p-button-rounded p-button-sm"
+									className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 									onClick={() => {
 										setSelectedItem(news);
 										setOnViewDialogOpened(true);
@@ -109,7 +109,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 								<Button
 									icon="pi pi-trash"
 									tooltip="Hír törlése"
-									className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+									className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 								/>
 							</div>
 						)}
@@ -156,7 +156,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<div className="flex justify-center items-center gap-3">
 								<Button
 									icon="pi pi-eye"
-									className="p-button-rounded p-button-sm"
+									className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 									onClick={() => {
 										setSelectedItem(Maintence);
 										setOnViewDialogOpened(true);
@@ -165,7 +165,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 								<Button
 									icon="pi pi-trash"
 									tooltip="Feladat törlése"
-									className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+									className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 								/>
 							</div>
 						)}

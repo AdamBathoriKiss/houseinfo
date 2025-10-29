@@ -17,6 +17,12 @@ const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened }: Head
 			<p className="mx-4 text-dark-200 font-black">{title}</p>
 			<div className="flex flex-row items-center justify-around gap-2">
 				{filter && <SearchBar filterFunction={filter} />}
+
+				<Button
+					icon="pi pi-plus"
+					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+					onClick={() => alert("Megnyomva")}
+				/>
 				{setOnMaximizedOpened !== undefined && (
 					<span
 						className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
@@ -38,7 +44,7 @@ const headerMaximalized = ({ type, filter, setCreateNews, setCreateTask }: Heade
 					icon="pi pi-plus"
 					tooltip="Új hír létrehozása"
 					onClick={() => setCreateNews(true)}
-					className="!p-2 !bg-teal-400  !text-white !font-semibold !rounded-md !shadow-md"
+					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 				/>
 			)}
 
@@ -47,7 +53,7 @@ const headerMaximalized = ({ type, filter, setCreateNews, setCreateTask }: Heade
 					icon="pi pi-plus"
 					tooltip="Új feladat létrehozása"
 					onClick={() => setCreateTask(true)}
-					className="!p-2 !bg-teal-400  !text-white !font-semibold !rounded-md !shadow-md"
+					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 				/>
 			)}
 		</div>
