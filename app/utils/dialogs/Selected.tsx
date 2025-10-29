@@ -23,20 +23,20 @@ export default function Selected({
 	return (
 		<Dialog
 			header={title}
-			headerStyle={{ marginLeft: "1.5rem" }}
+			headerStyle={{ marginLeft: "0.65rem" }}
 			visible={onViewDialogOpened}
 			onHide={() => {
 				setOnViewDialogOpened(false);
 				setSelectedItem(null);
 			}}
-			className="min-h-[96vh] w-[46vw] !bg-[#343d4a] text-gray-300 px-3 overflow-hidden"
-			contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300 px-3"
-			headerClassName="!bg-[#343d4a] text-gray-300 px-3"
+			className="min-h-[60vh] w-[30vw] !bg-[#343d4a] text-gray-300 overflow-hidden"
+			contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300"
+			headerClassName="!bg-[#343d4a] text-gray-300"
 			draggable={false}
 			resizable={false}
 		>
-			<div className="grid grid-cols-1 gap-4">
-				<div className="bg-[#343d4a] p-4 rounded-lg">
+			<div className="grid grid-cols-1">
+				<div className="bg-[#343d4a] rounded-lg">
 					{selectedItem && isNews(selectedItem) ? (
 						<NewsPage
 							title={selectedItem.title}
