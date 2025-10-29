@@ -1,5 +1,6 @@
 import { Button } from "primereact/button";
 import SearchBar from "./SearchBar";
+import FileUploader from "~/components/FileUploader";
 
 export interface HeaderInterface {
 	title?: string;
@@ -9,9 +10,10 @@ export interface HeaderInterface {
 	setOnMaximizedOpened?: (onDialogOpened: boolean) => void;
 	setCreateNews?: (item: boolean) => void;
 	setCreateTask?: (item: boolean) => void;
+	fileUpdateDialog?: boolean;
 }
 
-const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened }: HeaderInterface) => {
+const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened, fileUpdateDialog }: HeaderInterface) => {
 	return (
 		<div className="w-full flex flex-row justify-between items-center">
 			<p className="mx-4 text-dark-200 font-black">{title}</p>
@@ -29,6 +31,7 @@ const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened }: Head
 						onClick={() => setOnMaximizedOpened(!onMaximizedOpened)}
 					></span>
 				)}
+				{fileUpdateDialog && <FileUploader />}
 			</div>
 		</div>
 	);
@@ -60,9 +63,9 @@ const headerMaximalized = ({ type, filter, setCreateNews, setCreateTask }: Heade
 	);
 };
 
-const DataScrollerHeader = {
+const DataHeader = {
 	header,
 	headerMaximalized,
 };
 
-export default DataScrollerHeader;
+export default DataHeader;

@@ -2,10 +2,7 @@ import { DataScroller } from "primereact/datascroller";
 import type { News, Maintence } from "../interfaces/Dashboard";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
-import { Dialog } from "primereact/dialog";
-import NewsPage from "./NewsPage";
-import Maintences from "./Maintences";
-import DataScrollerHeader from "../utils/DataScrollerHeader";
+import DataScrollerHeader from "../utils/DataHeader";
 import Maximalized from "~/utils/dialogs/Maximalized";
 import Selected from "~/utils/dialogs/Selected";
 

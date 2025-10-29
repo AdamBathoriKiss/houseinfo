@@ -4,7 +4,7 @@ import { useState } from "react";
 import Maintences from "~/components/Maintences";
 import NewsPage from "~/components/NewsPage";
 import type { Maintence, News } from "~/interfaces/Dashboard";
-import DataScrollerHeader from "../DataScrollerHeader";
+import DataScrollerHeader from "../DataHeader";
 
 interface Maximalized<T = News | Maintence> {
 	title: string;
