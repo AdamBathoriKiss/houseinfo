@@ -48,17 +48,19 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 						icon="pi pi-eye"
 						unstyled
 						tooltip="Szerkesztés"
-						className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+						className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 mx-2"
 					/>
 					<Button
 						icon="pi pi-download"
+						unstyled
 						tooltip="Letöltés"
-						className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50"
+						className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50 mx-2"
 					/>
 					<Button
 						icon="pi pi-trash"
+						unstyled
 						tooltip="Törlés"
-						className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
+						className="!text-red-600 !bg-transparent hover:!bg-gray-600/30 mx-2"
 					/>
 				</div>
 			);

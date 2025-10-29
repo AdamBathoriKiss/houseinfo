@@ -17,7 +17,7 @@ const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened, fileUp
 	return (
 		<div className="w-full flex flex-row justify-between items-center">
 			<p className="mx-4 text-dark-200 font-black">{title}</p>
-			<div className="flex flex-row items-center justify-around gap-2">
+			<div className="flex flex-row items-center justify-around">
 				{filter && <SearchBar filterFunction={filter} />}
 
 				<Button

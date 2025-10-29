@@ -19,6 +19,7 @@ export default function FileUploader() {
 				<Dialog
 					header="Dokumentum feltöltése"
 					headerClassName="!bg-[#343d4a] "
+					contentClassName="!p-0"
 					visible={onShow}
 					className="w-[35vw]"
 					onHide={() => setOnShow(false)}
@@ -27,8 +28,8 @@ export default function FileUploader() {
 						name="demo[]"
 						url={"/api/upload"}
 						multiple
-						headerClassName="!bg-[#343d4a]"
-						contentClassName="!bg-[#343d4a]"
+						headerClassName="!w-full !bg-[#343d4a]"
+						contentClassName="!w-full !bg-[#343d4a]"
 						chooseLabel="Fájl kiválasztása"
 						uploadLabel="Feltöltés"
 						cancelLabel="Mégse"
