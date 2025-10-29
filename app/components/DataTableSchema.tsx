@@ -6,6 +6,7 @@ import "../app.css";
 import { Button } from "primereact/button";
 import DataScrollerHeader from "../utils/DataHeader";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
 export interface DataTableSchemaProps {
 	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[];
@@ -45,6 +46,7 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 				<div className="flex items-center text-start">
 					<Button
 						icon="pi pi-eye"
+						unstyled
 						tooltip="Szerkesztés"
 						className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 					/>
@@ -60,6 +62,11 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 					/>
 				</div>
 			);
+		}
+		if(field === "uploadedAt"){
+			return (
+				dayjs(rowData[field]).format('YYYY-MM-DD')
+			)
 		}
 		return rowData[field];
 	};

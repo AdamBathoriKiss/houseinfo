@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
@@ -26,7 +27,7 @@ export default function NewsPage({title, content, createdBy, date}: CurrentNews)
         if (title) setValue("title", title);
         if (content) setValue("content", content);
         if (createdBy) setValue("createdBy", createdBy);
-        if(date) setValue("date", date);
+        if(date) setValue("date", dayjs(date).format('YYYY-MM-DD'));
     }, [title, content, createdBy, setValue]);
 
     return (

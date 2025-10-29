@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import DataScrollerHeader from "../utils/DataHeader";
 import Maximalized from "~/utils/dialogs/Maximalized";
 import Selected from "~/utils/dialogs/Selected";
+import dayjs from "dayjs"
 
 export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
@@ -85,7 +86,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 						</div>
 					</div>
 					<div className="flex flex-col items-end gap-2">
-						<span className="text-sm font-semibold text-gray-100">{news.publishedAt}</span>
+						<span className="text-sm font-semibold text-gray-100">{dayjs(news.publishedAt).format('YYYY-MM-DD HH:mm')}</span>
 						{isHoverable && (
 							<Button
 								icon="pi pi-trash"
@@ -97,6 +98,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<div className="flex justify-center items-center gap-3">
 								<Button
 									icon="pi pi-eye"
+									unstyled
 									className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 									onClick={() => {
 										setSelectedItem(news);
@@ -116,10 +118,10 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 		);
 	};
 
-	const renderMaintenceTemplate = (Maintence: Maintence, isHoverable = false) => {
+	const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 		const hoverProps = isHoverable
 			? {
-					onMouseEnter: () => setHoveredItem(Maintence),
+					onMouseEnter: () => setHoveredItem(maintence),
 					//onMouseLeave: () => setHoveredItem(null),
 					style: { cursor: "pointer" },
 				}
@@ -132,12 +134,12 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 			>
 				<div className="flex flex-row w-full justify-between items-center">
 					<div className="flex flex-col gap-2">
-						<div className="text-xl font-bold text-gray-100">{Maintence.title}</div>
-						<div className="text-sm text-gray-300">{Maintence.description}</div>
-						{Maintence.responsible && (
+						<div className="text-xl font-bold text-gray-100">{maintence.title}</div>
+						<div className="text-sm text-gray-300">{maintence.description}</div>
+						{maintence.responsible && (
 							<div className="text-xs text-green-400">
 								<i className="pi pi-user-plus mr-2"></i>
-								Felelős: {Maintence.responsible}
+								Felelős: {maintence.responsible}
 							</div>
 						)}
 					</div>
@@ -153,9 +155,10 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<div className="flex justify-center items-center gap-3">
 								<Button
 									icon="pi pi-eye"
+									unstyled
 									className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
 									onClick={() => {
-										setSelectedItem(Maintence);
+										setSelectedItem(maintence);
 										setOnViewDialogOpened(true);
 									}}
 								/>
@@ -168,7 +171,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 						)}
 						<div className="text-xs my-3 text-gray-400">
 							<i className="pi pi-wave-pulse mr-2"></i>
-							{Maintence.status}
+							{maintence.status}
 						</div>
 					</div>
 				</div>
