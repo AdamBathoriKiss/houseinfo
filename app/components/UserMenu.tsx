@@ -9,9 +9,11 @@ import { useAuth } from "~/utils/AuthProvider";
 import AuthService from "~/services/auth.service";
 
 export interface User {
-	id: string;
-	name: string;
+	userId: string;
+	firstName: string;
+	lastName: string;
 	email: string;
+	role: string
 }
 
 export default function UserMenu() {
@@ -23,21 +25,25 @@ export default function UserMenu() {
 
 	const items: MenuItem[] = [
 		{
-			label: "Options",
+			label: "Menü",
 			items: [
 				{
-					label: "My account",
+					label: "Fiókom",
 					icon: "pi pi-user-edit",
 					command: () => {
 						setVisible(true);
 					},
 				},
 				{
-					label: "Export",
-					icon: "pi pi-upload",
+					label: "Épületek",
+					icon: "pi pi-building",
 				},
 				{
-					label: "Logout",
+					label: "Fiók törlése",
+					icon: "pi pi-user-minus",
+				},
+				{
+					label: "Kijelentkezés",
 					icon: "pi pi-sign-out",
 					command: () => {
 						AuthService.logout();
@@ -65,7 +71,7 @@ export default function UserMenu() {
 				aria-controls="popup_menu_right"
 				aria-haspopup
 			>
-				{user?.email}
+				{user?.firstName}
 				<FaUser className="my-auto" />
 			</span>
 			{user && <UserEdit visible={visible} setVisible={setVisible} user={user} />}
