@@ -1,72 +1,98 @@
 import { Button } from "primereact/button";
 import SearchBar from "./SearchBar";
 import FileUploader from "~/components/FileUploader";
+import { useState } from "react";
 
 export interface HeaderInterface {
-	title?: string;
-	type?: string;
-	filter?: (searchTerm: string) => void;
-	onMaximizedOpened?: boolean;
-	setOnMaximizedOpened?: (onDialogOpened: boolean) => void;
-	setCreateNews?: (item: boolean) => void;
-	setCreateTask?: (item: boolean) => void;
-	fileUpdateDialog?: boolean;
+    title?: string;
+    type?: string;
+    filter?: (searchTerm: string) => void;
+    onMaximizedOpened?: boolean;
+    setOnMaximizedOpened?: (onDialogOpened: boolean) => void;
+    setCreateNews?: (item: boolean) => void;
+    setCreateTask?: (item: boolean) => void;
+    fileUpdateDialog?: boolean;
 }
 
-const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened, fileUpdateDialog }: HeaderInterface) => {
-	return (
-		<div className="w-full flex flex-row justify-between items-center">
-			<p className="mx-4 text-dark-200 font-black">{title}</p>
-			<div className="flex flex-row items-center justify-around">
-				{filter && <SearchBar filterFunction={filter} />}
+const header = ({
+    title,
+    filter,
+    onMaximizedOpened,
+    setOnMaximizedOpened,
+    fileUpdateDialog,
+    setCreateNews,
+    setCreateTask,
+    type,
+}: HeaderInterface) => {
+    return (
+        <div className="w-full flex flex-row justify-between items-center">
+            <p className="mx-4 text-dark-200 font-black">{title}</p>
+            <div className="flex flex-row items-center justify-around">
+                {filter && <SearchBar filterFunction={filter} />}
 
-				{!fileUpdateDialog && <Button
-					icon="pi pi-plus"
-					unstyled
-					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 !mx-2 !px-0"
-					onClick={() => alert("Megnyomva")}
-				/>}
-				{setOnMaximizedOpened !== undefined && (
-					<span
-						className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
-						onClick={() => setOnMaximizedOpened(!onMaximizedOpened)}
-					></span>
-				)}
-				{fileUpdateDialog && <FileUploader />}
-			</div>
-		</div>
-	);
+                {type === "news" && setCreateNews &&(
+                    <Button
+                        icon="pi pi-plus"
+                        tooltip="Új hír létrehozása"
+                        onClick={() => setCreateNews(true)}
+                        className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+                    />
+                )}
+
+                {type === "maintence" && setCreateTask && (
+                    <Button
+                        icon="pi pi-plus"
+                        tooltip="Új feladat létrehozása"
+                        onClick={() => setCreateTask(true)}
+                        className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+                    />
+                )}
+                {setOnMaximizedOpened !== undefined && (
+                    <span
+                        className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
+                        onClick={() => setOnMaximizedOpened(!onMaximizedOpened)}
+                    ></span>
+                )}
+                {fileUpdateDialog && <FileUploader />}
+            </div>
+        </div>
+    );
 };
 
-const headerMaximalized = ({ type, filter, setCreateNews, setCreateTask }: HeaderInterface) => {
-	return (
-		<div className="flex flex-row items-center justify-between gap-2">
-			{filter && <SearchBar filterFunction={filter} />}
+const headerMaximalized = ({
+    type,
+    filter,
+    setCreateNews,
+    setCreateTask,
+}: HeaderInterface) => {
+    return (
+        <div className="flex flex-row items-center justify-between gap-2">
+            {filter && <SearchBar filterFunction={filter} />}
 
-			{type === "news" && setCreateNews && (
-				<Button
-					icon="pi pi-plus"
-					tooltip="Új hír létrehozása"
-					onClick={() => setCreateNews(true)}
-					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
-				/>
-			)}
+            {type === "news" && setCreateNews && (
+                <Button
+                    icon="pi pi-plus"
+                    tooltip="Új hír létrehozása"
+                    onClick={() => setCreateNews(true)}
+                    className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+                />
+            )}
 
-			{type === "maintence" && setCreateTask && (
-				<Button
-					icon="pi pi-plus"
-					tooltip="Új feladat létrehozása"
-					onClick={() => setCreateTask(true)}
-					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
-				/>
-			)}
-		</div>
-	);
+            {type === "maintence" && setCreateTask && (
+                <Button
+                    icon="pi pi-plus"
+                    tooltip="Új feladat létrehozása"
+                    onClick={() => setCreateTask(true)}
+                    className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+                />
+            )}
+        </div>
+    );
 };
 
 const DataHeader = {
-	header,
-	headerMaximalized,
+    header,
+    headerMaximalized,
 };
 
 export default DataHeader;

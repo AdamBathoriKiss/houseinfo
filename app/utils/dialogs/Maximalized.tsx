@@ -9,7 +9,7 @@ import Create from "./Create";
 
 interface Maximalized<T = News | Maintence> {
 	title: string;
-	type: "news" | "maintence";
+	type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
 	onMaximizedHide: () => void;
 	onMaximizedOpened: boolean;
 	filter?: (searchTerm: string) => void;
@@ -64,13 +64,13 @@ export default function Maximalized({
 
 		if (createNews) {
 			return (
-				<Create setCreateNews={setCreateNews} type="news"/>
+				<Create setVisible={setCreateNews} type="news"/>
 			);
 		}
 
 		if (createTask) {
 			return (
-			<Create setCreateTask={setCreateTask} type="maintence"/>
+			<Create setVisible={setCreateTask} type="maintence"/>
 			);
 		}
 
