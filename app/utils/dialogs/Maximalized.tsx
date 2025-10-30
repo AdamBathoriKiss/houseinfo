@@ -72,7 +72,7 @@ export default function Maximalized({
 							onClick={() => setCreateNews(false)}
 						></i>
 					</div>
-					<NewsPage title="" content="" createdBy="" date="" />
+					<NewsPage title="" content="" author={null} date="" />
 				</div>
 			);
 		}
@@ -109,7 +109,7 @@ export default function Maximalized({
 							<NewsPage
 								title={hoveredItem.title}
 								content={hoveredItem.content}
-								createdBy={hoveredItem.createdBy}
+								author={hoveredItem.author}
 								date={hoveredItem.publishedAt}
 							/>
 						</div>

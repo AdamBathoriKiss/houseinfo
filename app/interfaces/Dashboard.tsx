@@ -7,11 +7,21 @@ export interface Residents {
 	birthOfDate: string;
 }
 
+export interface User {
+	id: number;
+	email: string;
+	firstName: string;
+	lastName: string;
+	phone: string | null;
+	role: string;
+	// ... többi mező ha kell
+}
+
 export interface News {
 	id: string;
 	title: string;
 	publishedAt: string;
-	createdBy: string;
+	author: User;
 	content: string;
 }
 

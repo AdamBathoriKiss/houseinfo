@@ -41,7 +41,7 @@ export default function Selected({
 						<NewsPage
 							title={selectedItem.title}
 							content={selectedItem.content}
-							createdBy={selectedItem.createdBy}
+							author={selectedItem.author}
 							date={selectedItem.publishedAt}
 						/>
 					) : selectedItem ? (

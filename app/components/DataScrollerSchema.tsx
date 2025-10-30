@@ -82,7 +82,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 						<div className="text-sm text-gray-300">{news.content}</div>
 						<div className="text-xs text-gray-400">
 							<i className="pi pi-user mr-2"></i>
-							{news.createdBy}
+							{`${news.author.lastName} ${news.author.firstName}`}
 						</div>
 					</div>
 					<div className="flex flex-col items-end gap-2">

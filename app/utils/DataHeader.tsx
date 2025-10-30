@@ -20,12 +20,12 @@ const header = ({ title, filter, onMaximizedOpened, setOnMaximizedOpened, fileUp
 			<div className="flex flex-row items-center justify-around">
 				{filter && <SearchBar filterFunction={filter} />}
 
-				<Button
+				{!fileUpdateDialog && <Button
 					icon="pi pi-plus"
 					unstyled
 					className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 !mx-2 !px-0"
 					onClick={() => alert("Megnyomva")}
-				/>
+				/>}
 				{setOnMaximizedOpened !== undefined && (
 					<span
 						className="pi pi-window-maximize cursor-pointer hover:text-blue-500"

@@ -4,15 +4,16 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
 import { useEffect } from "react";
 import useNews from "~/hooks/useNews";
+import type { User } from "~/interfaces/Dashboard";
 
 interface CurrentNews {
     title: string;
     content: string;
-    createdBy: string;
+    author: User | null;
     date: string;
 }  
 
-export default function NewsPage({title, content, createdBy, date}: CurrentNews) {
+export default function NewsPage({title, content, author, date}: CurrentNews) {
     const {
         onSubmit,
         toast,
@@ -26,9 +27,12 @@ export default function NewsPage({title, content, createdBy, date}: CurrentNews)
     useEffect(() => {
         if (title) setValue("title", title);
         if (content) setValue("content", content);
-        if (createdBy) setValue("createdBy", createdBy);
+         if (author) {
+            const authorName = `${author.lastName} ${author.firstName}`;
+            setValue("author", authorName);
+        }
         if(date) setValue("date", dayjs(date).format('YYYY-MM-DD'));
-    }, [title, content, createdBy, setValue]);
+    }, [title, content, author, setValue]);
 
     return (
         <div className="h-full w-full">
@@ -59,14 +63,14 @@ export default function NewsPage({title, content, createdBy, date}: CurrentNews)
                             Létrehozta *
                         </label>
                         <input
-                            {...register("createdBy")}
+                            {...register("author")}
                             type="text"
                             placeholder="pl. Fő utca 123."
                             className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
-                        {errors.createdBy && (
+                        {errors.author && (
                             <span className="text-red-500 text-xs">
-                                {errors.createdBy.message}
+                                {errors.author.message}
                             </span>
                         )}
                         </div>

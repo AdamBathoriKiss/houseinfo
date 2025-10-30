@@ -8,7 +8,7 @@ import { Stepper } from "primereact/stepper";
 const schema = z.object({
     title: z.string().min(3, "Kötelező megadni a hír címét"),
     content: z.string().min(1, "Kötelező megadni a hír tartalmát"),
-    createdBy: z.string().min(3, "Kötelező megadni a hír létrehozóját"),
+    author: z.string().min(3, "Kötelező megadni a hír létrehozóját"),
     date: z.string().min(1, "Kötelező megadni a hír dátumát"),
 });
 
@@ -28,7 +28,7 @@ export default function useNews() {
         defaultValues: {
             title: "",
             content: "",
-            createdBy: "",
+            author: "",
             date: "",
         },
         resolver: zodResolver(schema),

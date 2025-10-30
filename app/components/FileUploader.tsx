@@ -12,7 +12,7 @@ export default function FileUploader() {
 				icon="pi pi-upload"
 				unstyled
 				tooltip="Dokumentum feltöltése"
-				className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+				className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 !mx-2 !px-0"
 				onClick={() => setOnShow(true)}
 			/>
 			{onShow && (
