@@ -76,7 +76,7 @@ export default function Maximalized({
 
 		if (hoveredItem) {
 			return (
-				<div className="p-4  rounded-lg h-fit">
+				<div className="rounded-lg h-fit">
 					<div className="flex justify-between items-center mb-4">
 						<h3 className="text-xl font-bold text-gray-100 mb-4">Részletek</h3>
 						<i

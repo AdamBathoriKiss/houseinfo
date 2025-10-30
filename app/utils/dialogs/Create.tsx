@@ -15,14 +15,14 @@ export default function Create({
 }: Creation) {
     const createModal = () => {
         return (
-            <div className="p-4  rounded-lg h-fit">
+            <div className="rounded-lg h-fit">
                 <div className="flex justify-between items-center mb-4">
                     {type === "news" ? (
-                        <h3 className="text-xl font-bold text-gray-100 mb-4">
+                        <h3 className="text-xl font-bold text-gray-100 p-3">
                             Új hír létrehozása
                         </h3>
                     ) : (
-                        <h3 className="text-xl font-bold text-gray-100 mb-4">
+                        <h3 className="text-xl font-bold text-gray-100 p-3">
                             Új feladat létrehozása
                         </h3>
                     )}
@@ -54,16 +54,15 @@ export default function Create({
                         ? "Új hír létrehozása"
                         : "Új feladat létrehozása"
                 }
-                headerStyle={{ marginLeft: "0.65rem" }}
                 visible={visible}
                 onHide={()=> setVisible(false)}
                 className="min-h-[60vh] w-[30vw] !bg-[#343d4a] text-gray-300 overflow-hidden"
-                contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300"
-                headerClassName="!bg-[#343d4a] text-gray-300"
+                contentClassName="h-full !p-0 !m-0 !bg-[#343d4a] text-gray-300"
+                headerClassName="!p-3 !bg-[#343d4a] text-gray-300"
                 draggable={false}
                 resizable={false}
             >
-                <div className="p-4  rounded-lg h-fit">
+                <div className="rounded-lg h-fit">
                     {type === "newsDialog" ? (
                         <NewsPage title="" content="" author={null} date="" />
                     ) : (
