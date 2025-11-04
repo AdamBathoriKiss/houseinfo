@@ -1,5 +1,4 @@
 import axiosInstance from "~/api/axiosInstance";
-import authAxios from "~/api/authAxios";
 
 const getBuildings =  (userId:string) => {
   const response =  axiosInstance.get(`/buildings/${userId}`);
@@ -7,17 +6,18 @@ const getBuildings =  (userId:string) => {
 };
 
 const createElement = async (type:string,body:any) => {
-    const response = await authAxios.post(`/api/${type}`, { body });
+    const response = await axiosInstance.post(`/api/${type}`, { body });
     return response.data;
 };
 
 const editElement = async (type:string,body:any) => {
-    const response = await authAxios.post(`/api/${type}`, { body });
+    const response = await axiosInstance.post(`/api/${type}`, { body });
     return response.data;
 };
 
 const deleteElement = async (type:string,id:number | string) => {
-    const response = await authAxios.post(`/api/${type}`, { id });
+  console.log("type:",type, "id:", id)
+    const response = await axiosInstance.post(`/api/${type}`, { id });
     return response.data;
 };
 
