@@ -20,5 +20,9 @@ export const useCommonProcesses = () => {
             });
     };
 
+    const create = (type: string, id: string | number, body: any)=>{
+
+    }
+
     return { remove };
 };
