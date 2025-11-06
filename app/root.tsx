@@ -13,6 +13,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import { PrimeReactProvider } from "primereact/api";
 import AuthProvider from "./utils/AuthProvider";
+import { ToastProvider } from "./utils/ToastProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -51,7 +52,9 @@ AOS.init();
   return (
     <AuthProvider>
     <PrimeReactProvider>
+      <ToastProvider>
       <Outlet />
+      </ToastProvider>
     </PrimeReactProvider>
     </AuthProvider>
   );
