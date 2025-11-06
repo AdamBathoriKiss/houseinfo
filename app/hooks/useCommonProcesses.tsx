@@ -1,6 +1,7 @@
 // useCommonProcesses.ts
 import { useToast } from "~/utils/ToastProvider";
 import CommonService from "~/services/common.service";
+import type { News, Maintence } from "~/interfaces/Dashboard";
 
 export const useCommonProcesses = () => {
     const { showSuccess, showError } = useToast();
@@ -20,7 +21,7 @@ export const useCommonProcesses = () => {
             });
     };
 
-    const create = (type: string, id: string | number, body: any)=>{
+    const create = (type: string, id: string | number, body: News | Maintence)=>{
         CommonService.create(type, id, body).then((response) => {
             if(response){
                 showSuccess('Sikeres létrehozás')
