@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, type JSXElementConstructor, type ReactElement, type ReactNode, type ReactPortal } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import { Toast } from "primereact/toast";
 import { Stepper } from "primereact/stepper";
+import { useToast } from "~/utils/ToastProvider";
 
 const schema = z.object({
     title: z.string().min(3, "Kötelező megadni a hír címét"),
@@ -15,7 +15,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function useNews() {
-    const toast = useRef<Toast>(null);
+    const { showSuccess, showError } = useToast();
     const stepperRef = useRef<Stepper | null>(null);
 
     const {
@@ -36,46 +36,28 @@ export default function useNews() {
 
     // Toast üzenet megjelenítése hibák esetén
     useEffect(() => {
-        if (Object.keys(errors).length > 0) {
-            toast.current?.show({
-                severity: "error",
-                summary: <b>Hiba történt a művelet közben!</b>,
-                detail: "Please fix the errors and try again.",
-                life: 5000,
-                sticky: false,
-                content: (props) => (
-                    <div className="flex flex-column" style={{ flex: "1" }}>
-                        <div
-                            className="font-medium text-sm my-3 text-900"
-                            style={{ whiteSpace: "pre-wrap" }}
-                        >
-                            {props.message.summary} <br />
-                            {Object.values(errors)
-                                .map((error) => error?.message)
-                                .filter(Boolean)
-                                .join("\n")}
-                        </div>
+if (Object.keys(errors).length > 0) {
+        showError(
+            'Hiba történt a művelet közben',
+            undefined, // detail paraméter (nem használod, ezért undefined)
+            (props: { message: { summary: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; }; }) => ( // content paraméter
+                <div className="flex flex-column" style={{ flex: "1" }}>
+                    <div
+                        className="font-medium text-sm my-3 text-900"
+                        style={{ whiteSpace: "pre-wrap" }}
+                    >
+                        {props.message.summary} <br />
+                        {Object.values(errors)
+                            .map((error) => error?.message)
+                            .filter(Boolean)
+                            .join("\n")}
                     </div>
-                ),
-            });
-        }
+                </div>
+            )
+        );
+    }
         if (isSubmitted && Object.keys(errors).length === 0) {
-            toast.current?.show({
-                severity: "success",
-                summary: "Sikeres hír szerkesztés!",
-                life: 5000,
-                sticky: false,
-                content: (props) => (
-                    <div className="flex flex-column" style={{ flex: "1" }}>
-                        <div
-                            className="font-medium text-sm my-3 text-900"
-                            style={{ whiteSpace: "pre-wrap" }}
-                        >
-                            {props.message.summary}
-                        </div>
-                    </div>
-                ),
-            });
+            showSuccess('Sikeres hír létrehozás')
         }
     }, [errors, isSubmitted]);
 
@@ -86,7 +68,6 @@ export default function useNews() {
 
     return {
         onSubmit,
-        toast,
         schema,
         stepperRef,
         register,

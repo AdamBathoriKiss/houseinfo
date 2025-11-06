@@ -1,7 +1,7 @@
 import Welcome from "~/components/Welcome";
 import type { Route } from "./+types/home";
 import useMain from "~/hooks/useMain";
-import LoggedIn from "~/components/Dashboard";
+import Dashboard from "~/components/Dashboard";
 import HouseRegistration from "~/components/HouseRegistration";
 import { useEffect, useState } from "react";
 import { useAuth } from "~/utils/AuthProvider";
@@ -32,7 +32,7 @@ export default function Home() {
 					<Navbar houses={houses ?? []} setSelectedHouse={setSelectedHouse} />
 					<div className="mt-[7vh]">
 						{houses && houses.length > 0 ? (
-							<LoggedIn houses={houses} selectedHouse={selectedHouse} />
+							<Dashboard houses={houses} selectedHouse={selectedHouse} />
 						) : (
 							<HouseRegistration />
 						)}

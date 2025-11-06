@@ -1,13 +1,11 @@
 import { Button } from "primereact/button";
 import { Stepper } from "primereact/stepper";
 import { StepperPanel } from "primereact/stepperpanel";
-import { Toast } from "primereact/toast";
 import useHouseRegistration from "~/hooks/useHouseRegistration";
 
 export default function HouseRegistration() {
 	const {
 		onSubmit,
-		toast,
 		propertyTypes,
 		stepperRef,
 		register,
@@ -17,7 +15,6 @@ export default function HouseRegistration() {
 	} = useHouseRegistration();
 	return (
 		<div className="h-full bg-transparent py-4 px-4 sm:px-6 lg:px-8">
-			<Toast ref={toast} />
 			<div className="max-w-4xl mx-auto h-full">
 				<Stepper ref={stepperRef} className="card shadow-lg rounded-lg border-0 !bg-[#343d4a] w-full" linear>
 					<StepperPanel header="Alapadatok">

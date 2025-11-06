@@ -1,8 +1,6 @@
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
-import { Toast } from "primereact/toast";
 import { useEffect } from "react";
-import useNews from "~/hooks/useNews";
 import useMaintences from "~/hooks/useMaintences";
 
 interface CurrentNews {
@@ -15,7 +13,6 @@ interface CurrentNews {
 export default function Maintences({title, description, responsible, status}: CurrentNews) {
     const {
         onSubmit,
-        toast,
         register,
         handleSubmit,
         formState: { errors },
@@ -32,7 +29,6 @@ export default function Maintences({title, description, responsible, status}: Cu
 
     return (
         <div className="h-full w-full">
-            <Toast ref={toast} />
             <form onSubmit={handleSubmit(onSubmit)} className="p-3">
                 <div className="grid grid-cols-1 gap-4">
                     <div className="flex flex-col col-start-1 col-end-12 gap-2">
@@ -111,7 +107,7 @@ export default function Maintences({title, description, responsible, status}: Cu
                     label="Mentés"
                     severity="success"
                     type="submit"
-                    className=" w-full !my-3 !px-5 !py-3 !bg-transparent hover:!bg-teal-400 !text-white !font-semibold !rounded-md !shadow-md !border-1"
+                    className="w-full !my-3 !px-5 !py-3 !bg-transparent hover:!bg-teal-400 !text-white !font-semibold !rounded-md !shadow-md !border-1"
                 />
             </form>
         </div>

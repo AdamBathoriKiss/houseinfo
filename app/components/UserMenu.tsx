@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Menu } from "primereact/menu";
 import type { MenuItem } from "primereact/menuitem";
-import { Toast } from "primereact/toast";
 import { FaUser } from "react-icons/fa6";
 import UserEdit from "./UserEdit";
 import { useAuth } from "~/utils/AuthProvider";
@@ -19,7 +18,6 @@ export interface User {
 export default function UserMenu() {
 	const { token } = useAuth();
 	const menuRight = useRef<Menu>(null);
-	const toast = useRef<Toast>(null);
 	const [visible, setVisible] = useState(false);
 	const [user, setUser] = useState<User | null>(null);
 
@@ -62,7 +60,6 @@ export default function UserMenu() {
 
 	return (
 		<div className="card flex justify-content-center">
-			<Toast ref={toast}></Toast>
 			<Menu model={items} popup ref={menuRight} id="popup_menu_right" popupAlignment="right" />
 
 			<span

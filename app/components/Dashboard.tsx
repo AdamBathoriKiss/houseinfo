@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import DataTableSchema from "./DataTableSchema";
 import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
@@ -7,6 +7,7 @@ import DashboardHeader from "./DashboardHeader";
 import EventCalendar from "./EventCalendar";
 import DashboardService from "~/services/dashboard.service";
 import type { ChartData, FinanceReports } from "~/interfaces/Dashboard";
+import { Toast } from "primereact/toast";
 
 export default function Dashboard({ houses, selectedHouse }: { houses: any[]; selectedHouse: any }) {
 	// Lakók
@@ -172,6 +173,8 @@ export default function Dashboard({ houses, selectedHouse }: { houses: any[]; se
 			birthOfDate: "1997-04-14",
 		},
 	]);
+
+	const toast = useRef<Toast | null>(null);
 	const [news, setNews] = useState([]);
 	const [maintence, setMaintence] = useState([]);
 	const [documents, setDocuments] = useState([]);
@@ -206,6 +209,7 @@ export default function Dashboard({ houses, selectedHouse }: { houses: any[]; se
 
 	return (
 		<div className="flex flex-col min-h-screen px-6 ">
+			<Toast ref={toast} />
 			<DashboardHeader financeTotal={financeTotal} activeTasks={activeTasks} expenseTotal={expenseTotal} />
 			<div className="grid grid-cols-2 gap-6 px-4 my-4">
 				{/* Bal oldali oszlop */}

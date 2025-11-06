@@ -3,9 +3,9 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useRef, useState } from "react";
 import AuthService from "~/services/auth.service";
-import { Toast } from "primereact/toast";
 import { useAuth } from "~/utils/AuthProvider";
 import { useNavigate } from "react-router";
+import { useToast } from "../ToastProvider";
 
 export default function Authorization({
     visible,
@@ -19,7 +19,7 @@ export default function Authorization({
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const title = type === "login" ? "Bejelentkezés" : "Regisztráció";
-    const toast = useRef<Toast | null>(null);
+    const { showSuccess, showError } = useToast();
     const { setToken, setUser } = useAuth(); // ✅ Context használata
     const navigate = useNavigate();
 
@@ -28,12 +28,7 @@ export default function Authorization({
             const data = await AuthService.login(email, password);
 
             if (data.error) {
-                toast.current?.show({
-                    severity: "error",
-                    summary: "Sikertelen bejelentkezés",
-                    detail: data.error,
-                    life: 3000,
-                });
+                showError("Sikertelen bejelentkezés", data.error);
                 return;
             }
 
@@ -41,22 +36,18 @@ export default function Authorization({
             setToken(data.accessToken);
             setUser(data.user);
 
-            toast.current?.show({
-                severity: "success",
-                summary: "Sikeres bejelentkezés",
-                detail: `Üdvözlünk, ${data.user.email}!`,
-                life: 3000,
-            });
+            showSuccess(
+                "Sikeres bejelentkezés",
+                `Üdvözlünk, ${data.user.email}!`
+            );
 
             setVisible(false); // ✅ Dialog bezárása
             navigate("/"); // ✅ Átirányítás a főoldalra
         } catch (error: any) {
-            toast.current?.show({
-                severity: "error",
-                summary: "Hiba",
-                detail: error.response?.data?.error || "Ismeretlen hiba",
-                life: 3000,
-            });
+            showError(
+                "Sikertelen bejelentkezés",
+                error.response?.data?.error || "Ismeretlen hiba"
+            );
         }
     };
 
@@ -65,37 +56,26 @@ export default function Authorization({
             const data = await AuthService.registration(email, password);
 
             if (data.error) {
-                toast.current?.show({
-                    severity: "error",
-                    summary: "Sikertelen regisztráció",
-                    detail: data.error,
-                    life: 3000,
-                });
+                showError("Sikertelen regisztráció", data.error);
                 return;
             }
 
-            toast.current?.show({
-                severity: "success",
-                summary: "Sikeres regisztráció",
-                detail: `Üdvözlünk, ${data.user.email}!`,
-                life: 3000,
-            });
-
+            showSuccess(
+                "Sikeres regisztráció",
+                `Üdvözlünk, ${data.user.email}!`
+            );
             setVisible(false); // ✅ Dialog bezárása
             navigate("/"); // ✅ Átirányítás a főoldalra
         } catch (error: any) {
-            toast.current?.show({
-                severity: "error",
-                summary: "Hiba",
-                detail: error.response?.data?.error || "Ismeretlen hiba",
-                life: 3000,
-            });
+            showError(
+                "Sikertelen regisztráció",
+                error.response?.data?.error || "Ismeretlen hiba"
+            );
         }
     };
 
     return (
         <>
-            <Toast ref={toast} />
             <Dialog
                 header={title}
                 visible={visible}

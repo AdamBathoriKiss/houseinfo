@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
-import { Toast } from "primereact/toast";
 import { useEffect } from "react";
 import useNews from "~/hooks/useNews";
 import type { User } from "~/interfaces/Dashboard";
@@ -16,7 +15,6 @@ interface CurrentNews {
 export default function NewsPage({title, content, author, date}: CurrentNews) {
     const {
         onSubmit,
-        toast,
         register,
         handleSubmit,
         formState: { errors },
@@ -36,7 +34,6 @@ export default function NewsPage({title, content, author, date}: CurrentNews) {
 
     return (
         <div className="h-full w-full">
-            <Toast ref={toast} />
             <form onSubmit={handleSubmit(onSubmit)} className="p-3">
                 <div className="grid grid-cols-1 gap-4">
                     <div className="flex flex-col col-start-1 col-end-12 gap-2">
