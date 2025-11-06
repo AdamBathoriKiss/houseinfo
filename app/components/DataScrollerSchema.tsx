@@ -7,6 +7,7 @@ import Maximalized from "~/utils/dialogs/Maximalized";
 import Selected from "~/utils/dialogs/Selected";
 import dayjs from "dayjs";
 import Create from "~/utils/dialogs/Create";
+import { useCommonProcesses } from "~/hooks/useCommonProcesses";
 
 export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
@@ -26,6 +27,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 	const [createNews, setCreateNews] = useState(false);
 	const [createTask, setCreateTask] = useState(false);
 	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>([]);
+	const { remove } = useCommonProcesses();
 
 	useEffect(() => {
 		setFilteredItem(dataTableValue);
@@ -96,6 +98,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<Button
 								icon="pi pi-trash"
 								tooltip="Hír törlése"
+								onClick={() => remove('announcements', news.id)}
 								className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 							/>
 						)}
@@ -113,6 +116,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 								<Button
 									icon="pi pi-trash"
 									tooltip="Hír törlése"
+									onClick={() => remove('announcements', news.id)}
 									className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 								/>
 							</div>
@@ -153,6 +157,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<Button
 								icon="pi pi-trash"
 								tooltip="Feladat törlése"
+								onClick={() => remove('maintences', maintence.id)}
 								className="p-button-rounded p-button-sm !bg-red-500  !text-white"
 							/>
 						)}
@@ -170,6 +175,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 								<Button
 									icon="pi pi-trash"
 									tooltip="Feladat törlése"
+									onClick={() => remove('maintences', maintence.id)}
 									className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 								/>
 							</div>
