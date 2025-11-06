@@ -116,7 +116,7 @@ export default function Maximalized({
 			visible={onMaximizedOpened}
 			onHide={onMaximizedHide}
 			className="min-h-[96vh] w-[96vw] !bg-[#343d4a] text-gray-300 px-3 overflow-hidden"
-			contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300 px-3"
+			contentClassName="h-full !p-0 !bg-[#343d4a] text-gray-300 px-3"
 			headerClassName="!bg-[#343d4a] text-gray-300 px-3"
 			draggable={false}
 			resizable={false}

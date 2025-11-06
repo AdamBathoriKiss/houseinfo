@@ -83,7 +83,6 @@ export default function Create({
     }
 
     if (type === "newsDialog" || type === "maintenceDialog") {
-        console.log(type)
         return createDialog();
     }
 }
