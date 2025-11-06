@@ -1,7 +1,7 @@
 import axiosInstance from "~/api/axiosInstance";
 
-const create = async (type: string, body: any) => {
-    const response = await axiosInstance.post(`/${type}`, body);
+const create = async (type: string,id: number | string, body: any) => {
+    const response = await axiosInstance.post(`/${type}/${id}`, body);
     return response.data;
 };
 

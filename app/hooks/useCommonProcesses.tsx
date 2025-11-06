@@ -21,8 +21,16 @@ export const useCommonProcesses = () => {
     };
 
     const create = (type: string, id: string | number, body: any)=>{
-
+        CommonService.create(type, id, body).then((response) => {
+            if(response){
+                showSuccess('Sikeres létrehozás')
+            }else {
+                showError('Sikertelen létrehozás')
+            }
+        }).catch((error) => {
+                showError('Sikertelen létrehozás', error)
+        })
     }
 
-    return { remove };
+    return { remove, create };
 };
