@@ -1,6 +1,6 @@
 import { Dialog } from "primereact/dialog";
 import Maintences from "~/components/Maintences";
-import NewsPage from "~/components/NewsPage";
+import Announcements from "~/components/Announcements";
 import type { Maintence, News } from "~/interfaces/Dashboard";
 
 interface Selected {
@@ -38,7 +38,7 @@ export default function Selected({
 			<div className="grid grid-cols-1">
 				<div className="bg-[#343d4a] rounded-lg">
 					{selectedItem && isNews(selectedItem) ? (
-						<NewsPage
+						<Announcements
 							title={selectedItem.title}
 							content={selectedItem.content}
 							author={selectedItem.author}

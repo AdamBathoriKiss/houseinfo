@@ -30,7 +30,7 @@ export default function useMain() {
         if (userId) {
             fetchHouses(userId);
 
-            console.log("Decoded userId:", userId);
+            //console.log("Decoded userId:", userId);
         }
     }, [userId]);
 

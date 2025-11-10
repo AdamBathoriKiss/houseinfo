@@ -2,7 +2,7 @@ import { DataScroller } from "primereact/datascroller";
 import { Dialog } from "primereact/dialog";
 import { useState } from "react";
 import Maintences from "~/components/Maintences";
-import NewsPage from "~/components/NewsPage";
+import Announcements from "~/components/Announcements";
 import type { Maintence, News } from "~/interfaces/Dashboard";
 import DataScrollerHeader from "../DataHeader";
 import Create from "./Create";
@@ -87,7 +87,7 @@ export default function Maximalized({
 					</div>
 					{isNews(hoveredItem) ? (
 						<div className="space-y-3">
-							<NewsPage
+							<Announcements
 								title={hoveredItem.title}
 								content={hoveredItem.content}
 								author={hoveredItem.author}

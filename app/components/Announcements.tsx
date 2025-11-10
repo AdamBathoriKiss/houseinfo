@@ -4,15 +4,29 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { useEffect } from "react";
 import useNews from "~/hooks/useNews";
 import type { User } from "~/interfaces/Dashboard";
+import { useAuth } from "~/utils/AuthProvider";
 
 interface CurrentNews {
     title: string;
     content: string;
     author: User | null;
+    authorId: number | string;
     date: string;
 }  
 
-export default function NewsPage({title, content, author, date}: CurrentNews) {
+/*
+
+  "title": "body.title",
+    "content": "body.content",
+    "priority": "NORMAL",
+    //"isUrgent": 0,
+    "authorId": 1,
+    "buildingId": 4
+
+*/
+
+export default function Announcements({title, content, author,authorId, date}: CurrentNews) {
+    const { user } = useAuth();
     const {
         onSubmit,
         register,
@@ -25,12 +39,16 @@ export default function NewsPage({title, content, author, date}: CurrentNews) {
     useEffect(() => {
         if (title) setValue("title", title);
         if (content) setValue("content", content);
-         if (author) {
-            const authorName = `${author.lastName} ${author.firstName}`;
-            setValue("author", authorName);
+        if (author) {
+        const authorName = `${author.lastName} ${author.firstName}`;
+        setValue("author", authorName);
+        setValue("authorId", author.id ? author.id : user)
+        }
+        if(authorId){
+            setValue("authorId", user)
         }
         if(date) setValue("date", dayjs(date).format('YYYY-MM-DD'));
-    }, [title, content, author, setValue]);
+    }, [title, content, author, authorId, setValue]);
 
     return (
         <div className="h-full w-full">
@@ -71,13 +89,24 @@ export default function NewsPage({title, content, author, date}: CurrentNews) {
                             </span>
                         )}
                         </div>
+                        <input
+                            {...register("authorId")}
+                            type="number"
+                            
+                            className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        />
+                        {errors.author && (
+                            <span className="text-red-500 text-xs">
+                                {errors.author.message}
+                            </span>
+                        )}
                     <div className="w-1/2">
                         <label className="font-semibold text-gray-100 text-sm">
                             Létrehozva *
                         </label>
                         <input
                             {...register("date")}
-                            type="text"
+                            type="date"
                             placeholder="pl. Fő utca 123."
                             className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />

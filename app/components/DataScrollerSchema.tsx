@@ -245,12 +245,10 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 			)}
 			{type === "news" &&
 				createNews &&
-				(console.log(createNews),
-				(<Create type="newsDialog" visible={createNews} setVisible={setCreateNews} />))}
+				<Create type="newsDialog" visible={createNews} setVisible={setCreateNews} />}
 			{type === "maintence" &&
 				createTask &&
-				(console.log(createNews),
-				(<Create type="maintenceDialog" visible={createTask} setVisible={setCreateTask} />))}
+				<Create type="maintenceDialog" visible={createTask} setVisible={setCreateTask} />}
 		</div>
 	);
 }

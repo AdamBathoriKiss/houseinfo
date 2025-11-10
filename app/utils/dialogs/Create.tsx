@@ -1,6 +1,6 @@
 import { Dialog } from "primereact/dialog";
 import Maintences from "~/components/Maintences";
-import NewsPage from "~/components/NewsPage";
+import Announcements from "~/components/Announcements";
 
 interface Creation {
     visible?: boolean;
@@ -33,7 +33,7 @@ export default function Create({
                     ></i>
                 </div>
                 {type === "news" ? (
-                    <NewsPage title="" content="" author={null} date="" />
+                    <Announcements title="" content="" author={null} date="" />
                 ) : (
                     <Maintences
                         title=""
@@ -64,7 +64,7 @@ export default function Create({
             >
                 <div className="rounded-lg h-fit">
                     {type === "newsDialog" ? (
-                        <NewsPage title="" content="" author={null} date="" />
+                        <Announcements title="" content="" author={null} date="" />
                     ) : (
                         <Maintences
                             title=""
