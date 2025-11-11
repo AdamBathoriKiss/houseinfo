@@ -1,132 +1,128 @@
 import axiosInstance from "~/api/axiosInstance";
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useLayoutEffect,
-    useState,
-} from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 import type { InternalAxiosRequestConfig } from "axios";
 import AuthService from "~/services/auth.service";
+import { jwtDecode } from "jwt-decode";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
-    _retry?: boolean;
-    _skipAuthRefresh?: boolean; // ✅ Új flag a refresh kérések jelölésére
+	_retry?: boolean;
+	_skipAuthRefresh?: boolean; // ✅ Új flag a refresh kérések jelölésére
 }
 
 interface AuthContextType {
-    token: string | null;
-    setToken: (token: string | null) => void;
-    user: any;
-    setUser: (user: any) => void;
-    logout: () => Promise<void>;
-    isLoading: boolean;
+	token: string | null;
+	setToken: (token: string | null) => void;
+	user: any;
+	setUser: (user: any) => void;
+	logout: () => Promise<void>;
+	isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error("useAuth must be used within AuthProvider");
-    }
-    return context;
+	const context = useContext(AuthContext);
+	if (!context) {
+		throw new Error("useAuth must be used within AuthProvider");
+	}
+	return context;
 };
 
-export default function AuthProvider({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    const [token, setToken] = useState<string | null>(null);
-    const [user, setUser] = useState<any>(null);
-    const [isLoading, setIsLoading] = useState(true);
+export default function AuthProvider({ children }: { children: React.ReactNode }) {
+	const [token, setToken] = useState<string | null>(null);
+	const [user, setUser] = useState<any>(null);
+	const [isLoading, setIsLoading] = useState(true);
 
-    // ✅ Oldal betöltésekor próbáld meg helyreállítani a sessiont
-    useEffect(() => {
-        const restoreSession = async () => {
-            try {
-                const response = await AuthService.refreshToken();
-                setToken(response.accessToken);
-            } catch (error: any) {
-            } finally {
-                setIsLoading(false);
-            }
-        };
+	// ✅ Oldal betöltésekor próbáld meg helyreállítani a sessiont
+	useEffect(() => {
+		const restoreSession = async () => {
+			try {
+				const response = await AuthService.refreshToken();
+				setToken(response.accessToken);
+			} catch (error: any) {
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-        restoreSession();
-    }, []);
+		restoreSession();
+	}, []);
 
-    // Request interceptor - Token hozzáadása
-    useLayoutEffect(() => {
-        const authInterceptor = axiosInstance.interceptors.request.use(
-            (config: CustomAxiosRequestConfig) => {
-                if (!config._retry && token) {
-                    config.headers.Authorization = `Bearer ${token}`;
-                }
-                return config;
-            }
-        );
-        
-        return () => {
-            axiosInstance.interceptors.request.eject(authInterceptor);
-        };
-    }, [token]);
+	// Request interceptor - Token hozzáadása
+	useLayoutEffect(() => {
+		const authInterceptor = axiosInstance.interceptors.request.use((config: CustomAxiosRequestConfig) => {
+			if (!config._retry && token) {
+				config.headers.Authorization = `Bearer ${token}`;
+			}
+			return config;
+		});
 
-    // Response interceptor - 401 kezelés
-    useLayoutEffect(() => {
-        const refreshInterceptor = axiosInstance.interceptors.response.use(
-            (response) => response,
-            async (error) => {
-                const originalRequest: CustomAxiosRequestConfig = error.config;
+		return () => {
+			axiosInstance.interceptors.request.eject(authInterceptor);
+		};
+	}, [token]);
 
-                // ✅ Ha ez egy refresh kérés volt, NE próbáld újra
-                if (originalRequest._skipAuthRefresh) {
-                    return Promise.reject(error);
-                }
+	// Response interceptor - 401 kezelés
+	useLayoutEffect(() => {
+		const refreshInterceptor = axiosInstance.interceptors.response.use(
+			(response) => response,
+			async (error) => {
+				const originalRequest: CustomAxiosRequestConfig = error.config;
 
-                // ✅ 401 hiba és még nem próbáltuk újra
-                if (error.response?.status === 401 && !originalRequest._retry) {
-                    originalRequest._retry = true;
-                    
-                    try {
-                        const response = await AuthService.refreshToken();
-                        const newToken = response.accessToken;
+				// ✅ Ha ez egy refresh kérés volt, NE próbáld újra
+				if (originalRequest._skipAuthRefresh) {
+					return Promise.reject(error);
+				}
 
-                        setToken(newToken);
-                        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-                        
-                        return axiosInstance(originalRequest);
-                    } catch (refreshError) {
-                        setToken(null);
-                        setUser(null);
-                        return Promise.reject(refreshError);
-                    }
-                }
-                
-                return Promise.reject(error);
-            }
-        );
-        
-        return () => {
-            axiosInstance.interceptors.response.eject(refreshInterceptor);
-        };
-    }, []);
+				// ✅ 401 hiba és még nem próbáltuk újra
+				if (error.response?.status === 401 && !originalRequest._retry) {
+					originalRequest._retry = true;
 
-    const logout = async () => {
-        try {
-            await axiosInstance.post("/auth/logout");
-        } catch (error) {
-            console.error("Logout error:", error);
-        } finally {
-            setToken(null);
-            setUser(null);
-        }
-    };
+					try {
+						const response = await AuthService.refreshToken();
+						const newToken = response.accessToken;
 
-    return (
-        <AuthContext.Provider value={{ token, setToken, user, setUser, logout, isLoading }}>
-            {children}
-        </AuthContext.Provider>
-    );
+						setToken(newToken);
+						originalRequest.headers.Authorization = `Bearer ${newToken}`;
+
+						return axiosInstance(originalRequest);
+					} catch (refreshError) {
+						setToken(null);
+						setUser(null);
+						return Promise.reject(refreshError);
+					}
+				}
+
+				return Promise.reject(error);
+			}
+		);
+
+		return () => {
+			axiosInstance.interceptors.response.eject(refreshInterceptor);
+		};
+	}, []);
+
+	useLayoutEffect(() => {
+		if (token && user === null) {
+			const decodedToken = jwtDecode(token);
+			setUser(decodedToken);
+		}
+	}, [token]);
+
+	const logout = async () => {
+		try {
+			await axiosInstance.post("/auth/logout");
+		} catch (error) {
+			console.error("Logout error:", error);
+		} finally {
+			setToken(null);
+			setUser(null);
+		}
+	};
+
+	return (
+		<AuthContext.Provider value={{ token, setToken, user, setUser, logout, isLoading }}>
+			{children}
+		</AuthContext.Provider>
+	);
 }

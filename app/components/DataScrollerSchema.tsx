@@ -13,12 +13,14 @@ export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
 	title: string;
 	type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
+	buildingId: number;
 }
 
 export default function DataScrollerSchema<T extends News | Maintence>({
 	dataTableValue,
 	title,
 	type,
+	buildingId,
 }: DataScrollerSchemaProps<T>) {
 	const [onMaximizedOpened, setOnMaximizedOpened] = useState<boolean>(false);
 	const [onViewDialogOpened, setOnViewDialogOpened] = useState<boolean>(false);
@@ -84,7 +86,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 				<div className="flex flex-row w-full justify-between items-center">
 					<div className="flex flex-col gap-2">
 						<div className="text-xl font-bold text-gray-100">{news.title}</div>
-						<div className="text-sm text-gray-300">{news.content}</div>
+						{/*<div className="text-sm text-gray-300">{news.content}</div>*/}
 						<div className="text-xs text-gray-400">
 							<i className="pi pi-user mr-2"></i>
 							{`${news.author?.lastName} ${news.author?.firstName}`}
@@ -98,7 +100,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<Button
 								icon="pi pi-trash"
 								tooltip="Hír törlése"
-								onClick={() => remove('announcements', news.id)}
+								onClick={() => remove("announcements", news.id)}
 								className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 							/>
 						)}
@@ -116,7 +118,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 								<Button
 									icon="pi pi-trash"
 									tooltip="Hír törlése"
-									onClick={() => remove('announcements', news.id)}
+									onClick={() => remove("announcements", news.id)}
 									className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 								/>
 							</div>
@@ -144,7 +146,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 				<div className="flex flex-row w-full justify-between items-center">
 					<div className="flex flex-col gap-2">
 						<div className="text-xl font-bold text-gray-100">{maintence.title}</div>
-						<div className="text-sm text-gray-300">{maintence.description}</div>
+						<div className="text-sm text-gray-300">{maintence.status}</div>
 						{maintence.responsible && (
 							<div className="text-xs text-green-400">
 								<i className="pi pi-user-plus mr-2"></i>
@@ -157,7 +159,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 							<Button
 								icon="pi pi-trash"
 								tooltip="Feladat törlése"
-								onClick={() => remove('maintences', maintence.id)}
+								onClick={() => remove("maintences", maintence.id)}
 								className="p-button-rounded p-button-sm !bg-red-500  !text-white"
 							/>
 						)}
@@ -175,14 +177,14 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 								<Button
 									icon="pi pi-trash"
 									tooltip="Feladat törlése"
-									onClick={() => remove('maintences', maintence.id)}
+									onClick={() => remove("maintences", maintence.id)}
 									className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 								/>
 							</div>
 						)}
 						<div className="text-xs my-3 text-gray-400">
 							<i className="pi pi-wave-pulse mr-2"></i>
-							{maintence.status}
+							{maintence.priority}
 						</div>
 					</div>
 				</div>
@@ -243,12 +245,17 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 					isNews={isNews}
 				/>
 			)}
-			{type === "news" &&
-				createNews &&
-				<Create type="newsDialog" visible={createNews} setVisible={setCreateNews} />}
-			{type === "maintence" &&
-				createTask &&
-				<Create type="maintenceDialog" visible={createTask} setVisible={setCreateTask} />}
+			{type === "news" && createNews && (
+				<Create type="newsDialog" visible={createNews} setVisible={setCreateNews} buildingId={buildingId} />
+			)}
+			{type === "maintence" && createTask && (
+				<Create
+					type="maintenceDialog"
+					visible={createTask}
+					setVisible={setCreateTask}
+					buildingId={buildingId}
+				/>
+			)}
 		</div>
 	);
 }

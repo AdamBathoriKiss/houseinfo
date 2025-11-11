@@ -33,6 +33,7 @@ export interface Maintence {
 	status: string;
 	description: string;
 	responsible: string;
+	priority: string;
 }
 
 export interface Bills {

@@ -1,88 +1,93 @@
 import { Dialog } from "primereact/dialog";
 import Maintences from "~/components/Maintences";
 import Announcements from "~/components/Announcements";
+import { useAuth } from "../AuthProvider";
 
 interface Creation {
-    visible?: boolean;
-    setVisible: (visible: boolean) => void;
-    type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
+	visible?: boolean;
+	setVisible: (visible: boolean) => void;
+	type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
+	buildingId: number;
 }
 
-export default function Create({
-    visible,
-    setVisible,
-    type,
-}: Creation) {
-    const createModal = () => {
-        return (
-            <div className="rounded-lg h-fit">
-                <div className="flex justify-between items-center mb-4">
-                    {type === "news" ? (
-                        <h3 className="text-xl font-bold text-gray-100 p-3">
-                            Új hír létrehozása
-                        </h3>
-                    ) : (
-                        <h3 className="text-xl font-bold text-gray-100 p-3">
-                            Új feladat létrehozása
-                        </h3>
-                    )}
-                    <i
-                        className="pi pi-times cursor-pointer"
-                        style={{ fontSize: "2rem" }}
-                        onClick={() => setVisible(false)}
-                    ></i>
-                </div>
-                {type === "news" ? (
-                    <Announcements title="" content="" author={null} date="" />
-                ) : (
-                    <Maintences
-                        title=""
-                        description=""
-                        responsible=""
-                        status=""
-                    />
-                )}
-            </div>
-        );
-    };
+export default function Create({ visible, setVisible, type, buildingId }: Creation) {
+	const { user } = useAuth();
 
-    const createDialog = () => {
-        return (
-            <Dialog
-                header={
-                    type === "newsDialog"
-                        ? "Új hír létrehozása"
-                        : "Új feladat létrehozása"
-                }
-                visible={visible}
-                onHide={()=> setVisible(false)}
-                className="min-h-[60vh] w-[30vw] !bg-[#343d4a] text-gray-300 overflow-hidden"
-                contentClassName="h-full !p-0 !m-0 !bg-[#343d4a] text-gray-300"
-                headerClassName="!p-3 !bg-[#343d4a] text-gray-300"
-                draggable={false}
-                resizable={false}
-            >
-                <div className="rounded-lg h-fit">
-                    {type === "newsDialog" ? (
-                        <Announcements title="" content="" author={null} date="" />
-                    ) : (
-                        <Maintences
-                            title=""
-                            description=""
-                            responsible=""
-                            status=""
-                        />
-                    )}
-                </div>
-            </Dialog>
-        );
-    };
+	const createModal = () => {
+		return (
+			<div className="rounded-lg h-fit">
+				<div className="flex justify-between items-center mb-4">
+					{type === "news" ? (
+						<h3 className="text-xl font-bold text-gray-100 p-3">Új hír létrehozása</h3>
+					) : (
+						<h3 className="text-xl font-bold text-gray-100 p-3">Új feladat létrehozása</h3>
+					)}
+					<i
+						className="pi pi-times cursor-pointer"
+						style={{ fontSize: "2rem" }}
+						onClick={() => setVisible(false)}
+					></i>
+				</div>
+				{type === "news" ? (
+					<Announcements title="" content="" author={null} date="" authorId={""} buildingId={buildingId} />
+				) : (
+					<Maintences
+						title=""
+						description=""
+						responsible=""
+						status=""
+						priority=""
+						buildingId={buildingId}
+						reportedById={user.userId}
+					/>
+				)}
+			</div>
+		);
+	};
 
-    if (type === "news" || type === "maintence") {
-        return createModal();
-    }
+	const createDialog = () => {
+		return (
+			<Dialog
+				header={type === "newsDialog" ? "Új hír létrehozása" : "Új feladat létrehozása"}
+				visible={visible}
+				onHide={() => setVisible(false)}
+				className="min-h-[60vh] w-[30vw] !bg-[#343d4a] text-gray-300 overflow-hidden"
+				contentClassName="h-full !p-0 !m-0 !bg-[#343d4a] text-gray-300"
+				headerClassName="!p-3 !bg-[#343d4a] text-gray-300"
+				draggable={false}
+				resizable={false}
+			>
+				<div className="rounded-lg h-fit">
+					{type === "newsDialog" ? (
+						<Announcements
+							title=""
+							content=""
+							author={null}
+							date=""
+							authorId={user}
+							buildingId={buildingId}
+						/>
+					) : (
+						<Maintences
+							title=""
+							description=""
+							responsible=""
+							status=""
+							priority=""
+							buildingId={buildingId}
+							reportedById={user.userId}
+						/>
+					)}
+				</div>
+			</Dialog>
+		);
+	};
 
-    if (type === "newsDialog" || type === "maintenceDialog") {
-        return createDialog();
-    }
+	if (type === "news" || type === "maintence") {
+		return createModal();
+	}
+
+	if (type === "newsDialog" || type === "maintenceDialog") {
+		return createDialog();
+	}
 }
