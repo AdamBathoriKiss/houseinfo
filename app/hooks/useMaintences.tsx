@@ -34,12 +34,14 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
 		formState: { errors, isSubmitted },
 		watch,
 		setValue,
+		control,
 	} = useForm<FormData>({
 		defaultValues: {
 			title: "",
 			description: "",
 			responsible: "",
 			status: "",
+			priority: "",
 		},
 		resolver: zodResolver(schema),
 	});
@@ -126,5 +128,6 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
 		formState: { errors, isSubmitted },
 		watch,
 		setValue,
+		control,
 	};
 }

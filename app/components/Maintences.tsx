@@ -1,6 +1,8 @@
 import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
 import { useEffect } from "react";
+import { Controller } from "react-hook-form";
 import useMaintences from "~/hooks/useMaintences";
 
 interface CurrentMaintence {
@@ -28,6 +30,7 @@ export default function Maintences({
 		handleSubmit,
 		formState: { errors },
 		setValue,
+		control,
 	} = useMaintences({ buildingId });
 
 	// Amikor új adatok jönnek be (hover), beállítjuk a form értékeit
@@ -79,21 +82,52 @@ export default function Maintences({
 						</div>
 						<div className="w-1/2">
 							<label className="font-semibold text-gray-100 text-sm">Státusz</label>
-							<input
-								{...register("status")}
-								type="text"
-								placeholder="pl. Fő utca 123."
-								className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+							<Controller
+								name="status"
+								control={control}
+								render={({ field }) => (
+									<Dropdown
+										{...field}
+										unstyled
+										options={[
+											{ name: "Új", value: "NEW" },
+											{ name: "Folyamatban", value: "IN_PROGRESS" },
+											{ name: "Várakozás", value: "WAITING" },
+											{ name: "Megoldva", value: "RESOLVED" },
+											{ name: "Lezárt", value: "CLOSED" },
+										]}
+										optionLabel="name"
+										optionValue="value"
+										placeholder="Válassz státuszt"
+										className="!w-full flex flex-row justify-between px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+										panelClassName="!w-40 h-max-fit px-3 !rounded-b-none !border-1 !bg-[#343d4a] !text-start !text-sm/8 items-center"
+									/>
+								)}
 							/>
 							{errors.status && <span className="text-red-500 text-xs">{errors.status.message}</span>}
 						</div>
 						<div className="w-1/2">
 							<label className="font-semibold text-gray-100 text-sm">Priority</label>
-							<input
-								{...register("priority")}
-								type="text"
-								placeholder="pl. Sürgős"
-								className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+							<Controller
+								name="priority"
+								control={control}
+								render={({ field }) => (
+									<Dropdown
+										{...field}
+										unstyled
+										options={[
+											{ name: "Alacsony", value: "LOW" },
+											{ name: "Normál", value: "NORMAL" },
+											{ name: "Magas", value: "HIGH" },
+											{ name: "Sürgős", value: "URGENT" },
+										]}
+										optionLabel="name"
+										optionValue="value"
+										placeholder="Válassz prioritást"
+										className="!w-full flex flex-row justify-between px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+										panelClassName="!w-40 h-max-fit px-3 !rounded-b-none !border-1 !bg-[#343d4a] !text-start !text-sm/8 items-center"
+									/>
+								)}
 							/>
 							{errors.priority && <span className="text-red-500 text-xs">{errors.priority.message}</span>}
 						</div>
