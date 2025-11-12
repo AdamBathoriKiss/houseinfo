@@ -16,7 +16,7 @@ import CommonService from "~/services/common.service";
 const schema = z.object({
 	title: z.string().min(3, "Kötelező megadni a feladat megnevezését"),
 	description: z.string().min(1, "Kötelező megadni a feladat részletes leírását"),
-	responsible: z.string().min(3, "Kötelező megadni a feladat felelősét"),
+	reportedBy: z.string().min(3, "Kötelező megadni a feladat felelősét"),
 	reportedById: z.number().min(1, "Kötelező a felhasználó Id-ját megadni"),
 	status: z.string().min(1, "Kötelező megadni a feladat státuszát"),
 	priority: z.string().min(1, "Kötelező megadni a feladat prioritását"),
@@ -39,7 +39,7 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
 		defaultValues: {
 			title: "",
 			description: "",
-			responsible: "",
+			reportedBy: "",
 			status: "",
 			priority: "",
 		},

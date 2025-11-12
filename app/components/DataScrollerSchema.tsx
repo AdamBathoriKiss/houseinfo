@@ -147,10 +147,10 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 					<div className="flex flex-col gap-2">
 						<div className="text-xl font-bold text-gray-100">{maintence.title}</div>
 						<div className="text-sm text-gray-300">{maintence.status}</div>
-						{maintence.responsible && (
+						{maintence.reportedBy && (
 							<div className="text-xs text-green-400">
 								<i className="pi pi-user-plus mr-2"></i>
-								Felelős: {maintence.responsible}
+								Felelős: {`${maintence.reportedBy?.lastName ?? ""} ${maintence.reportedBy?.firstName ?? ""}`}
 							</div>
 						)}
 					</div>
@@ -243,6 +243,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 					selectedItem={selectedItem}
 					setSelectedItem={setSelectedItem}
 					isNews={isNews}
+					buildingId={buildingId}
 				/>
 			)}
 			{type === "news" && createNews && (

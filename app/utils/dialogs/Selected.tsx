@@ -10,6 +10,7 @@ interface Selected {
 	selectedItem: News | Maintence | null;
 	setSelectedItem: (selectedItem: News | Maintence | null) => void;
 	isNews: (item: News | Maintence) => item is News;
+	buildingId: number;
 }
 
 export default function Selected({
@@ -19,6 +20,7 @@ export default function Selected({
 	selectedItem,
 	setSelectedItem,
 	isNews,
+	buildingId
 }: Selected) {
 	return (
 		<Dialog
@@ -42,14 +44,19 @@ export default function Selected({
 							title={selectedItem.title}
 							content={selectedItem.content}
 							author={selectedItem.author}
+							authorId={selectedItem.authorId ? selectedItem.authorId : ""}
 							date={selectedItem.publishedAt}
+							buildingId={buildingId}
 						/>
 					) : selectedItem ? (
 						<Maintences
 							title={selectedItem.title}
 							description={selectedItem.description}
-							responsible={selectedItem.responsible || ""}
+							reportedBy={selectedItem.reportedBy}
+							reportedById={parseInt(selectedItem.reportedById)}
+							priority={selectedItem.priority}
 							status={selectedItem.status}
+							buildingId={buildingId}
 						/>
 					) : null}
 				</div>

@@ -32,7 +32,8 @@ export interface Maintence {
 	deadline: string;
 	status: string;
 	description: string;
-	responsible: string;
+	reportedBy: User;
+	reportedById: string;
 	priority: string;
 }
 
