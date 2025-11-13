@@ -15,6 +15,7 @@ import { useToast } from "~/utils/ToastProvider";
 import CommonService from "~/services/common.service";
 
 const schema = z.object({
+	id: z.preprocess((val) => val === "" ? undefined : Number(val), z.number().optional()),
 	title: z.string().min(3, "Kötelező megadni a hír címét"),
 	content: z.string().min(1, "Kötelező megadni a hír tartalmát"),
 	author: z.string().min(3, "Kötelező megadni a hír létrehozóját"),
@@ -42,7 +43,7 @@ export default function useNews({ buildingId }: { buildingId: number }) {
 			author: "",
 			date: "",
 		},
-		resolver: zodResolver(schema),
+		resolver: zodResolver(schema) as any,
 	});
 
 	// Toast üzenet megjelenítése hibák esetén
@@ -100,8 +101,9 @@ export default function useNews({ buildingId }: { buildingId: number }) {
 			...data,
 			buildingId,
 		};
-		//console.log("Form Data:", data);
-		// Itt lehet kezelni a form elküldését, pl. API hívás
+		if(data.id){
+
+		}else{
 		CommonService.create("announcements", buildingId, body)
 			.then((response) => {
 				if (response) {
@@ -114,6 +116,8 @@ export default function useNews({ buildingId }: { buildingId: number }) {
 			.catch((error) => {
 				showError(error.message);
 			});
+		}
+
 	};
 
 	return {
