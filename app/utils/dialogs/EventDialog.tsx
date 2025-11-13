@@ -34,8 +34,9 @@ export default function EventDialog({
 		console.log(event.id),
                         <div
                             key={index}
-                            className="border-l-4 border-teal-500 bg-gray-500/20 p-4 rounded"
+                            className="border-l-4 border-teal-500 bg-gray-500/20 p-4 rounded flex flex-row justify-between"
                         >
+							<div>
                             <div className="font-semibold text-gray-100">
                                 {event.title}
                             </div>
@@ -43,6 +44,7 @@ export default function EventDialog({
                                 <i className="pi pi-clock mr-2"></i>
                                 {event.time}
                             </div>
+							</div>
                             <Button
                                 icon="pi pi-trash"
                                 tooltip="Feladat törlése"
