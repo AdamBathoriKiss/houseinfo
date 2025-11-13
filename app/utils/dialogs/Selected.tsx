@@ -4,6 +4,7 @@ import Announcements from "~/components/Announcements";
 import type { Maintence, News } from "~/interfaces/Dashboard";
 
 interface Selected {
+	id: number,
 	title: string;
 	onViewDialogOpened: boolean;
 	setOnViewDialogOpened: (onViewDialogOpened: boolean) => void;
@@ -14,6 +15,7 @@ interface Selected {
 }
 
 export default function Selected({
+	id,
 	title,
 	onViewDialogOpened,
 	setOnViewDialogOpened,
@@ -50,6 +52,7 @@ export default function Selected({
 						/>
 					) : selectedItem ? (
 						<Maintences
+							id={parseInt(selectedItem.id)}
 							title={selectedItem.title}
 							description={selectedItem.description}
 							reportedBy={selectedItem.reportedBy}

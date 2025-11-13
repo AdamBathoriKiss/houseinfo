@@ -15,6 +15,7 @@ interface CurrentMaintence {
     buildingId: number;
     reportedBy: User | null;
     reportedById: number;
+    id: number;
 }
 
 export default function Maintences({
@@ -22,6 +23,7 @@ export default function Maintences({
     description,
     reportedBy,
     reportedById,
+    id,
     status,
     priority,
     buildingId,
@@ -40,7 +42,6 @@ export default function Maintences({
     useEffect(() => {
         if (title) setValue("title", title);
         if (description) setValue("description", description);
-        if (reportedById) setValue("reportedById", reportedById);
         if (reportedBy) {
             const reportedByName = `${reportedBy.lastName} ${reportedBy.firstName}`;
             setValue("reportedBy", reportedByName);
@@ -49,14 +50,17 @@ export default function Maintences({
             const userName = `${user.lastName} ${user.firstName}`;
             setValue("reportedBy", userName);
         }
+        if (reportedById) setValue("reportedById", reportedById);
+        if (id) setValue("id", id);
         if (status) setValue("status", status);
         if (priority) setValue("priority", priority);
-        console.log(priority);
+        console.log(id)
     }, [
         title,
         description,
         reportedBy,
         reportedById,
+        id,
         status,
         priority,
         setValue,
@@ -119,6 +123,15 @@ export default function Maintences({
                         <div>
                             <input
                                 {...register("reportedById")}
+                                type="number"
+                                hidden
+                                placeholder="pl. Fő utca 123."
+                                className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                {...register("id")}
                                 type="number"
                                 hidden
                                 placeholder="pl. Fő utca 123."

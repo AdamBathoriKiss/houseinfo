@@ -12,12 +12,14 @@ import { useCommonProcesses } from "~/hooks/useCommonProcesses";
 export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
 	title: string;
+	id: number,
 	type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
 	buildingId: number;
 }
 
 export default function DataScrollerSchema<T extends News | Maintence>({
 	dataTableValue,
+	id,
 	title,
 	type,
 	buildingId,
@@ -238,6 +240,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 			{onViewDialogOpened && selectedItem && (
 				<Selected
 					title={title}
+					id={id}
 					onViewDialogOpened={onViewDialogOpened}
 					setOnViewDialogOpened={setOnViewDialogOpened}
 					selectedItem={selectedItem}
