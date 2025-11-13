@@ -106,6 +106,7 @@ export default function Maintences({
                             <input
                                 {...register("reportedBy")}
                                 type="text"
+                                disabled
                                 placeholder="pl. Fő utca 123."
                                 className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                             />

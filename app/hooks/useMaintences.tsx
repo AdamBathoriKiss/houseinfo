@@ -40,8 +40,8 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
 			title: "",
 			description: "",
 			reportedBy: "",
-			status: "",
-			priority: "",
+			status: "NEW",
+			priority: "LOW",
 		},
 		resolver: zodResolver(schema),
 	});
