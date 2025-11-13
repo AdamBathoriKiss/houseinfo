@@ -4,7 +4,7 @@ import Announcements from "~/components/Announcements";
 import type { Maintence, News } from "~/interfaces/Dashboard";
 
 interface Selected {
-	id: number,
+	id: number | null,
 	title: string;
 	onViewDialogOpened: boolean;
 	setOnViewDialogOpened: (onViewDialogOpened: boolean) => void;
@@ -43,6 +43,7 @@ export default function Selected({
 				<div className="bg-[#343d4a] rounded-lg">
 					{selectedItem && isNews(selectedItem) ? (
 						<Announcements
+							id={parseInt(selectedItem.id)}
 							title={selectedItem.title}
 							content={selectedItem.content}
 							author={selectedItem.author}
