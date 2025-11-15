@@ -54,7 +54,6 @@ export default function Maintences({
         if (id) setValue("id", id);
         if (status) setValue("status", status);
         if (priority) setValue("priority", priority);
-        console.log(id)
     }, [
         title,
         description,

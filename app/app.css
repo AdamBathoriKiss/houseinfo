@@ -39,6 +39,18 @@
 	background-color: transparent;
 }
 
+.p-divider-content{
+	background-color: #293241 !important;
+	border-radius: 50%;
+	width: 10%;
+}
+
+.p-divider-content:hover{
+	background-color: #384967 !important;
+	border-radius: 50%;
+	width: 10%;
+}
+
 /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
 /* Custom styles for the landing page */
@@ -71,3 +83,6 @@
   }
 
 
+.p-calendar,.p-datepicker-inline,.p-datepicker, .p-datepicker-calendar{
+	background-color: #293241 !important;
+}

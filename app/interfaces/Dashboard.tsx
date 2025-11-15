@@ -37,6 +37,16 @@ export interface Maintence {
 	priority: string;
 }
 
+export interface Event {
+	id: number;
+    title: string;
+    description: string;
+    startTime: Date;
+    endTime?: Date;
+    organizerId: number;
+    buildingId: number;
+}
+
 export interface Bills {
 	id: string;
 	accountNumber: string;

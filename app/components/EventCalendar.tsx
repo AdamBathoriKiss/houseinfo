@@ -4,7 +4,17 @@ import { useEffect, useState } from "react";
 import EventDialog from "~/utils/dialogs/EventDialog";
 import { Button } from "primereact/button";
 
-export type Event = { id:string | number; title: string; time: string };
+export type Event = { 
+    id: string | number; 
+    title: string; 
+    time: string;  // Ez a formázott idő a megjelenítéshez
+    description: string | null;
+    buildingId: number;
+    // Opcionális mezők, amiket a backend ad vissza
+    startTime?: Date | string;
+    endTime?: Date | string;
+    isAllDay?: boolean;
+};
 export type EventsMap = { [date: string]: Event[] };
 
 export default function EventCalendar(eventsData: { events: any }) {
@@ -51,26 +61,14 @@ export default function EventCalendar(eventsData: { events: any }) {
 
             if (dayEvents) {
                 setSelectedEvents(dayEvents);
-                setVisible(true);
             }
+                setVisible(true);
         }
-    };
-
-    const headerTemplate = () => {
-        return (
-            <Button
-                icon="pi pi-plus"
-                tooltip="Új esemény létrehozása"
-                onClick={() => alert("Létrehozás")}
-                className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
-            />
-        );
     };
 
     return (
         <>
             <Calendar
-                headerTemplate={headerTemplate}
                 value={date}
                 onChange={handleDateSelect}
                 dateTemplate={dateTemplate}
