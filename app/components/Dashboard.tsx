@@ -2,7 +2,6 @@ import { use, useEffect, useRef, useState } from "react";
 import DataTableSchema from "./DataTableSchema";
 import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
-import DoughnutChart from "./DoughnutChart";
 import DashboardHeader from "./DashboardHeader";
 import EventCalendar from "./EventCalendar";
 import DashboardService from "~/services/dashboard.service";
@@ -10,7 +9,7 @@ import type { ChartData, FinanceReports } from "~/interfaces/Dashboard";
 import { Toast } from "primereact/toast";
 import Parkings from "./Parkings";
 
-export default function Dashboard({ houses, selectedHouse }: { houses: any[]; selectedHouse: any }) {
+export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHouse: any }) {
 	const toast = useRef<Toast | null>(null);
 	const [news, setNews] = useState([]);
 	const [maintence, setMaintence] = useState([]);
