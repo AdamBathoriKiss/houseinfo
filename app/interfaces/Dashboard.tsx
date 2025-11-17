@@ -38,13 +38,13 @@ export interface Maintence {
 }
 
 export interface Event {
-	id: number;
-    title: string;
-    description: string;
-    startTime: Date;
-    endTime?: Date;
-    organizerId: number;
-    buildingId: number;
+	id?: number;
+	title: string;
+	description: string;
+	startTime: Date;
+	endTime?: Date;
+	organizerId: number | string;
+	buildingId: number;
 }
 
 export interface Bills {

@@ -4,9 +4,6 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import useEvents from "~/hooks/useEvents";
-import useMaintences from "~/hooks/useMaintences";
-import type { User } from "~/interfaces/Dashboard";
-import { useAuth } from "~/utils/AuthProvider";
 import { Calendar } from "primereact/calendar";
 
 interface CurrentEvent {
@@ -16,10 +13,18 @@ interface CurrentEvent {
 	startTime?: Date;
 	endTime?: Date | string;
 	buildingId: number;
+	organizerId: number | string;
 }
 
-export default function CreateEvent({ id, title, description, startTime, endTime, buildingId }: CurrentEvent) {
-	const { user } = useAuth();
+export default function CreateEvent({
+	id,
+	title,
+	description,
+	startTime,
+	endTime,
+	buildingId,
+	organizerId,
+}: CurrentEvent) {
 	const {
 		onSubmit,
 		register,
@@ -41,7 +46,11 @@ export default function CreateEvent({ id, title, description, startTime, endTime
 			const date = typeof endTime === "string" ? new Date(endTime) : endTime;
 			setValue("endTime", date);
 		}
-	}, [id, title, description, startTime, endTime, buildingId, setValue]);
+		if (organizerId) {
+			const orgId = typeof organizerId === "string" ? parseInt(organizerId) : organizerId;
+			setValue("organizerId", orgId);
+		}
+	}, [id, title, description, startTime, endTime, buildingId, organizerId, setValue]);
 
 	// ... rest of component
 
@@ -109,7 +118,24 @@ export default function CreateEvent({ id, title, description, startTime, endTime
 								{...register("id")}
 								type="number"
 								hidden
-								placeholder="pl. Fő utca 123."
+								className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+							/>
+						</div>
+
+						<div>
+							<input
+								{...register("organizerId")}
+								type="number"
+								hidden
+								className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+							/>
+						</div>
+
+						<div>
+							<input
+								{...register("buildingId")}
+								type="number"
+								hidden
 								className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
 							/>
 						</div>
