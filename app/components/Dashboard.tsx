@@ -8,6 +8,7 @@ import EventCalendar from "./EventCalendar";
 import DashboardService from "~/services/dashboard.service";
 import type { ChartData, FinanceReports } from "~/interfaces/Dashboard";
 import { Toast } from "primereact/toast";
+import Parkings from "./Parkings";
 
 export default function Dashboard({ houses, selectedHouse }: { houses: any[]; selectedHouse: any }) {
 	const toast = useRef<Toast | null>(null);
@@ -51,21 +52,7 @@ export default function Dashboard({ houses, selectedHouse }: { houses: any[]; se
 				{/* Bal oldali oszlop */}
 				<div className="flex flex-col gap-6">
 					<div className="flex flex-row gap-3">
-						<div className="shadow-2xl rounded-md w-[50%] h-96 overflow-hidden grid grid-cols-2 justify-between items-center">
-							<p className="col-start-1 col-end-12 text-center">
-								Összes parkoló száma: {chartData && chartData !== null ? chartData.parkings : 0}
-							</p>
-							<DoughnutChart
-								title="Normál"
-								free={chartData?.freeNormal}
-								occupied={chartData?.occupiedNormal}
-							/>
-							<DoughnutChart
-								title="Elektromos"
-								free={chartData?.freeElectric}
-								occupied={chartData?.occupiedElectric}
-							/>
-						</div>
+						<Parkings parkings={chartData?.parkings} freeNormal={chartData?.freeNormal} freeElectric={chartData?.freeElectric} occupiedElectric={chartData?.occupiedElectric} occupiedNormal={chartData?.occupiedNormal}/>
 						<EventCalendar events={events} buildingId={selectedHouse?.id} />
 					</div>
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
