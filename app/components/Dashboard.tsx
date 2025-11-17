@@ -66,7 +66,7 @@ export default function Dashboard({ houses, selectedHouse }: { houses: any[]; se
 								occupied={chartData?.occupiedElectric}
 							/>
 						</div>
-						<EventCalendar events={events} />
+						<EventCalendar events={events} buildingId={selectedHouse?.id} />
 					</div>
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
 						<Diagrams

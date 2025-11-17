@@ -101,7 +101,36 @@ export default function useEvents({ buildingId }: { buildingId: number }) {
 			...data,
 			buildingId,
 		};
-		console.log(body);
+
+		 if(data.id){
+            CommonService.update("events", data.id, body)
+                .then((response) => {
+                    if (response) {
+                        showSuccess("Sikeres hír szerkesztés");
+                        window.location.reload();
+                    } else {
+                        showError(response.error);
+                    }
+                })
+                .catch((error) => {
+                    showError(error.message);
+                });
+		 }else{
+            CommonService.create("events", buildingId, body)
+                .then((response) => {
+                    if (response) {
+                        showSuccess("Sikeres hír létrehozás");
+                        window.location.reload();
+                    } else {
+                        showError(response.error);
+                    }
+                })
+                .catch((error) => {
+                    showError(error.message);
+                });
+
+		 }
+
 	};
 
 	return {

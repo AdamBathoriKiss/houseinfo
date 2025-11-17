@@ -13,7 +13,7 @@ interface CurrentEvent {
 	startTime?: Date;
 	endTime?: Date | string;
 	buildingId: number;
-	organizerId: number | string;
+	organizerId: number;
 }
 
 export default function CreateEvent({
@@ -47,8 +47,7 @@ export default function CreateEvent({
 			setValue("endTime", date);
 		}
 		if (organizerId) {
-			const orgId = typeof organizerId === "string" ? parseInt(organizerId) : organizerId;
-			setValue("organizerId", orgId);
+			setValue("organizerId", organizerId);
 		}
 	}, [id, title, description, startTime, endTime, buildingId, organizerId, setValue]);
 
@@ -125,15 +124,6 @@ export default function CreateEvent({
 						<div>
 							<input
 								{...register("organizerId")}
-								type="number"
-								hidden
-								className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-							/>
-						</div>
-
-						<div>
-							<input
-								{...register("buildingId")}
 								type="number"
 								hidden
 								className="!w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"

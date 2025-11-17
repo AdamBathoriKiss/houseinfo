@@ -10,12 +10,14 @@ import { useAuth } from "../AuthProvider";
 
 export default function EventDialog({
 	date,
+	buildingId,
 	visible,
 	setVisible,
 	selectedEvents,
 	formatDate,
 }: {
 	date: Nullable<Date>;
+	buildingId: number;
 	visible: boolean;
 	setVisible: (visible: boolean) => void;
 	selectedEvents: Event[];
@@ -41,10 +43,9 @@ export default function EventDialog({
 		setEditingEvent(null);
 	};
 
-	// Feltételezzük, hogy minden esemény ugyanabban az épületben van
-	const buildingId = selectedEvents[0]?.buildingId || 0;
 
 	return (
+		console.log(selectedEvents),
 		<Dialog
 			header={date ? `${formatDate(date)}` : "Események"}
 			visible={visible}
@@ -112,7 +113,7 @@ export default function EventDialog({
 							startTime={editingEvent?.startTime ? new Date(editingEvent.startTime) : date || new Date()}
 							endTime={editingEvent?.endTime ? new Date(editingEvent.endTime) : undefined}
 							buildingId={buildingId}
-							organizerId={user.id}
+							organizerId={user.userId}
 						/>
 					</div>
 				)}

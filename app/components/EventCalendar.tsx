@@ -15,15 +15,25 @@ export type Event = {
     endTime?: Date | string;
     isAllDay?: boolean;
 };
+
+// EventCalendar props interface
+interface EventCalendarProps {
+    events: any;
+    buildingId: number;
+}
+
 export type EventsMap = { [date: string]: Event[] };
 
-export default function EventCalendar(eventsData: { events: any }) {
+export default function EventCalendar({ events: eventsData, buildingId }: EventCalendarProps) {
     const [events, setEvents] = useState<EventsMap>({});
     const [selectedEvents, setSelectedEvents] = useState<Event[]>([]);
     // Példa események - dátum: események párok
 
     useEffect(() => {
-        setEvents(eventsData.events);
+        // ✅ Ellenőrzés, hogy eventsData valóban létezik
+        if (eventsData && typeof eventsData === 'object') {
+            setEvents(eventsData);
+        }
     }, [eventsData]);
 
     const [date, setDate] = useState<Nullable<Date>>(null);
@@ -81,6 +91,7 @@ export default function EventCalendar(eventsData: { events: any }) {
                 visible={visible}
                 setVisible={setVisible}
                 selectedEvents={selectedEvents}
+                buildingId={buildingId}
                 formatDate={formatDate}
             />
         </>
