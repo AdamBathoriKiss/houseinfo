@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
+import type { eventNames } from "process";
 
 export default function DoughnutChart({
 	title,
@@ -33,20 +34,23 @@ export default function DoughnutChart({
 		};
 		const options = {
 			cutout: "70%",
+			events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
 			plugins: {
 				legend: {
 					display: false, // legend elrejtése
 				},
 				tooltip: {
 					enabled: true,
+					events: ['click', 'mousemove'],
 					callbacks: {
 						label: function (context: any) {
 							const value = context.parsed || 0;
 							return `${value}`;
-						},
+						}
 					},
 				},
 			},
+			onClick: () => alert('Teszt')
 		};
 
 		setChartData(data);
