@@ -45,7 +45,6 @@ export default function EventDialog({
 
 
 	return (
-		console.log(selectedEvents),
 		<Dialog
 			header={date ? `${formatDate(date)}` : "Események"}
 			visible={visible}

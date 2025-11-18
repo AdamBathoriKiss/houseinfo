@@ -12,6 +12,7 @@ import Parkings from "./Parkings";
 export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHouse: any }) {
 	const toast = useRef<Toast | null>(null);
 	const [news, setNews] = useState([]);
+	const [parkingData, setParkingData] = useState([]);
 	const [maintence, setMaintence] = useState([]);
 	const [documents, setDocuments] = useState([]);
 	const [events, setEvents] = useState([]);
@@ -26,6 +27,7 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 		if (selectedHouse !== null && selectedHouse !== undefined) {
 			DashboardService.getDashboardData(selectedHouse?.id).then((response) => {
 				setNews(response.data.selectedBuilding.announcements);
+				setParkingData(response.data.selectedBuilding.parkingData)
 				setMaintence(response.data.selectedBuilding.maintenanceRequest);
 				setDocuments(response.data.selectedBuilding.document);
 				setEvents(response.data.selectedBuilding.events);
@@ -51,7 +53,8 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 				{/* Bal oldali oszlop */}
 				<div className="flex flex-col gap-6">
 					<div className="flex flex-row gap-3">
-						<Parkings parkings={chartData?.parkings} freeNormal={chartData?.freeNormal} freeElectric={chartData?.freeElectric} occupiedElectric={chartData?.occupiedElectric} occupiedNormal={chartData?.occupiedNormal}/>
+						<Parkings parkingData={parkingData} parkings={chartData?.parkings} freeNormal={chartData?.freeNormal} freeElectric={chartData?.freeElectric} occupiedElectric={chartData?.occupiedElectric} occupiedNormal={chartData?.occupiedNormal} 
+							buildingId={selectedHouse?.id} />
 						<EventCalendar events={events} buildingId={selectedHouse?.id} />
 					</div>
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">

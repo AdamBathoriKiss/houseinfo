@@ -69,12 +69,28 @@ const documentExpandedCols = [
   { field: 'actions', header: 'Műveletek' },
 ];
 
+// Hírek
+const parkingCols = [
+  { field: 'type', header: 'Típus' },
+  { field: 'spotNumber', header: 'Hely' },
+  { field: 'isOccupied', header: 'Elérhetőség' },
+  { field: 'createdAt', header: 'Létrehozva' }
+];
+
+const parkingExpandedCols = [
+  ...parkingCols,
+  { field: 'updatedAt', header: 'Frissítve' },
+  { field: 'actions', header: 'Műveletek' },
+];
+
 export default function dataTableColumns(type:string) {
     switch(type) {
         case 'residents':
             return { columns: residentCols, expandedColumns: residentExpandedCols };
         case 'news':
             return { columns: newsCol, expandedColumns: newsExpandedCols };
+        case 'parking':
+            return { columns: parkingCols, expandedColumns: parkingExpandedCols };
         case 'Maintences':
             return { columns: taskCols, expandedColumns: taskExpandedCols };
         case 'bills':

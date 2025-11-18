@@ -26,6 +26,15 @@ export interface News {
 	content: string;
 }
 
+export interface Parking {
+	id?: number;
+	spotNumber: string;
+	type: string;
+	isOccupied: boolean;
+	createdAt: Date;
+	buildingId: number
+}
+
 export interface Maintence {
 	id: string;
 	title: string;
