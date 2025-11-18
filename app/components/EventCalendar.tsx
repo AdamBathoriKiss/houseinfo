@@ -83,8 +83,8 @@ export default function EventCalendar({ events: eventsData, buildingId }: EventC
                 onChange={handleDateSelect}
                 dateTemplate={dateTemplate}
                 inline
-                className="shadow-2xl rounded-md mini-cal w-[50%] max-w-[260px]"
-                panelClassName="!bg-transparent !border-0"
+                className="shadow-2xl rounded-md mini-cal w-[50%] max-w-[260px] h-96 "
+                panelClassName="!bg-transparent !border-0 !overflow-hidden"
             />
             <EventDialog
                 date={date}

@@ -13,12 +13,14 @@ interface ChartData {
 
 export default function Parkings({ parkings, freeNormal, occupiedNormal, freeElectric, occupiedElectric }: ChartData) {
     const [visible, setVisible] = useState(false);
+    const [parkingList, setParkingList] = useState(false);
     const [selectedParking, setSelectedParking] = useState(undefined);
 
     const handleCreate = () => {
         setSelectedParking(undefined);
         setVisible(true);
     };
+
 
 	return (
 		<div className="shadow-2xl rounded-md w-[50%] h-96 overflow-hidden grid grid-cols-2 justify-between items-center">
@@ -35,11 +37,15 @@ export default function Parkings({ parkings, freeNormal, occupiedNormal, freeEle
 				title="Normál"
 				free={freeNormal ? freeNormal : 0}
 				occupied={occupiedNormal ? occupiedNormal : 0}
+                onClick={()=> setParkingList(true)}
+                type="normal"
 			/>
 			<DoughnutChart
 				title="Elektromos"
 				free={freeElectric ? freeElectric : 0}
 				occupied={occupiedElectric ? occupiedElectric : 0}
+                onClick={()=> setParkingList(true)}
+                type="electric"
 			/>
             {visible && (
                 <CreateParking 

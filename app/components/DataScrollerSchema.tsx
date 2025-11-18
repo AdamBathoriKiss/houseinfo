@@ -227,6 +227,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 				<Maximalized
 					title={title}
 					type={type}
+					buildingId={buildingId}
 					onMaximizedHide={onMaximizedHide}
 					onMaximizedOpened={onMaximizedOpened}
 					filter={filter}

@@ -29,15 +29,24 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 					></i>
 				</div>
 				{type === "news" ? (
-					<Announcements title="" content="" author={null} date="" authorId={""} buildingId={buildingId} />
+					<Announcements
+						id={user.userId}
+						title=""
+						content=""
+						author={null}
+						date=""
+						authorId={""}
+						buildingId={buildingId}
+					/>
 				) : (
 					<Maintences
 						title=""
 						description=""
-						responsible=""
+						id={user.userId}
 						status=""
 						priority=""
 						buildingId={buildingId}
+						reportedBy={user.userId}
 						reportedById={user.userId}
 					/>
 				)}
@@ -64,6 +73,7 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 							content=""
 							author={null}
 							date=""
+							id={user.userId}
 							authorId={user}
 							buildingId={buildingId}
 						/>
@@ -71,10 +81,11 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 						<Maintences
 							title=""
 							description=""
-							responsible=""
+							id={user.userId}
 							status=""
 							priority=""
 							buildingId={buildingId}
+							reportedBy={user.userId}
 							reportedById={user.userId}
 						/>
 					)}

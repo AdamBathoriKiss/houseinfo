@@ -6,10 +6,14 @@ export default function DoughnutChart({
 	title,
 	occupied,
 	free,
+	type,
+	onClick
 }: {
 	title: string;
 	occupied: number | undefined;
 	free: number | undefined;
+	type: string,
+	onClick: ()=> void
 }) {
 	const [chartData, setChartData] = useState({});
 	const [chartOptions, setChartOptions] = useState({});

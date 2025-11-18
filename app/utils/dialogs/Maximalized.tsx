@@ -6,10 +6,12 @@ import Announcements from "~/components/Announcements";
 import type { Maintence, News } from "~/interfaces/Dashboard";
 import DataScrollerHeader from "../DataHeader";
 import Create from "./Create";
+import { useAuth } from "../AuthProvider";
 
 interface Maximalized<T = News | Maintence> {
 	title: string;
 	type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
+	buildingId: number;
 	onMaximizedHide: () => void;
 	onMaximizedOpened: boolean;
 	filter?: (searchTerm: string) => void;
@@ -22,6 +24,7 @@ interface Maximalized<T = News | Maintence> {
 export default function Maximalized({
 	title,
 	type,
+	buildingId,
 	onMaximizedHide,
 	onMaximizedOpened,
 	filter,
@@ -32,6 +35,7 @@ export default function Maximalized({
 }: Maximalized) {
 	const [createNews, setCreateNews] = useState<boolean>(false);
 	const [createTask, setCreateTask] = useState<boolean>(false);
+	const {user} = useAuth();
 	// Type guard függvények
 	const isNews = (item: News | Maintence): item is News => {
 		return type === "news";
@@ -63,14 +67,17 @@ export default function Maximalized({
 		}
 
 		if (createNews) {
-			return (
-				<Create setVisible={setCreateNews} type="news"/>
-			);
+			return <Create type="newsDialog" visible={createNews} setVisible={setCreateNews} buildingId={buildingId} />;
 		}
 
 		if (createTask) {
 			return (
-			<Create setVisible={setCreateTask} type="maintence"/>
+				<Create
+					type="maintenceDialog"
+					visible={createTask}
+					setVisible={setCreateTask}
+					buildingId={buildingId}
+				/>
 			);
 		}
 
@@ -88,19 +95,26 @@ export default function Maximalized({
 					{isNews(hoveredItem) ? (
 						<div className="space-y-3">
 							<Announcements
+								id={user.userId}
 								title={hoveredItem.title}
+								buildingId={buildingId}
 								content={hoveredItem.content}
 								author={hoveredItem.author}
+								authorId={hoveredItem.authorId ? hoveredItem.authorId : ""}
 								date={hoveredItem.publishedAt}
 							/>
 						</div>
 					) : (
 						<div className="space-y-3">
 							<Maintences
+								id={user.userId}
 								title={hoveredItem.title}
+								buildingId={buildingId}
 								description={hoveredItem.description}
-								responsible={hoveredItem.responsible || ""}
 								status={hoveredItem.status}
+								priority=""
+								reportedBy={user.userId}
+								reportedById={user.userId}
 							/>
 						</div>
 					)}
