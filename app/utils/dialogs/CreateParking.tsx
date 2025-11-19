@@ -16,7 +16,7 @@ interface ParkingData {
 interface ParkingProps {
 	visible: boolean;
     setVisible: (visible: boolean) => void;
-	buildingId: number;
+	buildingId: number | null;
     parking?: ParkingData;
 }
 

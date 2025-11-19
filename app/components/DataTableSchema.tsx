@@ -1,21 +1,25 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import type { Residents, News, Maintence, Bills, Documents } from "../interfaces/Dashboard";
+import type { Residents, News, Maintence, Bills, Documents, Parking } from "../interfaces/Dashboard";
 import dataTableColumns from "~/utils/dataTableColumns";
 import "../app.css";
 import { Button } from "primereact/button";
 import DataScrollerHeader from "../utils/DataHeader";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import DataHeader from "../utils/DataHeader";
+import CreateParking from "~/utils/dialogs/CreateParking";
 
 export interface DataTableSchemaProps {
-	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[];
+	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[] | Parking[];
 	title: string;
 	type: string;
+	buildingId?: number | null;
 }
 
-export default function DataTableSchema({ dataTableValue, title, type }: DataTableSchemaProps) {
+export default function DataTableSchema({ dataTableValue, title, type,buildingId }: DataTableSchemaProps) {
 	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>([]);
+	const [createParking, setCreateParking] = useState<boolean>(false);
 
 	useEffect(() => {
 		setFilteredItem(dataTableValue);
@@ -44,18 +48,31 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 		if (field === "actions") {
 			return (
 				<div className="flex items-center text-start">
-					<Button
-						icon="pi pi-eye"
-						unstyled
-						tooltip="Szerkesztés"
-						className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 mx-2"
-					/>
-					<Button
-						icon="pi pi-download"
-						unstyled
-						tooltip="Letöltés"
-						className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50 mx-2"
-					/>
+					{type === "parking" ? (
+						<>
+							<Button
+								icon="pi pi-pencil"
+								unstyled
+								tooltip="Szerkesztés"
+								className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 mx-2"
+							/>
+						</>
+					) : (
+						<>
+							<Button
+								icon="pi pi-eye"
+								unstyled
+								tooltip="Szerkesztés"
+								className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 mx-2"
+							/>
+							<Button
+								icon="pi pi-download"
+								unstyled
+								tooltip="Letöltés"
+								className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50 mx-2"
+							/>
+						</>
+					)}
 					<Button
 						icon="pi pi-trash"
 						unstyled
@@ -65,21 +82,38 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 				</div>
 			);
 		}
-		if(field === "uploadedAt"){
-			return (
-				dayjs(rowData[field]).format('YYYY-MM-DD')
-			)
+		if (field === "uploadedAt" || field === "createdAt") {
+			return dayjs(rowData[field]).format("YYYY-MM-DD");
+		}
+		if (field === "type") {
+			if (rowData[field] === "ELECTRIC") {
+				return <span className="text-emerald-500">Elektromos</span>;
+			} else {
+				return <span>Normál</span>;
+			}
+		}
+		if (field === "isOccupied") {
+			if (rowData[field] === true) {
+				return <span>Foglalt</span>;
+			} else {
+				return <span>Szabad</span>;
+			}
+		}
+		if (field === "uploadedAt") {
+			return dayjs(rowData[field]).format("YYYY-MM-DD");
 		}
 		return rowData[field];
 	};
 
+	const documentHeader = DataHeader.header({ title, filter, fileUpdateDialog: true })
+	const parkingHeader =  DataHeader.header({ type, title, filter, fileUpdateDialog: false, setCreateParking })
 	return (
 		<div className="h-full flex flex-col flex-1 overflow-hidden">
 			<DataTable
-				header={DataScrollerHeader.header({ title, filter, fileUpdateDialog: true })}
+				header={type === "parking" ? parkingHeader : documentHeader}
 				value={filteredItem}
 				unstyled
-				className="h-full !bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300 px-3 py-2"
+				className="h-full !w-full !bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300 px-3 py-2"
 				emptyMessage="Nincs megjelenítendő adat"
 				pt={{
 					wrapper: {
@@ -107,6 +141,12 @@ export default function DataTableSchema({ dataTableValue, title, type }: DataTab
 					/>
 				))}
 			</DataTable>
+
+			{createParking &&
+			 <CreateParking 
+			 visible={createParking}
+			 setVisible={setCreateParking}
+			 buildingId={buildingId ? buildingId : null}/>}
 		</div>
 	);
 }

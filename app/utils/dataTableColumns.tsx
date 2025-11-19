@@ -74,7 +74,8 @@ const parkingCols = [
   { field: 'type', header: 'Típus' },
   { field: 'spotNumber', header: 'Hely' },
   { field: 'isOccupied', header: 'Elérhetőség' },
-  { field: 'createdAt', header: 'Létrehozva' }
+  { field: 'createdAt', header: 'Létrehozva' },
+  { field: 'actions', header: 'Műveletek' },
 ];
 
 const parkingExpandedCols = [

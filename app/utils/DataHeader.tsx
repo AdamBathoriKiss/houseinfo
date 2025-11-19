@@ -1,7 +1,6 @@
 import { Button } from "primereact/button";
 import SearchBar from "./SearchBar";
 import FileUploader from "~/components/FileUploader";
-import { useState } from "react";
 
 export interface HeaderInterface {
     title?: string;
@@ -11,6 +10,7 @@ export interface HeaderInterface {
     setOnMaximizedOpened?: (onDialogOpened: boolean) => void;
     setCreateNews?: (item: boolean) => void;
     setCreateTask?: (item: boolean) => void;
+    setCreateParking?: (item: boolean) => void;
     fileUpdateDialog?: boolean;
 }
 
@@ -22,6 +22,7 @@ const header = ({
     fileUpdateDialog,
     setCreateNews,
     setCreateTask,
+    setCreateParking,
     type,
 }: HeaderInterface) => {
     return (
@@ -44,6 +45,15 @@ const header = ({
                         icon="pi pi-plus"
                         tooltip="Új feladat létrehozása"
                         onClick={() => setCreateTask(true)}
+                        className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+                    />
+                )}
+
+                {type === "parking" && setCreateParking && (
+                    <Button
+                        icon="pi pi-plus"
+                        tooltip="Új feladat létrehozása"
+                        onClick={() => setCreateParking(true)}
                         className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
                     />
                 )}

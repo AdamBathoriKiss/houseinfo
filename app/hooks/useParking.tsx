@@ -26,7 +26,7 @@ interface ParkingData {
     isOccupied: boolean;
 }
 
-export default function useParking({ buildingId, parking }: { buildingId: number; parking?: ParkingData }) {
+export default function useParking({ buildingId, parking }: { buildingId: number | null; parking?: ParkingData }) {
 	const { showSuccess, showError } = useToast();
 	const [apiError, setApiError] = useState<string | null>(null);
 	const stepperRef = useRef<Stepper | null>(null);
@@ -82,7 +82,7 @@ export default function useParking({ buildingId, parking }: { buildingId: number
 				.catch((error) => {
 					showError(error.message || "Ismeretlen hiba történt");
 				});
-		} else {
+		} else if(buildingId !== null) {
 			// Létrehozás
 			CommonService.create("parkings",buildingId, body)
 				.then((response) => {
