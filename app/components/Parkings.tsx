@@ -71,7 +71,7 @@ export default function Parkings({
 					style={{ width: "50%", height:'60%' }}
 					onHide={() => setVisible(false)}
 				>
-					<DataTableSchema dataTableValue={parkingData} title="Parkolás" type="parking"/>
+					<DataTableSchema dataTableValue={parkingData} title="Parkolás" type="parking" buildingId={buildingId}/>
 				</Dialog>
 			)}
 		</div>

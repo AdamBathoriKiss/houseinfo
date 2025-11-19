@@ -112,6 +112,7 @@ export default function DataTableSchema({ dataTableValue, title, type,buildingId
 			<DataTable
 				header={type === "parking" ? parkingHeader : documentHeader}
 				value={filteredItem}
+				sortMode="multiple"
 				unstyled
 				className="h-full !w-full !bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300 px-3 py-2"
 				emptyMessage="Nincs megjelenítendő adat"
@@ -136,6 +137,7 @@ export default function DataTableSchema({ dataTableValue, title, type,buildingId
 						key={col.field}
 						field={col.field}
 						header={col.header}
+						sortable={type === "parking" && col.field !== "actions" && col.field !== "spotNumber"}
 						body={(rowData) => bodyTemplate(rowData, col.field)}
 						bodyClassName="px-1 py-3 whitespace-nowrap"
 					/>
