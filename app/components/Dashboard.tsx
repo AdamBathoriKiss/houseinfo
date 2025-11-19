@@ -17,7 +17,7 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 	const [documents, setDocuments] = useState([]);
 	const [events, setEvents] = useState([]);
 	const [financeTotal, setFinanceTotal] = useState(0);
-	const [activeTasks, setActiveTasks] = useState(0);
+	const [maintenancesCount, setMaintenancesCount] = useState(0);
 	const [expenseTotal, setExpenseTotal] = useState(0);
 	const [applicationRegistered, setApplicationRegistered] = useState(0);
 	const [chartData, setChartData] = useState<ChartData>();
@@ -32,7 +32,7 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 				setDocuments(response.data.selectedBuilding.document);
 				setEvents(response.data.selectedBuilding.events);
 				setFinanceTotal(response.data.selectedBuilding.finances);
-				setActiveTasks(response.data.selectedBuilding.maintenances);
+				setMaintenancesCount(response.data.selectedBuilding.maintenancesCount);
 				setExpenseTotal(response.data.selectedBuilding.expenseTotal);
 				setChartData(response.data.selectedBuilding.chartData);
 				setFinanceReports(
@@ -48,7 +48,7 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 	return (
 		<div className="flex flex-col min-h-screen px-6 ">
 			<Toast ref={toast} />
-			<DashboardHeader financeTotal={financeTotal} activeTasks={activeTasks} expenseTotal={expenseTotal} />
+			<DashboardHeader financeTotal={financeTotal} maintenancesCount={maintenancesCount} expenseTotal={expenseTotal} />
 			<div className="grid grid-cols-2 gap-6 px-4 my-4">
 				{/* Bal oldali oszlop */}
 				<div className="flex flex-col gap-6">

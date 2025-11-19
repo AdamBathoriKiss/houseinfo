@@ -2,12 +2,12 @@ import { Card } from "primereact/card";
 
 export default function DashboardHeader({
 	financeTotal,
-	activeTasks,
+	maintenancesCount,
 	expenseTotal,
 	applicationRegistered,
 }: {
 	financeTotal?: number;
-	activeTasks?: number;
+	maintenancesCount?: number;
 	expenseTotal?: number;
 	applicationRegistered?: number;
 }) {
@@ -30,7 +30,7 @@ export default function DashboardHeader({
 					<p className="text-gray-400 font-bold">Aktív feladatok</p>
 					<i className="pi pi-list-check mr-2"></i>
 				</div>
-				<p className="text-gray-400 !text-3xl">{activeTasks} db</p>
+				<p className="text-gray-400 !text-3xl">{maintenancesCount} db</p>
 			</Card>
 			<Card className="!bg-teal-400/70 m-4 h-35 rounded-lg">
 				<div className="flex flex-row justify-between">
