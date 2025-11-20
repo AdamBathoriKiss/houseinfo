@@ -25,17 +25,24 @@ export default function FileUploader() {
 					onHide={() => setOnShow(false)}
 				>
 					<FileUpload
-						name="demo[]"
-						url={"/api/upload"}
+						name="documents"
+						url={"http://localhost:3000/api/upload"}
 						multiple
 						headerClassName="!w-full !bg-[#343d4a]"
 						contentClassName="!w-full !bg-[#343d4a]"
 						chooseLabel="Fájl kiválasztása"
 						uploadLabel="Feltöltés"
 						cancelLabel="Mégse"
-						accept="image/*"
-						maxFileSize={1000000}
-						emptyTemplate={<p className="mb-3">Drag and drop files to here to upload.</p>}
+						accept="application/pdf,.docx"
+						maxFileSize={5000000}
+							emptyTemplate={<p className="mb-3">Húzd ide a fájlokat a feltöltéshez.</p>}
+						onUpload={(e) => {
+							console.log('Sikeres feltöltés!', e);
+							// Itt frissítheted az állapotot, bezárhatod a dialogot stb.
+						}}
+						onError={(e) => {
+							console.error('Feltöltési hiba:', e);
+						}}
 					/>
 				</Dialog>
 			)}
