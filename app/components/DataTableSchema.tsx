@@ -4,11 +4,11 @@ import type { Residents, News, Maintence, Bills, Documents, Parking } from "../i
 import dataTableColumns from "~/utils/dataTableColumns";
 import "../app.css";
 import { Button } from "primereact/button";
-import DataScrollerHeader from "../utils/DataHeader";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import DataHeader from "../utils/DataHeader";
-import CreateParking from "~/utils/dialogs/CreateParking";
+import CreateParking, { type ParkingData } from "~/utils/dialogs/CreateParking";
+import { useCommonProcesses } from "~/hooks/useCommonProcesses";
 
 export interface DataTableSchemaProps {
 	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[] | Parking[];
@@ -17,13 +17,36 @@ export interface DataTableSchemaProps {
 	buildingId?: number | null;
 }
 
-export default function DataTableSchema({ dataTableValue, title, type,buildingId }: DataTableSchemaProps) {
+export default function DataTableSchema({ dataTableValue, title, type, buildingId }: DataTableSchemaProps) {
 	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>([]);
 	const [createParking, setCreateParking] = useState<boolean>(false);
+	const [parking, setParking] = useState<ParkingData>();
+	const { remove } = useCommonProcesses();
 
 	useEffect(() => {
 		setFilteredItem(dataTableValue);
 	}, [dataTableValue]);
+
+	const onDelete = (type: string, rowData: any) => {
+		switch (type) {
+			case "parking":
+				remove("parkings", rowData.id);
+				break;
+			case "fileUpload":
+				remove("fileuploads", rowData.id);
+				break;
+		}
+	};
+
+	const onEdit = (type: string, rowData: any) => {
+		setCreateParking(true);
+		setParking({
+			id: rowData.id,
+			type: rowData.type,
+			spotNumber: rowData.spotNumber,
+			isOccupied: rowData.isOccupied,
+		});
+	};
 
 	const filter = (searchTerm: string) => {
 		let filtered: typeof dataTableValue = [];
@@ -54,6 +77,7 @@ export default function DataTableSchema({ dataTableValue, title, type,buildingId
 								icon="pi pi-pencil"
 								unstyled
 								tooltip="Szerkesztés"
+								onClick={() => onEdit(type, rowData)}
 								className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 mx-2"
 							/>
 						</>
@@ -77,6 +101,7 @@ export default function DataTableSchema({ dataTableValue, title, type,buildingId
 						icon="pi pi-trash"
 						unstyled
 						tooltip="Törlés"
+						onClick={() => onDelete(type, rowData)}
 						className="!text-red-600 !bg-transparent hover:!bg-gray-600/30 mx-2"
 					/>
 				</div>
@@ -105,8 +130,8 @@ export default function DataTableSchema({ dataTableValue, title, type,buildingId
 		return rowData[field];
 	};
 
-	const documentHeader = DataHeader.header({ title, filter, fileUpdateDialog: true })
-	const parkingHeader =  DataHeader.header({ type, title, filter, fileUpdateDialog: false, setCreateParking })
+	const documentHeader = DataHeader.header({ title, filter, fileUpdateDialog: true });
+	const parkingHeader = DataHeader.header({ type, title, filter, fileUpdateDialog: false, setCreateParking });
 	return (
 		<div className="h-full flex flex-col flex-1 overflow-hidden">
 			<DataTable
@@ -144,11 +169,14 @@ export default function DataTableSchema({ dataTableValue, title, type,buildingId
 				))}
 			</DataTable>
 
-			{createParking &&
-			 <CreateParking 
-			 visible={createParking}
-			 setVisible={setCreateParking}
-			 buildingId={buildingId ? buildingId : null}/>}
+			{createParking && (
+				<CreateParking
+					parking={parking ? parking : undefined}
+					visible={createParking}
+					setVisible={setCreateParking}
+					buildingId={buildingId ? buildingId : null}
+				/>
+			)}
 		</div>
 	);
 }

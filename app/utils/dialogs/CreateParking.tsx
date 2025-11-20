@@ -6,7 +6,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
 
-interface ParkingData {
+export interface ParkingData {
     id?: number;
     type: string;
     spotNumber: string;
