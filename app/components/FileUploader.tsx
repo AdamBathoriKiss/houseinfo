@@ -2,9 +2,11 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { FileUpload } from "primereact/fileupload";
 import React, { useState } from "react";
+import { useToast } from "~/utils/ToastProvider";
 
 export default function FileUploader() {
 	const [onShow, setOnShow] = useState(false);
+	const { showSuccess, showError } = useToast();
 
 	return (
 		<React.Fragment>
@@ -26,7 +28,7 @@ export default function FileUploader() {
 				>
 					<FileUpload
 						name="documents"
-						url={"http://localhost:3000/api/upload"}
+						url={"http://localhost:3000/api/documents/upload"}
 						multiple
 						headerClassName="!w-full !bg-[#343d4a]"
 						contentClassName="!w-full !bg-[#343d4a]"
@@ -37,11 +39,10 @@ export default function FileUploader() {
 						maxFileSize={5000000}
 							emptyTemplate={<p className="mb-3">Húzd ide a fájlokat a feltöltéshez.</p>}
 						onUpload={(e) => {
-							console.log('Sikeres feltöltés!', e);
-							// Itt frissítheted az állapotot, bezárhatod a dialogot stb.
+							showError("Sikeres fájlfeltöltés.")
 						}}
 						onError={(e) => {
-							console.error('Feltöltési hiba:', e);
+							showError('Hiba történt a feltöltés során.')
 						}}
 					/>
 				</Dialog>
