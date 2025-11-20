@@ -21,10 +21,12 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>([]);
 	const [createParking, setCreateParking] = useState<boolean>(false);
 	const [parking, setParking] = useState<ParkingData>();
+	const [buildId, setBuildId] = useState<number>();
 	const { remove } = useCommonProcesses();
 
 	useEffect(() => {
 		setFilteredItem(dataTableValue);
+		buildingId && setBuildId(buildingId)
 	}, [dataTableValue]);
 
 	const onDelete = (type: string, rowData: any) => {
@@ -130,7 +132,7 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 		return rowData[field];
 	};
 
-	const documentHeader = DataHeader.header({ title, filter, fileUpdateDialog: true });
+	const documentHeader = DataHeader.header({ title, filter, fileUpdateDialog: true, buildingId: buildId });
 	const parkingHeader = DataHeader.header({ type, title, filter, fileUpdateDialog: false, setCreateParking });
 	return (
 		<div className="h-full flex flex-col flex-1 overflow-hidden">

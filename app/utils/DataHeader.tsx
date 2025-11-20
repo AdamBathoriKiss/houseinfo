@@ -1,6 +1,7 @@
 import { Button } from "primereact/button";
 import SearchBar from "./SearchBar";
 import FileUploader from "~/components/FileUploader";
+import { useAuth } from "./AuthProvider";
 
 export interface HeaderInterface {
     title?: string;
@@ -12,6 +13,7 @@ export interface HeaderInterface {
     setCreateTask?: (item: boolean) => void;
     setCreateParking?: (item: boolean) => void;
     fileUpdateDialog?: boolean;
+    buildingId?: number
 }
 
 const header = ({
@@ -24,7 +26,9 @@ const header = ({
     setCreateTask,
     setCreateParking,
     type,
+    buildingId
 }: HeaderInterface) => {
+    const {user} = useAuth();
     return (
         <div className="w-full flex flex-row justify-between items-center">
             <p className="mx-4 text-dark-200 font-black">{title}</p>
@@ -63,7 +67,7 @@ const header = ({
                         onClick={() => setOnMaximizedOpened(!onMaximizedOpened)}
                     ></span>
                 )}
-                {fileUpdateDialog && <FileUploader />}
+                {fileUpdateDialog && <FileUploader buildingId={buildingId ? buildingId : null} uploadedBy={user.userId}/>}
             </div>
         </div>
     );

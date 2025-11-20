@@ -6,5 +6,8 @@
 		{
 			"path": "../houseinfo-backend"
 		}
-	]
+	],
+	"settings": {
+		"prisma.pinToPrisma6": true
+	}
 }

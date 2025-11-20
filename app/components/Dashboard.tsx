@@ -92,7 +92,7 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 
 			<div className="px-4 my-4">
 				<div className=" gap-6 surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-					<DataTableSchema dataTableValue={documents} title={"Dokumentumok"} type="documents" />
+					<DataTableSchema dataTableValue={documents} title={"Dokumentumok"} type="documents" buildingId={selectedHouse?.id}/>
 				</div>
 			</div>
 		</div>
