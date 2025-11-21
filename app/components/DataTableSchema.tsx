@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import DataHeader from "../utils/DataHeader";
 import CreateParking, { type ParkingData } from "~/utils/dialogs/CreateParking";
 import { useCommonProcesses } from "~/hooks/useCommonProcesses";
+import FileService from "~/services/file.service";
 
 export interface DataTableSchemaProps {
 	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[] | Parking[];
@@ -34,8 +35,8 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 			case "parking":
 				remove("parkings", rowData.id);
 				break;
-			case "fileUpload":
-				remove("fileuploads", rowData.id);
+			case "documents":
+				remove("documents", rowData.id);
 				break;
 		}
 	};
@@ -88,13 +89,14 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 							<Button
 								icon="pi pi-eye"
 								unstyled
-								tooltip="Szerkesztés"
+								tooltip="Megtekintés"
 								className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 mx-2"
 							/>
 							<Button
 								icon="pi pi-download"
 								unstyled
 								tooltip="Letöltés"
+								onClick={()=> FileService.getDocument(rowData.id)}
 								className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50 mx-2"
 							/>
 						</>
