@@ -21,7 +21,7 @@ export interface News {
 	id: string;
 	title: string;
 	publishedAt: string;
-	author: User;
+	author?: User;
 	authorId?: number;
 	content: string;
 }

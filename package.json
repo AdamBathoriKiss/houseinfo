@@ -45,7 +45,7 @@
     "@types/testing-library__react": "^10.0.1",
     "@vitest/coverage-v8": "^4.0.13",
     "@vitest/ui": "^4.0.13",
-    "jsdom": "^27.2.0",
+    "happy-dom": "^20.0.10",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",

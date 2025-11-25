@@ -11,7 +11,7 @@ export default mergeConfig(
   defineVitestConfig({
     test: {
       globals: true,
-      environment: 'jsdom',
+      environment: 'happy-dom',
       setupFiles: './app/test/setup.ts',
       css: true,
     },
