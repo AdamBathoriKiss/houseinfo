@@ -7,6 +7,15 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default mergeConfig(
   defineConfig({
     plugins: [tailwindcss(), !process.env.VITEST && reactRouter(), tsconfigPaths()],
+    resolve: {
+      alias: {
+        // PrimeReact ESM fix
+        'primereact/utils': 'primereact/utils/utils.esm.js'
+      }
+    },
+    optimizeDeps: {
+      include: ['primereact']
+    }
   }),
   defineVitestConfig({
     test: {
