@@ -51,13 +51,5 @@
     "vite": "^6.3.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.0.13"
-  }, 
-  "overrides": {
-    "primereact": {
-      ".": {
-        "import": "./primereact.esm.js",
-        "require": "./primereact.cjs.js"
-      }
-    }
   }
 }
