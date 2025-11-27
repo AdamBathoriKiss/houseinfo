@@ -9,9 +9,12 @@ export default mergeConfig(
     plugins: [tailwindcss(), !process.env.VITEST && reactRouter(), tsconfigPaths()],
     resolve: {
       alias: {
-        // PrimeReact ESM fix
-        'primereact/utils': 'primereact/utils/utils.esm.js'
+        // PrimeReact utils explicit mapping
+        'primereact/utils': 'primereact/utils/utils.cjs.js',
       }
+    },
+    ssr: {
+      noExternal: ['primereact'],
     },
     optimizeDeps: {
       include: ['primereact']
