@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import { useRef, useState } from "react";
 import { Menu } from "primereact/menu";
 import type { MenuItem } from "primereact/menuitem";
 import { FaUser } from "react-icons/fa6";
@@ -7,19 +6,11 @@ import UserEdit from "./UserEdit";
 import { useAuth } from "~/utils/AuthProvider";
 import AuthService from "~/services/auth.service";
 
-export interface User {
-	userId: string;
-	firstName: string;
-	lastName: string;
-	email: string;
-	role: string
-}
 
 export default function UserMenu() {
 	const { token, user } = useAuth();
 	const menuRight = useRef<Menu>(null);
 	const [visible, setVisible] = useState(false);
-	//const [user, setUser] = useState<User | null>(null);
 
 	const items: MenuItem[] = [
 		{
