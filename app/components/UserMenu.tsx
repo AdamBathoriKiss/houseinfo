@@ -16,10 +16,10 @@ export interface User {
 }
 
 export default function UserMenu() {
-	const { token } = useAuth();
+	const { token, user } = useAuth();
 	const menuRight = useRef<Menu>(null);
 	const [visible, setVisible] = useState(false);
-	const [user, setUser] = useState<User | null>(null);
+	//const [user, setUser] = useState<User | null>(null);
 
 	const items: MenuItem[] = [
 		{
@@ -51,12 +51,6 @@ export default function UserMenu() {
 			],
 		},
 	];
-
-	useEffect(() => {
-		if (token && user === null) {
-			setUser(jwtDecode(token));
-		}
-	}, [token]);
 
 	return (
 		<div className="card flex justify-content-center">
