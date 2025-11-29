@@ -4,9 +4,10 @@ import { Divider } from "primereact/divider";
 import type { Nullable } from "primereact/ts-helpers";
 import { useState } from "react";
 import type { Event } from "~/components/EventCalendar";
-import { useCommonProcesses } from "~/hooks/useCommonProcesses";
+import EventService from "~/services/event.service";
 import CreateEvent from "./CreateEvent";
 import { useAuth } from "../AuthProvider";
+import dayjs from "dayjs";
 
 export default function EventDialog({
 	date,
@@ -23,7 +24,6 @@ export default function EventDialog({
 	selectedEvents: Event[];
 	formatDate: (date: Date) => string;
 }) {
-	const { remove } = useCommonProcesses();
 	const { user } = useAuth();
 	const [createDialog, setCreateDialog] = useState(false);
 	const [editingEvent, setEditingEvent] = useState<Event | null>(null);
@@ -43,6 +43,24 @@ export default function EventDialog({
 		setEditingEvent(null);
 	};
 
+	const confirmDelete = async (event:any,type: string) => {
+    try {
+        if (type === 'day') {
+            // CSAK ADOTT NAP
+            await EventService.removeEventDay(event.id!, event.occurrenceId!);
+        } else {
+            // EGÉSZ ESEMÉNY
+            await EventService.removeEventCompletely(event.id!);
+        }
+        
+        // Refresh adatok
+        window.location.reload();  // vagy refetch
+    } catch (error) {
+        console.error('Törlés hiba:', error);
+    }
+    
+		setCreateDialog(false);
+};
 
 	return (
 		<Dialog
@@ -79,7 +97,7 @@ export default function EventDialog({
 									<Button
 										icon="pi pi-trash"
 										tooltip="Esemény törlése"
-										onClick={() => remove("events", event.id)}
+										onClick={() => confirmDelete(event,"day")}
 										className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
 									/>
 								</div>
