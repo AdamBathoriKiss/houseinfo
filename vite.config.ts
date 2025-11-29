@@ -10,14 +10,14 @@ export default mergeConfig(
     resolve: {
       alias: {
         // PrimeReact utils explicit mapping
-        'primereact/utils': 'primereact/utils/utils.cjs.js',
+        //'primereact/utils': 'primereact/utils/utils.cjs.js',
       }
     },
     ssr: {
       noExternal: ['primereact'],
     },
     optimizeDeps: {
-      include: ['primereact']
+      include: ['primereact', 'quill'] // ← HOZZÁADVA: quill
     }
   }),
   defineVitestConfig({
