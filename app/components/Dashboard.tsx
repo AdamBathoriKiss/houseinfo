@@ -46,17 +46,39 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 	}, [selectedHouse]);
 
 	return (
-		<div className="flex flex-col min-h-screen px-6 ">
+		<div className="flex flex-col min-h-screen px-3 md:px-6">
 			<Toast ref={toast} />
-			<DashboardHeader financeTotal={financeTotal} maintenancesCount={maintenancesCount} expenseTotal={expenseTotal} />
-			<div className="grid grid-cols-2 gap-6 px-4 my-4">
-				{/* Bal oldali oszlop */}
-				<div className="flex flex-col gap-6">
-					<div className="flex flex-row gap-3">
-						<Parkings parkingData={parkingData} parkings={chartData?.parkings} freeNormal={chartData?.freeNormal} freeElectric={chartData?.freeElectric} occupiedElectric={chartData?.occupiedElectric} occupiedNormal={chartData?.occupiedNormal} 
-							buildingId={selectedHouse?.id} />
-						<EventCalendar events={events} buildingId={selectedHouse?.id} />
+			
+			{/* Dashboard Header */}
+			<DashboardHeader 
+				financeTotal={financeTotal} 
+				maintenancesCount={maintenancesCount} 
+				expenseTotal={expenseTotal} 
+			/>
+			
+			{/* RESPONSIVE GRID - 1 oszlop mobilon, 2 oszlop md: felett */}
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-2 md:px-4 my-4">
+				
+				{/* BAL OLDALI OSZLOP */}
+				<div className="flex flex-col gap-4 md:gap-6">
+					{/* Parkings + EventCalendar - desktop layout marad */}
+					<div className="flex flex-col md:flex-row gap-3">
+						<Parkings 
+							parkingData={parkingData} 
+							parkings={chartData?.parkings} 
+							freeNormal={chartData?.freeNormal} 
+							freeElectric={chartData?.freeElectric} 
+							occupiedElectric={chartData?.occupiedElectric} 
+							occupiedNormal={chartData?.occupiedNormal} 
+							buildingId={selectedHouse?.id} 
+						/>
+						<EventCalendar 
+							events={events} 
+							buildingId={selectedHouse?.id} 
+						/>
 					</div>
+					
+					{/* Diagrams */}
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
 						<Diagrams
 							financeReports={
@@ -69,8 +91,9 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 					</div>
 				</div>
 
-				{/* Jobb oldali oszlop */}
-				<div className="flex flex-col gap-6">
+				{/* JOBB OLDALI OSZLOP */}
+				<div className="flex flex-col gap-4 md:gap-6">
+					{/* Hírek */}
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
 						<DataScrollerSchema
 							dataTableValue={news}
@@ -79,6 +102,8 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 							buildingId={selectedHouse?.id}
 						/>
 					</div>
+					
+					{/* Feladatok */}
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
 						<DataScrollerSchema
 							dataTableValue={maintence}
@@ -90,9 +115,15 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 				</div>
 			</div>
 
-			<div className="px-4 my-4">
-				<div className=" gap-6 surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-					<DataTableSchema dataTableValue={documents} title={"Dokumentumok"} type="documents" buildingId={selectedHouse?.id}/>
+			{/* DOKUMENTUMOK - teljes szélesség */}
+			<div className="px-2 md:px-4 my-4">
+				<div className="gap-6 surface-card shadow-2xl rounded-md h-96 overflow-hidden">
+					<DataTableSchema 
+						dataTableValue={documents} 
+						title={"Dokumentumok"} 
+						type="documents" 
+						buildingId={selectedHouse?.id}
+					/>
 				</div>
 			</div>
 		</div>
