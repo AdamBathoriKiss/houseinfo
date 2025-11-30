@@ -36,6 +36,7 @@ export interface Parking {
 }
 
 export interface Maintence {
+	category: any;
 	id: string;
 	title: string;
 	deadline: string;
@@ -85,12 +86,6 @@ export interface ChartData {
 }
 
 export interface FinanceReports {
-	financeIncomes: Array<{
-		paidDate: string;
-		amount: string;
-	}>;
-	financeOutcomes: Array<{
-		paidDate: string;
-		amount: string;
-	}>;
+    financeIncomes: Array<{ dueDate: string; amount: string }>;
+    financeOutcomes: Array<{ dueDate: string; amount: string }>;
 }

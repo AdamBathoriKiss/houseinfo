@@ -1,10 +1,9 @@
 import axiosInstance from "~/api/axiosInstance";
 
-const getDashboardData = async (buildingId:string) => {
-  const response = await axiosInstance.get(`/dashboard/${buildingId}`);
-  return response;
-};
-
+ const getDashboardData = async(buildingId: number, period: string = 'current') => {
+       const response =  await axiosInstance.get(`/dashboard/${buildingId}?period=${period}`);
+         return response;
+    }
 const DashboardService = {
   getDashboardData,
 };

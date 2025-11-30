@@ -20,12 +20,14 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 	const [maintenancesCount, setMaintenancesCount] = useState(0);
 	const [expenseTotal, setExpenseTotal] = useState(0);
 	const [applicationRegistered, setApplicationRegistered] = useState(0);
+	const [selectedPeriod, setSelectedPeriod] = useState("current")
 	const [chartData, setChartData] = useState<ChartData>();
 	const [financeReports, setFinanceReports] = useState<FinanceReports>();
 
+	// ✅ MOST MÁR selectedPeriod is dependency!
 	useEffect(() => {
 		if (selectedHouse !== null && selectedHouse !== undefined) {
-			DashboardService.getDashboardData(selectedHouse?.id).then((response) => {
+			DashboardService.getDashboardData(selectedHouse?.id, selectedPeriod).then((response) => {
 				setNews(response.data.selectedBuilding.announcements);
 				setParkingData(response.data.selectedBuilding.parkingData)
 				setMaintence(response.data.selectedBuilding.maintenanceRequest);
@@ -43,7 +45,7 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 				);
 			});
 		}
-	}, [selectedHouse]);
+	}, [selectedHouse, selectedPeriod]); // ← selectedPeriod hozzáadva!
 
 	return (
 		<div className="flex flex-col min-h-screen px-3 md:px-6">
@@ -81,12 +83,9 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 					{/* Diagrams */}
 					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
 						<Diagrams
-							financeReports={
-								financeReports ?? {
-									financeIncomes: [],
-									financeOutcomes: [],
-								}
-							}
+							financeReports={financeReports ?? { financeIncomes: [], financeOutcomes: [] }}
+							selectedPeriod={selectedPeriod}
+							onPeriodChange={setSelectedPeriod}
 						/>
 					</div>
 				</div>
