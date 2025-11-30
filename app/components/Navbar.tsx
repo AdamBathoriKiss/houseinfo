@@ -47,7 +47,7 @@ export default function Navbar({
 	};
 
 	return (
-		<header className="pb-3 text-white fixed z-30  shadow-neutral-400-500 bg-dark-500/30  backdrop-blur-2xl">
+		<header className="pb-3 text-white fixed z-30 shadow-neutral-400-500 bg-dark-500/30  backdrop-blur-2xl">
 			<nav aria-label="Global" className="flex flex-row min-w-screen px-8 items-center justify-between">
 				<div className="flex lg:flex-1">
 					<a href="#" className="-m-1.5 p-1.5">
@@ -85,7 +85,7 @@ export default function Navbar({
 								key={house.id}
 								unstyled
 								onClick={() => setSelectedHouse(house)}
-								className="text-sm/6 font-semibold text-grey-50 block my-2"
+								className="text-sm/6 font-semibold text-grey-50 block my-auto"
 							>
 								{house.name}
 							</Button>
@@ -98,13 +98,13 @@ export default function Navbar({
 										key={house.id}
 										unstyled
 										onClick={() => setSelectedHouse(house)}
-										className="text-sm/6 font-semibold text-grey-50 block my-2"
+										className="text-sm/6 font-semibold text-grey-50 block my-auto"
 									>
 										{house.name}
 									</Button>
 								))}
 							{houseList && (
-								<span className="text-sm/6 font-semibold text-grey-50" onClick={() => setVisible(true)}>
+								<span className="text-sm/6 font-semibold text-grey-50 my-auto" onClick={() => setVisible(true)}>
 									...
 								</span>
 							)}
@@ -138,7 +138,7 @@ export default function Navbar({
 									key={house.id}
 									unstyled
 									onClick={() => onHouseSelect(house)}
-									className="text-sm/6 font-semibold text-grey-50 block my-2"
+									className="text-sm/6 font-semibold text-grey-50 block my-auto"
 								>
 									{house.name}
 								</Button>
@@ -148,7 +148,7 @@ export default function Navbar({
 									key={house.id}
 									unstyled
 									onClick={() => onHouseSelect(house)}
-									className="text-sm/6 font-semibold text-grey-50 block my-2"
+									className="text-sm/6 font-semibold text-grey-50 block my-auto"
 								>
 									{house.name}
 								</Button>

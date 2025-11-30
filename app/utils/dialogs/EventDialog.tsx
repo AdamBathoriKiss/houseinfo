@@ -127,7 +127,6 @@ export default function EventDialog({
             <Divider align="center">
               <Button
                 icon="pi pi-plus"
-				iconPos="center"
 				tooltip="Új esemény hozzáadása"
                 onClick={handleCreateNew}
                 className="!text-indigo-300 !bg-transparent !w-full !h-12 hover:!bg-gray-600/30"
