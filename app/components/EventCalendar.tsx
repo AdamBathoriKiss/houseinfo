@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import EventDialog from "~/utils/dialogs/EventDialog";
 import { Button } from "primereact/button";
 
-export type Event = { 
+export type Event = {
+	occurrenceId: number; 
     id: string | number; 
     title: string; 
     time: string;  // Ez a formázott idő a megjelenítéshez
@@ -20,11 +21,12 @@ export type Event = {
 interface EventCalendarProps {
     events: any;
     buildingId: number;
+    onRefresh: () => void;
 }
 
 export type EventsMap = { [date: string]: Event[] };
 
-export default function EventCalendar({ events: eventsData, buildingId }: EventCalendarProps) {
+export default function EventCalendar({ events: eventsData, buildingId, onRefresh }: EventCalendarProps) {
     const [events, setEvents] = useState<EventsMap>({});
     const [selectedEvents, setSelectedEvents] = useState<Event[]>([]);
     // Példa események - dátum: események párok
@@ -76,6 +78,11 @@ export default function EventCalendar({ events: eventsData, buildingId }: EventC
         }
     };
 
+    
+  const handleEventsChanged = () => {
+    window.location.reload()
+  };
+
     return (
         <>
             <Calendar
@@ -87,13 +94,14 @@ export default function EventCalendar({ events: eventsData, buildingId }: EventC
                 panelClassName="!bg-transparent !border-0 !overflow-hidden"
             />
             <EventDialog
-                date={date}
-                visible={visible}
-                setVisible={setVisible}
-                selectedEvents={selectedEvents}
-                buildingId={buildingId}
-                formatDate={formatDate}
-            />
+        date={date}
+        visible={visible}
+        setVisible={setVisible}
+        selectedEvents={selectedEvents}
+        buildingId={buildingId}
+        formatDate={formatDate}
+        onEventsChanged={handleEventsChanged}
+      />
         </>
     );
 }

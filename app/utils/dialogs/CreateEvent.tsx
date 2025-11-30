@@ -14,6 +14,7 @@ interface CurrentEvent {
 	endTime?: Date | string;
 	buildingId: number;
 	organizerId: number;
+	onSuccess?: () => void; // ✅ ÚJ prop
 }
 
 export default function CreateEvent({
@@ -24,6 +25,7 @@ export default function CreateEvent({
 	endTime,
 	buildingId,
 	organizerId,
+	onSuccess, // ✅ Destructure
 }: CurrentEvent) {
 	const {
 		onSubmit,
@@ -32,7 +34,7 @@ export default function CreateEvent({
 		formState: { errors },
 		setValue,
 		control,
-	} = useEvents({ buildingId });
+	} = useEvents({ buildingId, onSuccess });
 
 	useEffect(() => {
 		if (id) setValue("id", id);

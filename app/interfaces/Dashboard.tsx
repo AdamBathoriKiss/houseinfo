@@ -55,6 +55,7 @@ export interface Event {
 	endTime?: Date;
 	organizerId: number | string;
 	buildingId: number;
+	onSuccess: void
 }
 
 export interface Bills {
