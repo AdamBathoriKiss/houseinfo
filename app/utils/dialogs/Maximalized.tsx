@@ -99,7 +99,7 @@ export default function Maximalized({
 								title={hoveredItem.title}
 								buildingId={buildingId}
 								content={hoveredItem.content}
-								author={hoveredItem.author}
+								author={hoveredItem.author ? hoveredItem.author : null}
 								authorId={hoveredItem.authorId ? hoveredItem.authorId : ""}
 								date={hoveredItem.publishedAt}
 							/>
@@ -107,13 +107,14 @@ export default function Maximalized({
 					) : (
 						<div className="space-y-3">
 							<Maintences
-								id={user.userId}
+								id={hoveredItem.id}
 								title={hoveredItem.title}
 								buildingId={buildingId}
 								description={hoveredItem.description}
 								status={hoveredItem.status}
+								category={hoveredItem.category}
 								priority=""
-								reportedBy={user.userId}
+								reportedBy={hoveredItem.reportedBy}
 								reportedById={user.userId}
 							/>
 						</div>

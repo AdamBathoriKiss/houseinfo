@@ -14,7 +14,10 @@ import { Stepper } from "primereact/stepper";
 import CommonService from "~/services/common.service";
 
 const schema = z.object({
-	id: z.preprocess((val) => val === "" ? undefined : Number(val), z.number().optional()),
+	id: z.preprocess(
+    (val) => val === "" || val === 0 ? undefined : Number(val), 
+    z.number().optional()
+),
     title: z.string().min(3, "Kötelező megadni a feladat megnevezését"),
     description: z
         .string()
@@ -22,6 +25,7 @@ const schema = z.object({
     reportedBy: z.string().min(3, "Kötelező megadni a feladat felelősét"),
     reportedById: z.number().min(1, "Kötelező a felhasználó Id-ját megadni"),
     status: z.string().min(1, "Kötelező megadni a feladat státuszát"),
+    category: z.string().min(1, "Kötelező megadni a feladat kategóriáját"),
     priority: z.string().min(1, "Kötelező megadni a feladat prioritását"),
 });
 
@@ -44,6 +48,7 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
             description: "",
             reportedBy: "",
             status: "NEW",
+            category: "PLUMBING",
             priority: "LOW",
         },
         resolver: zodResolver(schema) as any,

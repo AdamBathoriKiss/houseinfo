@@ -42,11 +42,11 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 					<Maintences
 						title=""
 						description=""
-						id={user.userId}
 						status=""
+						category=""
 						priority=""
 						buildingId={buildingId}
-						reportedBy={user.userId}
+						reportedBy={user}
 						reportedById={user.userId}
 					/>
 				)}
@@ -81,11 +81,11 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 						<Maintences
 							title=""
 							description=""
-							id={user.userId}
 							status=""
+							category=""
 							priority=""
 							buildingId={buildingId}
-							reportedBy={user.userId}
+							reportedBy={user}
 							reportedById={user.userId}
 						/>
 					)}

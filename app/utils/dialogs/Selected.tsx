@@ -46,22 +46,22 @@ export default function Selected({
 							id={parseInt(selectedItem.id)}
 							title={selectedItem.title}
 							content={selectedItem.content}
-							author={selectedItem.author}
+							author={selectedItem.author ? selectedItem.author : null}
 							authorId={selectedItem.authorId ? selectedItem.authorId : ""}
 							date={selectedItem.publishedAt}
 							buildingId={buildingId}
 						/>
 					) : selectedItem ? (
 						<Maintences
-							id={parseInt(selectedItem.id)}
-							title={selectedItem.title}
-							description={selectedItem.description}
-							reportedBy={selectedItem.reportedBy}
-							reportedById={parseInt(selectedItem.reportedById)}
-							priority={selectedItem.priority}
-							status={selectedItem.status}
-							buildingId={buildingId}
-						/>
+								id={parseInt(selectedItem.id)}
+								title={selectedItem.title}
+								description={selectedItem.description}
+								reportedBy={selectedItem.reportedBy}
+								reportedById={parseInt(selectedItem.reportedById)}
+								priority={selectedItem.priority}
+								status={selectedItem.status}
+								category={selectedItem.category}
+								buildingId={buildingId}/>
 					) : null}
 				</div>
 			</div>
