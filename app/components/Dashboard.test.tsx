@@ -7,6 +7,7 @@ import type { News } from "~/interfaces/Dashboard";
 import Dashboard from "./Dashboard";
 // ✅ 3. Helper-ek és factory-k
 import { renderWithProviders, mockApiSuccess } from '../test/helpers'
+import { useState } from 'react';
 
 vi.mock("../services/dashboard.service");
 
@@ -21,7 +22,7 @@ let newsIdCounter = 1
     ...overrides
   }
 }
-
+const [selectedPeriod, setSelectedPeriod] = useState("current")
 
 export function createMockHouse(overrides?: Partial<any>) {
   return {
@@ -74,7 +75,7 @@ describe("Dashboard komponens", () => {
      expect(screen.getByText('Közgyűlés')).toBeInTheDocument();
     });
 
-   expect(DashboardService.getDashboardData).toHaveBeenCalledWith(1);
+   expect(DashboardService.getDashboardData).toHaveBeenCalledWith(1, "current");
    expect(DashboardService.getDashboardData).toHaveBeenCalledTimes(1);
   });
 });
