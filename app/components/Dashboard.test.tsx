@@ -22,7 +22,6 @@ let newsIdCounter = 1
     ...overrides
   }
 }
-const [selectedPeriod, setSelectedPeriod] = useState("current")
 
 export function createMockHouse(overrides?: Partial<any>) {
   return {
