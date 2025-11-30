@@ -5,41 +5,35 @@ import EventDialog from "~/utils/dialogs/EventDialog";
 import { Button } from "primereact/button";
 
 export type Event = {
-	occurrenceId: number; 
-    id: string | number; 
-    title: string; 
-    time: string;  // Ez a formázott idő a megjelenítéshez
+    occurrenceId: number;
+    id: string | number;
+    title: string;
+    time: string;
     description: string | null;
     buildingId: number;
-    // Opcionális mezők, amiket a backend ad vissza
     startTime?: Date | string;
     endTime?: Date | string;
     isAllDay?: boolean;
 };
 
-// EventCalendar props interface
 interface EventCalendarProps {
     events: any;
     buildingId: number;
-    onRefresh: () => void;
 }
 
 export type EventsMap = { [date: string]: Event[] };
 
-export default function EventCalendar({ events: eventsData, buildingId, onRefresh }: EventCalendarProps) {
+export default function EventCalendar({ events: eventsData, buildingId }: EventCalendarProps) {
     const [events, setEvents] = useState<EventsMap>({});
     const [selectedEvents, setSelectedEvents] = useState<Event[]>([]);
-    // Példa események - dátum: események párok
+    const [date, setDate] = useState<Nullable<Date>>(null);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        // ✅ Ellenőrzés, hogy eventsData valóban létezik
-        if (eventsData && typeof eventsData === 'object') {
+        if (eventsData && typeof eventsData === "object") {
             setEvents(eventsData);
         }
     }, [eventsData]);
-
-    const [date, setDate] = useState<Nullable<Date>>(null);
-    const [visible, setVisible] = useState(false);
 
     const formatDate = (date: any) => {
         const year = date.getFullYear();
@@ -48,7 +42,6 @@ export default function EventCalendar({ events: eventsData, buildingId, onRefres
         return `${year}-${month}-${day}`;
     };
 
-    // Get events for the selected date
     const dateTemplate = (date: any) => {
         const dateStr = formatDate(new Date(date.year, date.month, date.day));
         const hasEvents = events[dateStr];
@@ -73,35 +66,45 @@ export default function EventCalendar({ events: eventsData, buildingId, onRefres
 
             if (dayEvents) {
                 setSelectedEvents(dayEvents);
+            } else {
+                setSelectedEvents([]);
             }
-                setVisible(true);
+            setVisible(true);
         }
     };
 
-    
-  const handleEventsChanged = () => {
-    window.location.reload()
-  };
+    const handleEventsChanged = () => {
+        // lehet finomítani: újra lekérni csak az eseményeket az API-tól
+        window.location.reload();
+    };
 
     return (
         <>
-            <Calendar
-                value={date}
-                onChange={handleDateSelect}
-                dateTemplate={dateTemplate}
-                inline
-                className="shadow-2xl rounded-md mini-cal w-[50%] max-w-[260px] h-96 "
-                panelClassName="!bg-transparent !border-0 !overflow-hidden"
-            />
+            <div className="surface-card shadow-2xl rounded-xl">
+                <div className="flex flex-col items-center">
+                    <div className="w-full max-w-xs md:max-w-sm">
+                        {/* inline naptár, reszponzív magassággal */}
+                        <Calendar
+                            value={date}
+                            onChange={handleDateSelect}
+                            dateTemplate={dateTemplate}
+                            inline
+                            className="rounded-md w-full"
+                            panelClassName="!bg-transparent !border-0 !overflow-hidden"
+                        />
+                    </div>
+                </div>
+            </div>
+
             <EventDialog
-        date={date}
-        visible={visible}
-        setVisible={setVisible}
-        selectedEvents={selectedEvents}
-        buildingId={buildingId}
-        formatDate={formatDate}
-        onEventsChanged={handleEventsChanged}
-      />
+                date={date}
+                visible={visible}
+                setVisible={setVisible}
+                selectedEvents={selectedEvents}
+                buildingId={buildingId}
+                formatDate={formatDate}
+                onEventsChanged={handleEventsChanged}
+            />
         </>
     );
 }

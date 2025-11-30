@@ -1,4 +1,4 @@
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTableSchema from "./DataTableSchema";
 import DataScrollerSchema from "./DataScrollerSchema";
 import Diagrams from "./Diagrams";
@@ -19,112 +19,106 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 	const [financeTotal, setFinanceTotal] = useState(0);
 	const [maintenancesCount, setMaintenancesCount] = useState(0);
 	const [expenseTotal, setExpenseTotal] = useState(0);
-	const [applicationRegistered, setApplicationRegistered] = useState(0);
-	const [selectedPeriod, setSelectedPeriod] = useState("current")
+	const [selectedPeriod, setSelectedPeriod] = useState("current");
 	const [chartData, setChartData] = useState<ChartData>();
 	const [financeReports, setFinanceReports] = useState<FinanceReports>();
 
-	// ✅ MOST MÁR selectedPeriod is dependency!
 	useEffect(() => {
-		if (selectedHouse !== null && selectedHouse !== undefined) {
+		if (selectedHouse) {
 			DashboardService.getDashboardData(selectedHouse?.id, selectedPeriod).then((response) => {
-				setNews(response.data.selectedBuilding.announcements);
-				setParkingData(response.data.selectedBuilding.parkingData)
-				setMaintence(response.data.selectedBuilding.maintenanceRequest);
-				setDocuments(response.data.selectedBuilding.document);
-				setEvents(response.data.selectedBuilding.events);
-				setFinanceTotal(response.data.selectedBuilding.finances);
-				setMaintenancesCount(response.data.selectedBuilding.maintenancesCount);
-				setExpenseTotal(response.data.selectedBuilding.expenseTotal);
-				setChartData(response.data.selectedBuilding.chartData);
-				setFinanceReports(
-					response.data.selectedBuilding.financeReports || {
-						financeIncomes: [],
-						financeOutcomes: [],
-					}
-				);
+				const d = response.data.selectedBuilding;
+				setNews(d.announcements);
+				setParkingData(d.parkingData);
+				setMaintence(d.maintenanceRequest);
+				setDocuments(d.document);
+				setEvents(d.events);
+				setFinanceTotal(d.finances);
+				setMaintenancesCount(d.maintenancesCount);
+				setExpenseTotal(d.expenseTotal);
+				setChartData(d.chartData);
+				setFinanceReports(d.financeReports || { financeIncomes: [], financeOutcomes: [] });
 			});
 		}
-	}, [selectedHouse, selectedPeriod]); // ← selectedPeriod hozzáadva!
+	}, [selectedHouse, selectedPeriod]);
 
 	return (
-		<div className="flex flex-col min-h-screen px-3 md:px-6">
+		<div className="flex flex-col min-h-screen bg-surface-ground px-2 sm:px-4 md:px-6 py-4">
 			<Toast ref={toast} />
-			
-			{/* Dashboard Header */}
-			<DashboardHeader 
-				financeTotal={financeTotal} 
-				maintenancesCount={maintenancesCount} 
-				expenseTotal={expenseTotal} 
-			/>
-			
-			{/* RESPONSIVE GRID - 1 oszlop mobilon, 2 oszlop md: felett */}
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-2 md:px-4 my-4">
-				
-				{/* BAL OLDALI OSZLOP */}
-				<div className="flex flex-col gap-4 md:gap-6">
-					{/* Parkings + EventCalendar - desktop layout marad */}
-					<div className="flex flex-col md:flex-row gap-3">
-						<Parkings 
-							parkingData={parkingData} 
-							parkings={chartData?.parkings} 
-							freeNormal={chartData?.freeNormal} 
-							freeElectric={chartData?.freeElectric} 
-							occupiedElectric={chartData?.occupiedElectric} 
-							occupiedNormal={chartData?.occupiedNormal} 
-							buildingId={selectedHouse?.id} 
-						/>
-						<EventCalendar 
-							events={events} 
-							buildingId={selectedHouse?.id} 
-						/>
-					</div>
-					
-					{/* Diagrams */}
-					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden backdrop-blur-2xl">
-						<Diagrams
-							financeReports={financeReports ?? { financeIncomes: [], financeOutcomes: [] }}
-							selectedPeriod={selectedPeriod}
-							onPeriodChange={setSelectedPeriod}
-						/>
-					</div>
-				</div>
 
-				{/* JOBB OLDALI OSZLOP */}
-				<div className="flex flex-col gap-4 md:gap-6">
-					{/* Hírek */}
-					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
+			{/* DASHBOARD HEADER – csak desktopon */}
+			<div className="hidden md:block mb-6">
+				<DashboardHeader
+					financeTotal={financeTotal}
+					maintenancesCount={maintenancesCount}
+					expenseTotal={expenseTotal}
+				/>
+			</div>
+
+			{/* Fő GRID - mobilon 1 oszlop, desktopon 2 */}
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+				{/* JOBB OSZLOP – mobilon felül */}
+				<section className="order-1 lg:order-2 space-y-4">
+					<article className="surface-card shadow-2xl rounded-xl p-1">
 						<DataScrollerSchema
 							dataTableValue={news}
 							title={"Hírek"}
 							type="news"
 							buildingId={selectedHouse?.id}
 						/>
-					</div>
-					
-					{/* Feladatok */}
-					<div className="surface-card shadow-2xl rounded-md h-96 overflow-hidden">
+					</article>
+
+					<article className="surface-card shadow-2xl rounded-xl p-1">
 						<DataScrollerSchema
 							dataTableValue={maintence}
 							title={"Feladatok"}
 							type="maintence"
 							buildingId={selectedHouse?.id}
 						/>
+					</article>
+				</section>
+
+				{/* BAL OSZLOP – mobilon alul */}
+				<section className="order-2 lg:order-1 space-y-1">
+					{/* Parkings + Calendar – mobilon egymás alatt */}
+					<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+						<article className="surface-card shadow-2xl rounded-xl p-1 ">
+							<Parkings
+								parkingData={parkingData}
+								parkings={chartData?.parkings}
+								freeNormal={chartData?.freeNormal}
+								freeElectric={chartData?.freeElectric}
+								occupiedElectric={chartData?.occupiedElectric}
+								occupiedNormal={chartData?.occupiedNormal}
+								buildingId={selectedHouse?.id}
+							/>
+						</article>
+
+						<article className="surface-card shadow-2xl rounded-xl p-1 max-h-[47vh] overflow-hidden">
+							<EventCalendar events={events} buildingId={selectedHouse?.id} />
+						</article>
 					</div>
-				</div>
+										{/* Diagramok – automatikus magasság */}
+					<article className="surface-card shadow-2xl rounded-xl p-1 max-h-[47vh] overflow-hidden">
+						<Diagrams
+							financeReports={financeReports ?? { financeIncomes: [], financeOutcomes: [] }}
+							selectedPeriod={selectedPeriod}
+							onPeriodChange={setSelectedPeriod}
+						/>
+					</article>
+				</section>
 			</div>
 
-			{/* DOKUMENTUMOK - teljes szélesség */}
-			<div className="px-2 md:px-4 my-4">
-				<div className="gap-6 surface-card shadow-2xl rounded-md h-96 overflow-hidden">
-					<DataTableSchema 
-						dataTableValue={documents} 
-						title={"Dokumentumok"} 
-						type="documents" 
+			{/* Dokumentumok – teljes szélesség */}
+			<section className="w-full mt-6">
+				<article className="surface-card shadow-2xl rounded-xl p-1 h-[280px] sm:h-[300px] lg:h-[340px] overflow-y-auto">
+					<DataTableSchema
+						dataTableValue={documents}
+						title={"Dokumentumok"}
+						type="documents"
 						buildingId={selectedHouse?.id}
 					/>
-				</div>
-			</div>
+				</article>
+			</section>
 		</div>
 	);
 }
