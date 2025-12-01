@@ -13,7 +13,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-	const { token } = useAuth();
+	const { token, isLoading } = useAuth();
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [selectedHouse, setSelectedHouse] = useState<any>(null);
 	const { houses } = useMain();
@@ -28,19 +28,19 @@ export default function Home() {
 
 	return (
 		<>
-			{isLoggedIn ? (
+			{isLoggedIn && !isLoading ? (
 				<div className="flex flex-col min-h-screen surface-ground bg-dark-500">
 					<Navbar houses={houses ?? []} setSelectedHouse={setSelectedHouse} />
 					<div className="mt-[7vh]">
 						{houses && houses.length > 0 ? (
 							<Dashboard houses={houses} selectedHouse={selectedHouse} />
 						) : (
-							<Loading />
+							<Welcome />
 						)}
 					</div>
 				</div>
 			) : (
-				<Welcome />
+				<Loading />
 			)}
 		</>
 	);
