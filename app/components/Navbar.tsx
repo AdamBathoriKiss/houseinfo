@@ -55,7 +55,7 @@ export default function Navbar({
 						<img src="/houseinfologo.png" alt="House-Info logo" className="h-15 p-0 w-auto" />
 					</a>
 				</div>
-				<div className="flex lg:gap-x-8">
+				<div className="hidden lg:flex lg:gap-x-8">
 					{houseList && houseList.length <= 3 ? (
 						houseList.map((house: House) => (
 							<Button
@@ -87,6 +87,24 @@ export default function Navbar({
 							)}
 						</>
 					)}
+				</div>
+				<div className="md:flex lg:hidden ">
+					{houseList &&
+								houseList.slice(0, 1).map((house: House) => (
+									<Button
+										key={house.id}
+										unstyled
+										onClick={() => setSelectedHouse(house)}
+										className="text-sm/6 font-semibold text-grey-50 block my-auto"
+									>
+										{house.name}
+									</Button>
+								))}
+								{houseList && houseList.length > 1 ? (
+								<span className="text-sm/6 font-semibold text-grey-50 my-auto" onClick={() => setVisible(true)}>
+									...
+								</span>
+							): null}
 				</div>
 				<div className=" lg:flex lg:flex-1 lg:justify-end">
 					<UserMenu />
