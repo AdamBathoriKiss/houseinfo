@@ -2,13 +2,19 @@ import { Button } from "primereact/button";
 import "../app.css";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { ScrollTop } from 'primereact/scrolltop';
+import { ScrollTop } from "primereact/scrolltop";
 import { InputText } from "primereact/inputtext";
 import Authorization from "~/utils/dialogs/Authorization";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useRef } from "react";
 
 export default function Welcome() {
+	const homeRef = useRef<HTMLElement>(null);
+	const problemsRef = useRef<HTMLElement | null>(null);
+	const problemSolveRef = useRef<HTMLElement | null>(null);
+	const featuresRef = useRef<HTMLElement | null>(null);
+	const contactRef = useRef<HTMLElement | null>(null);
 	const { ref, inView, entry } = useInView({
 		threshold: 0,
 	});
@@ -17,17 +23,28 @@ export default function Welcome() {
 	const [type, setType] = useState("");
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Mobil menü state
 
+	const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
+		if (!ref.current) return;
+
+		ref?.current?.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
+
+		setMobileMenuOpen(false); // ha mobil menüben vagy, bezárja
+	};
+
 	useEffect(() => {
 		setCurrentSection(inView);
 	}, [inView]);
 
 	useEffect(() => {
-    AOS.init({
-        duration: 1000,
-        once: true,
-        mirror: false,
-    });
-}, []);
+		AOS.init({
+			duration: 1000,
+			once: true,
+			mirror: false,
+		});
+	}, []);
 
 	const textColorClass = "text-white";
 	const headerColorClass =
@@ -42,7 +59,7 @@ export default function Welcome() {
 	return (
 		<div className="flex flex-col min-h-screen overflow-auto">
 			{/* Hero Section */}
-			<section className="min-h-screen bg-[linear-gradient(180deg,#777BF1_0%,#343D4A_140%)]" ref={ref}>
+			<section className="min-h-screen bg-[linear-gradient(180deg,#777BF1_0%,#343D4A_140%)]" ref={homeRef}>
 				{/* RESPONSIVE HEADER - hamburger menü mobilon */}
 				<header className={headerColorClass}>
 					<div className="logo">
@@ -51,10 +68,36 @@ export default function Welcome() {
 
 					{/* Desktop menü - lg: felett látszik */}
 					<ul className="hidden lg:flex space-x-6 text-white">
-						<li className="cursor-pointer hover:text-teal-400 transition">Főoldal</li>
-						<li className="cursor-pointer hover:text-teal-400 transition">Funkciók</li>
-						<li className="cursor-pointer hover:text-teal-400 transition">Árak</li>
-						<li className="cursor-pointer hover:text-teal-400 transition">Kapcsolat</li>
+						<li
+							onClick={() => scrollToSection(homeRef)}
+							className="cursor-pointer hover:text-teal-400 transition"
+						>
+							Főoldal
+						</li>
+						<li
+							onClick={() => scrollToSection(problemsRef)}
+							className="cursor-pointer hover:text-teal-400 transition"
+						>
+							Mi a probléma?
+						</li>
+						<li
+							onClick={() => scrollToSection(problemSolveRef)}
+							className="cursor-pointer hover:text-teal-400 transition"
+						>
+							Megoldásaink
+						</li>
+						<li
+							onClick={() => scrollToSection(featuresRef)}
+							className="cursor-pointer hover:text-teal-400 transition"
+						>
+							Funkciók
+						</li>
+						<li
+							onClick={() => scrollToSection(contactRef)}
+							className="cursor-pointer hover:text-teal-400 transition"
+						>
+							Kapcsolat
+						</li>
 					</ul>
 
 					{/* Desktop bejelentkezés gomb */}
@@ -80,10 +123,36 @@ export default function Welcome() {
 				{mobileMenuOpen && (
 					<div className="fixed top-16 md:top-18 left-0 w-full bg-[#484f79]/95 backdrop-blur-md z-20 lg:hidden">
 						<ul className="flex flex-col items-center space-y-4 py-6 text-white text-lg">
-							<li className="cursor-pointer hover:text-teal-400 transition">Főoldal</li>
-							<li className="cursor-pointer hover:text-teal-400 transition">Funkciók</li>
-							<li className="cursor-pointer hover:text-teal-400 transition">Árak</li>
-							<li className="cursor-pointer hover:text-teal-400 transition">Kapcsolat</li>
+							<li
+								onClick={() => scrollToSection(homeRef)}
+								className="cursor-pointer hover:text-teal-400 transition"
+							>
+								Főoldal
+							</li>
+							<li
+								onClick={() => scrollToSection(problemsRef)}
+								className="cursor-pointer hover:text-teal-400 transition"
+							>
+								Mi a probléma?
+							</li>
+							<li
+								onClick={() => scrollToSection(problemSolveRef)}
+								className="cursor-pointer hover:text-teal-400 transition"
+							>
+								Megoldásaink
+							</li>
+							<li
+								onClick={() => scrollToSection(featuresRef)}
+								className="cursor-pointer hover:text-teal-400 transition"
+							>
+								Funkciók
+							</li>
+							<li
+								onClick={() => scrollToSection(contactRef)}
+								className="cursor-pointer hover:text-teal-400 transition"
+							>
+								Kapcsolat
+							</li>
 							<li>
 								<button
 									className="text-white hover:text-teal-400 transition"
@@ -121,7 +190,10 @@ export default function Welcome() {
 			</section>
 
 			{/* RESPONSIVE PROBLEMS SECTION */}
-			<section className="min-h-screen flex flex-col text-white py-12 md:py-16 lg:py-20 bg-[#484f79] px-4 md:px-8">
+			<section
+				className="min-h-screen flex flex-col text-white py-12 md:py-16 lg:py-20 bg-[#484f79] px-4 md:px-8"
+				ref={problemsRef}
+			>
 				<div>
 					<p
 						className="text-teal-400 text-2xl sm:text-3xl md:text-4xl font-black text-center md:text-left md:ms-12 lg:ms-50"
@@ -166,7 +238,10 @@ export default function Welcome() {
 			</section>
 
 			{/* RESPONSIVE PROBLEM SOLVING SECTION */}
-			<section className="flex flex-col min-h-screen overflow-auto text-white bg-[#484f79] px-4 md:px-8 py-12 md:py-16">
+			<section
+				className="flex flex-col min-h-screen overflow-auto text-white bg-[#484f79] px-4 md:px-8 py-12 md:py-16"
+				ref={problemSolveRef}
+			>
 				<div className="w-full flex flex-col justify-center text-center mt-8 md:mt-16 lg:mt-[10rem]">
 					<p className="text-teal-400 text-2xl sm:text-3xl md:text-4xl font-black px-4">
 						A Házinfó megoldást kínál ezekre a problémákra
@@ -180,14 +255,22 @@ export default function Welcome() {
 					<div className="max-w-3xl lg:max-w-4xl flex flex-col md:flex-row items-start justify-center gap-8 md:gap-10 lg:gap-16 rounded-3xl bg-gray-800/30 backdrop-blur-sm p-6 md:p-8 lg:p-12">
 						{/* Bal oszlop - Közösképviselőknek */}
 						<div className="flex-1 flex flex-col text-center md:mx-auto">
-							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6 ">Közösképviselőknek</p>
+							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6 ">
+								Közösképviselőknek
+							</p>
 							<ul className="space-y-3 lg:space-y-4 ">
 								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
 									Automatikus kimutatások és jelentések
 								</li>
-								<li className="text-base md:text-lg lg:text-xl leading-relaxed">Digitális dokumentumkezelés</li>
-								<li className="text-base md:text-lg lg:text-xl leading-relaxed">Lakók egyszerű értesítése</li>
-								<li className="text-base md:text-lg lg:text-xl leading-relaxed">Pénzügyi áttekintés egy helyen</li>
+								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
+									Digitális dokumentumkezelés
+								</li>
+								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
+									Lakók egyszerű értesítése
+								</li>
+								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
+									Pénzügyi áttekintés egy helyen
+								</li>
 							</ul>
 						</div>
 
@@ -198,14 +281,22 @@ export default function Welcome() {
 
 						{/* Jobb oszlop - Lakóknak */}
 						<div className="flex-1 flex flex-col text-center md:mx-auto">
-							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6">Lakóknak</p>
+							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6">
+								Lakóknak
+							</p>
 							<ul className="space-y-3 lg:space-y-4 ">
-								<li className="text-base md:text-lg lg:text-xl leading-relaxed">Hibabejelentés pár kattintással</li>
-								<li className="text-base md:text-lg lg:text-xl leading-relaxed">Közösköltség online befizetése</li>
+								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
+									Hibabejelentés pár kattintással
+								</li>
+								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
+									Közösköltség online befizetése
+								</li>
 								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
 									Közvetlen kapcsolat a közösképviselővel
 								</li>
-								<li className="text-base md:text-lg lg:text-xl leading-relaxed">Fontos hírek és értesítések</li>
+								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
+									Fontos hírek és értesítések
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -213,7 +304,10 @@ export default function Welcome() {
 			</section>
 
 			{/* RESPONSIVE FEATURES SECTION */}
-			<section className="flex flex-col min-h-screen text-white overflow-auto bg-[#484f79] px-4 md:px-8 py-12 md:py-16">
+			<section
+				className="flex flex-col min-h-screen text-white overflow-auto bg-[#484f79] px-4 md:px-8 py-12 md:py-16"
+				ref={featuresRef}
+			>
 				<p className="text-teal-400 text-2xl sm:text-3xl md:text-4xl font-black text-center mb-8 md:mb-12">
 					Miért pont a Házinfó?
 				</p>
@@ -227,7 +321,9 @@ export default function Welcome() {
 				>
 					<div className="flex flex-col text-center md:text-left max-w-md">
 						<p className="text-teal-400 text-xl md:text-2xl font-black mb-2">Egyszerű használat</p>
-						<p className="text-sm md:text-base">Nem kell informatikus lenni hozzá - pár perc alatt megtanulja bárki</p>
+						<p className="text-sm md:text-base">
+							Nem kell informatikus lenni hozzá - pár perc alatt megtanulja bárki
+						</p>
 					</div>
 					<img
 						src="/features_easy.png"
@@ -328,7 +424,10 @@ export default function Welcome() {
 			</section>
 
 			{/* RESPONSIVE FOOTER WITH CTA */}
-			<footer className="min-h-screen flex flex-col justify-between items-center text-white bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)] px-4 md:px-8 py-12">
+			<footer
+				className="min-h-screen flex flex-col justify-between items-center text-white bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)] px-4 md:px-8 py-12"
+				ref={contactRef}
+			>
 				<div className="mt-12 md:mt-32 lg:mt-55 flex flex-col items-center">
 					<p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-black mb-4 px-2">
 						Készen áll a változásra?
@@ -349,11 +448,19 @@ export default function Welcome() {
 				</div>
 
 				<div className="text-center">
-					<p className="my-4 text-sm md:text-base">&copy; {new Date().getFullYear()} HázInfó. Minden jog fenntartva.</p>
+					<p className="my-4 text-sm md:text-base">
+						&copy; {new Date().getFullYear()} HázInfó. Minden jog fenntartva.
+					</p>
 				</div>
 			</footer>
 			{authDialog && <Authorization visible={authDialog} setVisible={setAuthDialog} type={type} />}
-			 <ScrollTop target="window" behavior="smooth" threshold={600} className="z-50 w-2rem h-2rem border-round bg-purple-950" icon="pi pi-arrow-up text-base" />
+			<ScrollTop
+				target="window"
+				behavior="smooth"
+				threshold={600}
+				className="z-50 w-2rem h-2rem border-round bg-purple-950"
+				icon="pi pi-arrow-up text-base"
+			/>
 		</div>
 	);
 }
