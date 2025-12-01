@@ -8,7 +8,7 @@ interface Filter {
 
 export default function SearchBar({ filterFunction }: Filter) {
 	return (
-		<div className="flex items-center w-full">
+		<div className="flex items-center md:w-[20%]">
 			<IconField iconPosition="left" className="w-full">
 				<InputIcon className="pi pi-search" />
 				<InputText
