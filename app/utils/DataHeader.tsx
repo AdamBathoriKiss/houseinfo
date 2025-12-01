@@ -62,10 +62,12 @@ const header = ({
 					/>
 				)}
 				{setOnMaximizedOpened !== undefined && (
-					<span
-						className="pi pi-window-maximize cursor-pointer hover:text-blue-500 !md:hidden inline-block"
-						onClick={() => setOnMaximizedOpened(!onMaximizedOpened)}
-					></span>
+					<div className="hidden md:block">
+						<span
+							className="pi pi-window-maximize cursor-pointer hover:text-blue-500"
+							onClick={() => setOnMaximizedOpened(!onMaximizedOpened)}
+						/>
+					</div>
 				)}
 
 				{fileUpdateDialog && (
