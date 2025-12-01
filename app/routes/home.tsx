@@ -6,6 +6,7 @@ import HouseRegistration from "~/components/HouseRegistration";
 import { useEffect, useState } from "react";
 import { useAuth } from "~/utils/AuthProvider";
 import Navbar from "~/components/Navbar";
+import Loading from "~/components/Loading";
 
 export function meta({}: Route.MetaArgs) {
 	return [{ title: "House-Info" }, { name: "description", content: "House-Info offical site." }];
@@ -34,7 +35,7 @@ export default function Home() {
 						{houses && houses.length > 0 ? (
 							<Dashboard houses={houses} selectedHouse={selectedHouse} />
 						) : (
-							<HouseRegistration />
+							<Loading />
 						)}
 					</div>
 				</div>
