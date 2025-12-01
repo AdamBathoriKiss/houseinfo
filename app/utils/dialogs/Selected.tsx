@@ -4,67 +4,63 @@ import Announcements from "~/components/Announcements";
 import type { Maintence, News } from "~/interfaces/Dashboard";
 
 interface Selected {
-	id: number | null,
-	title: string;
-	onViewDialogOpened: boolean;
-	setOnViewDialogOpened: (onViewDialogOpened: boolean) => void;
-	selectedItem: News | Maintence | null;
-	setSelectedItem: (selectedItem: News | Maintence | null) => void;
-	isNews: (item: News | Maintence) => item is News;
-	buildingId: number;
+  id: number | null;
+  title: string;
+  onViewDialogOpened: boolean;
+  setOnViewDialogOpened: (onViewDialogOpened: boolean) => void;
+  selectedItem: News | Maintence | null;
+  setSelectedItem: (selectedItem: News | Maintence | null) => void;
+  isNews: (item: News | Maintence) => item is News;
+  buildingId: number;
 }
 
 export default function Selected({
-	id,
-	title,
-	onViewDialogOpened,
-	setOnViewDialogOpened,
-	selectedItem,
-	setSelectedItem,
-	isNews,
-	buildingId
+  id,
+  title,
+  onViewDialogOpened,
+  setOnViewDialogOpened,
+  selectedItem,
+  setSelectedItem,
+  isNews,
+  buildingId
 }: Selected) {
-	return (
-		<Dialog
-			header={title}
-			headerStyle={{ marginLeft: "0.65rem" }}
-			visible={onViewDialogOpened}
-			onHide={() => {
-				setOnViewDialogOpened(false);
-				setSelectedItem(null);
-			}}
-			className="min-h-[60vh] w-[30vw] !bg-[#343d4a] text-gray-300 overflow-hidden"
-			contentClassName="h-full p-0 !bg-[#343d4a] text-gray-300"
-			headerClassName="!bg-[#343d4a] text-gray-300"
-			draggable={false}
-			resizable={false}
-		>
-			<div className="grid grid-cols-1">
-				<div className="bg-[#343d4a] rounded-lg">
-					{selectedItem && isNews(selectedItem) ? (
-						<Announcements
-							id={parseInt(selectedItem.id)}
-							title={selectedItem.title}
-							content={selectedItem.content}
-							author={selectedItem.author ? selectedItem.author : null}
-							authorId={selectedItem.authorId ? selectedItem.authorId : ""}
-							date={selectedItem.publishedAt}
-							buildingId={buildingId}
-						/>
-					) : selectedItem ? (
-						<Maintences
-								id={parseInt(selectedItem.id)}
-								title={selectedItem.title}
-								description={selectedItem.description}
-								reportedBy={selectedItem.reportedBy}
-								reportedById={parseInt(selectedItem.reportedById)}
-								priority={selectedItem.priority}
-								status={selectedItem.status}
-								category={selectedItem.category}
-								buildingId={buildingId}/>
-					) : null}
-				</div>
-			</div>
-		</Dialog>
-	);
+  return (
+   <Dialog
+  header={title}
+  visible={onViewDialogOpened}
+  onHide={() => {
+    setOnViewDialogOpened(false);
+    setSelectedItem(null);
+  }}
+  style={{ 
+    width: '90vw', 
+    maxWidth: '800px',
+    minHeight: '60vh',
+    maxHeight: '90vh'
+  }}
+  modal
+  className="!bg-[#2a3441] text-gray-200 shadow-2xl border-0"
+  contentStyle={{ 
+    height: 'auto', 
+    maxHeight: '80vh',
+    padding: 0,
+    backgroundColor: '#2a3441'
+  }}
+  headerStyle={{ 
+    backgroundColor: '#2a3441',
+    color: 'white',
+    borderBottom: '1px solid #3a4759',
+    padding: '1rem 1.5rem',
+    fontWeight: 600,
+    fontSize: '1.1rem'
+  }}
+  draggable={false}
+  resizable={false}
+  breakpoints={{
+    '960px': '90vw',
+    '640px': '95vw'
+  }}
+/>
+
+  );
 }
