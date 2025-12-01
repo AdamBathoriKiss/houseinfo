@@ -12,7 +12,7 @@ export default function SearchBar({ filterFunction }: Filter) {
 			<IconField iconPosition="left">
 				<InputIcon className="pi pi-search"> </InputIcon>
 				<InputText
-					className="mx-4 !bg-transparent md-w-[15%] lg-w-[15vw] h-[2.5rem] !rounded-4xl"
+					className="mx-4 !bg-transparent md:w-[15%] lg:w-[15vw] h-[2.5rem] !rounded-4xl"
 					placeholder="Search"
 					onChange={(e) => filterFunction(e.target.value)}
 				/>
