@@ -55,7 +55,7 @@ export default function Navbar({
 						<img src="/houseinfologo.png" alt="House-Info logo" className="h-15 p-0 w-auto" />
 					</a>
 				</div>
-				<div className="hidden lg:flex lg:gap-x-8">
+				<div className="flex lg:gap-x-8">
 					{houseList && houseList.length <= 3 ? (
 						houseList.map((house: House) => (
 							<Button
