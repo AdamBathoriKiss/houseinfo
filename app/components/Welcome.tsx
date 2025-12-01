@@ -1,9 +1,8 @@
 import { Button } from "primereact/button";
 import "../app.css";
-import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { Divider } from "primereact/divider";
+import { ScrollTop } from 'primereact/scrolltop';
 import { InputText } from "primereact/inputtext";
 import Authorization from "~/utils/dialogs/Authorization";
 
@@ -344,6 +343,7 @@ export default function Welcome() {
 				</div>
 			</footer>
 			{authDialog && <Authorization visible={authDialog} setVisible={setAuthDialog} type={type} />}
+			 <ScrollTop target="window" behavior="smooth" threshold={600} className="z-50 w-2rem h-2rem border-round bg-purple-950" icon="pi pi-arrow-up text-base" />
 		</div>
 	);
 }
