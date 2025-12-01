@@ -28,19 +28,23 @@ export default function Home() {
 
 	return (
 		<>
-			{isLoggedIn && !isLoading ? (
+			{isLoading ? (
+
+				<Loading/>
+
+			) : isLoggedIn ? (
 				<div className="flex flex-col min-h-screen surface-ground bg-dark-500">
 					<Navbar houses={houses ?? []} setSelectedHouse={setSelectedHouse} />
 					<div className="mt-[7vh]">
 						{houses && houses.length > 0 ? (
 							<Dashboard houses={houses} selectedHouse={selectedHouse} />
 						) : (
-							<Welcome />
+							<Loading />
 						)}
 					</div>
 				</div>
 			) : (
-				<Loading />
+				<Welcome />
 			)}
 		</>
 	);
