@@ -89,7 +89,7 @@ export default function EventCalendar({ events: eventsData, buildingId }: EventC
                             onChange={handleDateSelect}
                             dateTemplate={dateTemplate}
                             inline
-                            className="rounded-md w-full mb-3"
+                            className="rounded-md w-full mb-3 !bg-transparent"
                             panelClassName="!bg-transparent !border-0 !overflow-hidden"
                         />
                     </div>
