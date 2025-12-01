@@ -167,10 +167,10 @@ export default function Welcome() {
 					</p>
 				</div>
 				{/* Card két oszloppal középen függőleges vonallal */}
-				<div className="w-full my-8 md:my-16 lg:my-25  flex justify-center">
-					<div className="w-full max-w-3xl lg:max-w-4xl flex flex-col md:flex-row items-start justify-center gap-8 md:gap-10 lg:gap-16 rounded-3xl bg-gray-800/30 backdrop-blur-sm p-6 md:p-8 lg:p-12">
+				<div className="!sm:w-50 my-8 md:my-16 lg:my-25  flex justify-center">
+					<div className=" max-w-3xl lg:max-w-4xl flex flex-col md:flex-row items-start justify-center gap-8 md:gap-10 lg:gap-16 rounded-3xl bg-gray-800/30 backdrop-blur-sm p-6 md:p-8 lg:p-12">
 						{/* Bal oszlop - Közösképviselőknek */}
-						<div className="flex-1 flex flex-col text-center  md:text-center">
+						<div className="flex-1 flex flex-col text-center md:mx-auto">
 							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6 ">Közösképviselőknek</p>
 							<ul className="space-y-3 lg:space-y-4 ">
 								<li className="text-base md:text-lg lg:text-xl leading-relaxed">
@@ -188,7 +188,7 @@ export default function Welcome() {
 						<div className="md:hidden w-full h-px bg-teal-400/30"></div>
 
 						{/* Jobb oszlop - Lakóknak */}
-						<div className="flex-1 flex flex-col text-center  md:text-center">
+						<div className="flex-1 flex flex-col text-center md:mx-auto">
 							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6">Lakóknak</p>
 							<ul className="space-y-3 lg:space-y-4 ">
 								<li className="text-base md:text-lg lg:text-xl leading-relaxed">Hibabejelentés pár kattintással</li>
