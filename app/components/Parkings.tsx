@@ -37,7 +37,7 @@ export default function Parkings({
     return (
         // grid: mobil 1 oszlop, md+ 2 oszlop; kártya belül flex-col
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+            <div className="grid grid-cols-1 gap-4 items-start">
                 <div className="md:col-span-2 flex items-center justify-between">
                     <p className="text-sm">Összes parkoló száma: <strong>{parkings ?? 0}</strong></p>
                     <div>
