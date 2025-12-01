@@ -8,11 +8,21 @@ interface Filter {
 
 export default function SearchBar({ filterFunction }: Filter) {
 	return (
-		<div className="flex items-center gap-3">
-			<IconField iconPosition="left">
-				<InputIcon className="pi pi-search"> </InputIcon>
+		<div className="flex items-center w-full">
+			<IconField iconPosition="left" className="w-full">
+				<InputIcon className="pi pi-search" />
 				<InputText
-					className="mx-4 !bg-transparent md:w-[15%] lg:w-[15vw] h-[2.5rem] !rounded-4xl"
+					className="
+                        w-full
+                        text-sm
+                        !bg-transparent 
+                        h-[2.75rem]
+                        !rounded-3xl
+
+                        sm:text-base
+                        md:w-80        /* közepes kijelző */
+                        lg:w-[20vw]    /* nagy kijelző */
+                    "
 					placeholder="Search"
 					onChange={(e) => filterFunction(e.target.value)}
 				/>
@@ -20,3 +30,4 @@ export default function SearchBar({ filterFunction }: Filter) {
 		</div>
 	);
 }
+
