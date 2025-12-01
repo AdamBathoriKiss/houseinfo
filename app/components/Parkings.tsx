@@ -35,44 +35,40 @@ export default function Parkings({
 	};
 
 	return (
-		// grid: mobil 1 oszlop, md+ 2 oszlop; kártya belül flex-col
-		<div>
-			<div className="grid grid-cols-1 gap-4 items-start">
-				<div className="md:col-span-2 flex items-center justify-between">
-					<p className="text-sm">
-						Összes parkoló száma: <strong>{parkings ?? 0}</strong>
-					</p>
-					<div>
-						<Button
-							icon="pi pi-window-maximize"
-							tooltip="Új parkoló létrehozása"
-							onClick={handleCreate}
-							className="!text-white !bg-transparent hover:!bg-gray-600/30"
-						/>
-					</div>
+		<div className="flex flex-col h-full p-4">
+			{/* Header */}
+			<div className="flex items-center justify-between mb-4">
+				<p className="text-sm">
+					Összes parkoló száma: <strong>{parkings ?? 0}</strong>
+				</p>
+				<Button
+					icon="pi pi-window-maximize"
+					tooltip="Új parkoló létrehozása"
+					onClick={handleCreate}
+					className="!text-white !bg-transparent hover:!bg-gray-600/30"
+				/>
+			</div>
+
+			{/* Doughnut Charts - Egymás mellett */}
+			<div className="flex flex-row justify-center items-center gap-6 flex-1">
+				<div className="flex-1 max-w-[180px]">
+					<DoughnutChart
+						title="Normál"
+						free={freeNormal ?? 0}
+						occupied={occupiedNormal ?? 0}
+						onClick={() => setParkingList(true)}
+						type="normal"
+					/>
 				</div>
 
-				{/* Doughnuts */}
-				<div className="flex flex-row flex-wrap justify-center gap-4">
-					<div className="flex justify-center items-center w-40 md:w-1/2 lg:w-48">
-						<DoughnutChart
-							title="Normál"
-							free={freeNormal ?? 0}
-							occupied={occupiedNormal ?? 0}
-							onClick={() => setParkingList(true)}
-							type="normal"
-						/>
-					</div>
-
-					<div className="flex justify-center items-center w-40 md:w-1/2 lg:w-48">
-						<DoughnutChart
-							title="Elektromos"
-							free={freeElectric ?? 0}
-							occupied={occupiedElectric ?? 0}
-							onClick={() => setParkingList(true)}
-							type="electric"
-						/>
-					</div>
+				<div className="flex-1 max-w-[180px]">
+					<DoughnutChart
+						title="Elektromos"
+						free={freeElectric ?? 0}
+						occupied={occupiedElectric ?? 0}
+						onClick={() => setParkingList(true)}
+						type="electric"
+					/>
 				</div>
 			</div>
 
