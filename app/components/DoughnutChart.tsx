@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
-import type { eventNames } from "process";
 
 export default function DoughnutChart({
 	title,
@@ -38,10 +37,12 @@ export default function DoughnutChart({
 		};
 		const options = {
 			cutout: "70%",
+			maintainAspectRatio: true,
+			responsive: true,
 			events: ["mousemove", "mouseout", "click", "touchstart", "touchmove"],
 			plugins: {
 				legend: {
-					display: false, // legend elrejtése
+					display: false,
 				},
 				tooltip: {
 					enabled: true,
@@ -62,9 +63,11 @@ export default function DoughnutChart({
 	}, [free, occupied]);
 
 	return (
-		<div className="flex flex-col h-full justify-center items-center">
-			<h6>{title}</h6>
-			<Chart type="doughnut" data={chartData} options={chartOptions} className="w-full" />
+		<div className="flex flex-col h-full w-full justify-center items-center">
+			<h6 className="text-xs mb-1 font-medium">{title}</h6>
+			<div className="w-full h-full flex items-center justify-center">
+				<Chart type="doughnut" data={chartData} options={chartOptions} className="w-full h-full max-h-[100px]" />
+			</div>
 		</div>
 	);
 }
