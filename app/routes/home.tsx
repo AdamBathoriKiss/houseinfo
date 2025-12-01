@@ -28,7 +28,7 @@ export default function Home() {
 
 	return (
 		<>
-			{isLoggedIn ? (
+			{isLoggedIn && token !== null ? (
 				<div className="flex flex-col min-h-screen surface-ground bg-dark-500">
 					<Navbar houses={houses ?? []} setSelectedHouse={setSelectedHouse} />
 					<div className="mt-[7vh]">
