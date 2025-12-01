@@ -62,7 +62,7 @@ export default function DoughnutChart({
 	}, [free, occupied]);
 
 	return (
-		<div className="flex flex-col h-full justify-center items-center">
+		<div className="flex flex-col md:flex-row h-full justify-center items-center">
 			<h6>{title}</h6>
 			<Chart
 				type="doughnut"
