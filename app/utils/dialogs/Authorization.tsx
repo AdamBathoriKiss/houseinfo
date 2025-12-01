@@ -80,7 +80,7 @@ export default function Authorization({
                 header={title}
                 visible={visible}
                 headerClassName="!bg-[#777BF1]"
-                contentClassName="w-[30vw] !text-center !bg-[linear-gradient(180deg,#777BF1_0%,#343D4A_140%)]"
+                contentClassName="flex flex-col !text-center !bg-[linear-gradient(180deg,#777BF1_0%,#343D4A_140%)]"
                 onHide={() => setVisible(false)}
             >
                 <InputText
@@ -109,7 +109,6 @@ export default function Authorization({
                     </Button>
                 </div>
 
-                <hr className="my-10" />
             </Dialog>
         </>
     );
