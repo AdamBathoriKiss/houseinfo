@@ -81,7 +81,10 @@ export default function Navbar({
 									</Button>
 								))}
 							{houseList && (
-								<span className="text-sm/6 font-semibold text-grey-50 my-auto" onClick={() => setVisible(true)}>
+								<span
+									className="text-sm/6 font-semibold text-grey-50 my-auto"
+									onClick={() => setVisible(true)}
+								>
 									...
 								</span>
 							)}
@@ -89,22 +92,11 @@ export default function Navbar({
 					)}
 				</div>
 				<div className="md:flex lg:hidden ">
-					{houseList &&
-								houseList.slice(0, 1).map((house: House) => (
-									<Button
-										key={house.id}
-										unstyled
-										onClick={() => setSelectedHouse(house)}
-										className="text-sm/6 font-semibold text-grey-50 block my-auto"
-									>
-										{house.name}
-									</Button>
-								))}
-								{houseList && houseList.length > 1 ? (
-								<span className="text-sm/6 font-semibold text-grey-50 my-auto" onClick={() => setVisible(true)}>
-									...
-								</span>
-							): null}
+					{houseList ? (
+						<span className="text-sm/6 font-semibold text-grey-50 my-auto" onClick={() => setVisible(true)}>
+							Épületeim
+						</span>
+					) : null}
 				</div>
 				<div className=" lg:flex lg:flex-1 lg:justify-end">
 					<UserMenu />
