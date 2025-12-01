@@ -90,12 +90,6 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 					) : (
 						<>
 							<Button
-								icon="pi pi-eye"
-								unstyled
-								tooltip="Megtekintés"
-								className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30 mx-2"
-							/>
-							<Button
 								icon="pi pi-download"
 								unstyled
 								tooltip="Letöltés"

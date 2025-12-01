@@ -71,6 +71,7 @@ const documentExpandedCols = [
 
 const documentMobileCols = [
   { field: 'fileName', header: 'Dokumentum neve' },
+  { field: 'uploadedAt', header: 'Feltöltve' },
   { field: 'actions', header: 'Műveletek' },
 ]
 
