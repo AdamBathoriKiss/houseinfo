@@ -7,13 +7,13 @@ export default function DoughnutChart({
 	occupied,
 	free,
 	type,
-	onClick
+	onClick,
 }: {
 	title: string;
 	occupied: number | undefined;
 	free: number | undefined;
-	type: string,
-	onClick: ()=> void
+	type: string;
+	onClick: () => void;
 }) {
 	const [chartData, setChartData] = useState({});
 	const [chartOptions, setChartOptions] = useState({});
@@ -38,23 +38,23 @@ export default function DoughnutChart({
 		};
 		const options = {
 			cutout: "70%",
-			events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
+			events: ["mousemove", "mouseout", "click", "touchstart", "touchmove"],
 			plugins: {
 				legend: {
 					display: false, // legend elrejtése
 				},
 				tooltip: {
 					enabled: true,
-					events: ['click', 'mousemove'],
+					events: ["click", "mousemove"],
 					callbacks: {
 						label: function (context: any) {
 							const value = context.parsed || 0;
 							return `${value}`;
-						}
+						},
 					},
 				},
 			},
-			onClick: () => alert('Teszt')
+			onClick: () => alert("Teszt"),
 		};
 
 		setChartData(data);
@@ -64,12 +64,7 @@ export default function DoughnutChart({
 	return (
 		<div className="flex flex-col h-full justify-center items-center">
 			<h6>{title}</h6>
-			<Chart
-				type="doughnut"
-				data={chartData}
-				options={chartOptions}
-				className="w-35 flex flex-col  md:flex-row items-center justify-between"
-			/>
+			<Chart type="doughnut" data={chartData} options={chartOptions} className="w-full" />
 		</div>
 	);
 }
