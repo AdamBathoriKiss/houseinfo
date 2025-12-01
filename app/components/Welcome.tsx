@@ -5,6 +5,8 @@ import { useInView } from "react-intersection-observer";
 import { ScrollTop } from 'primereact/scrolltop';
 import { InputText } from "primereact/inputtext";
 import Authorization from "~/utils/dialogs/Authorization";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function Welcome() {
 	const { ref, inView, entry } = useInView({
@@ -18,6 +20,14 @@ export default function Welcome() {
 	useEffect(() => {
 		setCurrentSection(inView);
 	}, [inView]);
+
+	useEffect(() => {
+    AOS.init({
+        duration: 1000,
+        once: true,
+        mirror: false,
+    });
+}, []);
 
 	const textColorClass = "text-white";
 	const headerColorClass =
