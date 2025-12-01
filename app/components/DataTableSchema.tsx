@@ -25,7 +25,7 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 	const [parking, setParking] = useState<ParkingData>();
 	const [buildId, setBuildId] = useState<number>();
 	const isMobile = useIsMobile();
-	const columnSet = isMobile ? dataTableColumns(type).mobileColumns : dataTableColumns(type).expandedColumns;
+	const columnSet = isMobile ? dataTableColumns(type).mobileColumns : dataTableColumns(type).columns;
 	const { remove } = useCommonProcesses();
 
 	useEffect(() => {
