@@ -10,6 +10,7 @@ import DataHeader from "../utils/DataHeader";
 import CreateParking, { type ParkingData } from "~/utils/dialogs/CreateParking";
 import { useCommonProcesses } from "~/hooks/useCommonProcesses";
 import FileService from "~/services/file.service";
+import { useIsMobile } from "~/hooks/useIsMobile";
 
 export interface DataTableSchemaProps {
 	dataTableValue: Residents[] | News[] | Maintence[] | Bills[] | Documents[] | Parking[];
@@ -23,11 +24,13 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 	const [createParking, setCreateParking] = useState<boolean>(false);
 	const [parking, setParking] = useState<ParkingData>();
 	const [buildId, setBuildId] = useState<number>();
+	const isMobile = useIsMobile();
+	const columnSet = isMobile ? dataTableColumns(type).mobileColumns : dataTableColumns(type).expandedColumns;
 	const { remove } = useCommonProcesses();
 
 	useEffect(() => {
 		setFilteredItem(dataTableValue);
-		buildingId && setBuildId(buildingId)
+		buildingId && setBuildId(buildingId);
 	}, [dataTableValue]);
 
 	const onDelete = (type: string, rowData: any) => {
@@ -96,7 +99,7 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 								icon="pi pi-download"
 								unstyled
 								tooltip="Letöltés"
-								onClick={()=> FileService.getDocument(rowData.id)}
+								onClick={() => FileService.getDocument(rowData.id)}
 								className="!bg-transparent !text-teal-500 border-none hover:!bg-gray-600/30 hover:text-gray-50 mx-2"
 							/>
 						</>
@@ -161,14 +164,12 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 					},
 				}}
 			>
-				{dataTableColumns(type).columns.map((col) => (
+				{columnSet?.map((col) => (
 					<Column
 						key={col.field}
 						field={col.field}
 						header={col.header}
-						sortable={type === "parking" && col.field !== "actions" && col.field !== "spotNumber"}
 						body={(rowData) => bodyTemplate(rowData, col.field)}
-						bodyClassName="px-1 py-3 whitespace-nowrap"
 					/>
 				))}
 			</DataTable>

@@ -69,6 +69,11 @@ const documentExpandedCols = [
   { field: 'actions', header: 'Műveletek' },
 ];
 
+const documentMobileCols = [
+  { field: 'fileName', header: 'Dokumentum neve' },
+  { field: 'actions', header: 'Műveletek' },
+]
+
 // Hírek
 const parkingCols = [
   { field: 'type', header: 'Típus' },
@@ -97,7 +102,7 @@ export default function dataTableColumns(type:string) {
         case 'bills':
             return { columns: billCols, expandedColumns: billExpandedCols };
         case 'documents':
-            return { columns: documentCols, expandedColumns: documentExpandedCols };
+            return { columns: documentCols, expandedColumns: documentExpandedCols, mobileColumns: documentMobileCols };
         default:
             return { columns: [], expandedColumns: [] };
     }
