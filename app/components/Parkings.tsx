@@ -50,8 +50,8 @@ export default function Parkings({
 			</div>
 
 			{/* Doughnut Charts - Egymás mellett */}
-			<div className="flex flex-row justify-center items-center gap-4 flex-1 max-h-[300px]">
-				<div className="flex-1 max-w-[50%] h-full flex items-center">
+			<div className="flex flex-row justify-center items-center gap-4 flex-1">
+				<div className="flex-1 max-w-[50%] max-h-[20%] flex items-center">
 					<DoughnutChart
 						title="Normál"
 						free={freeNormal ?? 0}
@@ -61,7 +61,7 @@ export default function Parkings({
 					/>
 				</div>
 
-				<div className="flex-1 max-w-[50%] h-full flex items-center">
+				<div className="flex-1 max-w-[50%] max-h-[20%] flex items-center">
 					<DoughnutChart
 						title="Elektromos"
 						free={freeElectric ?? 0}
