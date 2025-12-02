@@ -12,7 +12,7 @@ interface Creation {
 
 export default function Create({ visible, setVisible, type, buildingId }: Creation) {
 	const { user } = useAuth();
-
+//teszt
 	const createModal = () => {
 		return (
 			<div className="rounded-xl shadow-2xl h-fit bg-[#343d4a]">
