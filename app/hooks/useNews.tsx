@@ -20,10 +20,10 @@ const schema = z.object({
     id: z.preprocess(
         (val) => {
             if (val === "" || val === null || val === undefined) {
-                return undefined;
+                return "";
             }
             const num = Number(val);
-            return isNaN(num) ? undefined : num;
+            return isNaN(num) ? "" : num;
         },
         z.number().optional()
     ),
