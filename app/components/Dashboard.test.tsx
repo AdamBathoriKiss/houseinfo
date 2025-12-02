@@ -5,9 +5,7 @@ import DashboardService, * as api from "../services/dashboard.service";
 import "@testing-library/jest-dom";
 import type { News } from "~/interfaces/Dashboard";
 import Dashboard from "./Dashboard";
-// ✅ 3. Helper-ek és factory-k
 import { renderWithProviders, mockApiSuccess } from '../test/helpers'
-import { useState } from 'react';
 
 vi.mock("../services/dashboard.service");
 

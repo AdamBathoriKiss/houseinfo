@@ -88,7 +88,6 @@ export default function Maintences({
 		<div className="h-full w-full">
 			<form onSubmit={handleSubmit(onSubmit)} className="p-3 md:p-4 lg:p-6">
 				<div className="flex flex-col gap-4 md:gap-5">
-					{/* Feladat megnevezése */}
 					<div className="flex flex-col gap-2">
 						<label className="font-semibold text-gray-100 text-sm md:text-base">
 							Feladat megnevezése <span className="text-red-400">*</span>
@@ -106,8 +105,6 @@ export default function Maintences({
 							</span>
 						)}
 					</div>
-
-					{/* Bejelentető és Kategória */}
 					<div className="flex flex-col md:flex-row gap-4">
 						<div className="flex-1">
 							<label className="font-semibold text-gray-100 text-sm md:text-base mb-2 block">
@@ -159,8 +156,6 @@ export default function Maintences({
 							)}
 						</div>
 					</div>
-
-					{/* Státusz és Prioritás */}
 					<div className="flex flex-col md:flex-row gap-4">
 						<div className="flex-1">
 							<label className="font-semibold text-gray-100 text-sm md:text-base mb-2 block">
@@ -220,8 +215,6 @@ export default function Maintences({
 							)}
 						</div>
 					</div>
-
-					{/* Feladat leírása */}
 					<div className="flex flex-col gap-2">
 						<label className="font-semibold text-gray-100 text-sm md:text-base">
 							Feladat részletes leírása <span className="text-red-400">*</span>
@@ -242,7 +235,6 @@ export default function Maintences({
 					</div>
 				</div>
 
-				{/* Mentés gomb */}
 				<Button
 					label="Mentés"
 					icon="pi pi-save"

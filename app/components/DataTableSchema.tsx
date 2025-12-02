@@ -152,7 +152,7 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 					thead: {
 						className: "!px-1 !py-2 bg-transparent text-gray-50 text-left",
 					},
-					tbody: { className: "align-start" }, // tbody-ra alkalmazott stílus pl.
+					tbody: { className: "align-start" },
 					bodyRow: {
 						className: "hover:bg-gray-600/30 hover:text-gray-50 text-start border-b-1 border-solid",
 					},

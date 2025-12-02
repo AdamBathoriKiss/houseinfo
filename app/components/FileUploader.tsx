@@ -19,13 +19,11 @@ export default function FileUploader({
     const customUploadHandler = async (event: FileUploadHandlerEvent) => {
         const formData = new FormData();
         
-        // Fájlok hozzáadása
         const files = event.files;
         files.forEach((file) => {
             formData.append('documents', file);
         });
         
-        // Metadata hozzáadása
         if (buildingId) {
             formData.append('buildingId', buildingId.toString());
         }
@@ -46,7 +44,6 @@ export default function FileUploader({
             const result = await response.json();
             showSuccess('Sikeres fájlfeltöltés!');
             
-            // Fájlok törlése a komponensből
             fileUploadRef.current?.clear();
             setOnShow(false);
         } catch (error) {

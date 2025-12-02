@@ -69,11 +69,10 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 
 	const onMaximizedHide = () => {
 		setOnMaximizedOpened(false);
-		setHoveredItem(null); // Reset hover state when closing
+		setHoveredItem(null); 
 		setFilteredItem(dataTableValue);
 	};
 
-	// Type guard függvények
 	const isNews = (item: News | Maintence): item is News => {
 		return type === "news";
 	};
@@ -159,7 +158,6 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
         <div className="flex flex-col gap-2">
           <div className="text-xl font-bold text-gray-100">{maintence.title}</div>
           
-          {/* ÚJ: KATEGÓRIA MEGJELENÍTÉS */}
           {maintence.category && (
             <div className="text-sm text-blue-400">
               <i className="pi pi-tag mr-2"></i>
@@ -239,10 +237,9 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 					setCreateNews,
 					setCreateTask,
 				})}
-				className="!bg-[#343d4a]"
+				className="!bg-[#343d4a] h-full"
 			/>
 
-			{/* Dialog */}
 			{onMaximizedOpened && (
 				<Maximalized
 					title={title}

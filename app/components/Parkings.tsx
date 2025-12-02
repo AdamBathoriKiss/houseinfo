@@ -36,7 +36,6 @@ export default function Parkings({
 
 	return (
 		<div className="flex flex-col h-full p-3">
-			{/* Header */}
 			<div className="flex items-center justify-between mb-2">
 				<p className="text-sm">
 					Összes parkoló száma: <strong>{parkings ?? 0}</strong>
@@ -49,7 +48,6 @@ export default function Parkings({
 				/>
 			</div>
 
-			{/* Doughnut Charts - Egymás mellett */}
 			<div className="flex flex-row justify-center items-center gap-3 flex-1">
 				<div className="w-[45%] max-w-[120px] aspect-square">
 					<DoughnutChart

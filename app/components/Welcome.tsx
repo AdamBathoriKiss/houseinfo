@@ -23,7 +23,7 @@ export default function Welcome() {
 	const [currentSection, setCurrentSection] = useState(false);
 	const [authDialog, setAuthDialog] = useState(false);
 	const [type, setType] = useState("");
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Mobil menü state
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [demoVisible, setDemoVisible] = useState(false);
 
 	const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
@@ -34,7 +34,7 @@ export default function Welcome() {
 			block: "start",
 		});
 
-		setMobileMenuOpen(false); // ha mobil menüben vagy, bezárja
+		setMobileMenuOpen(false);
 	};
 
 	useEffect(() => {
@@ -60,20 +60,17 @@ export default function Welcome() {
 	const setAuthVisible = (dialogType: string) => {
 		setType(dialogType);
 		setAuthDialog(true);
-		setMobileMenuOpen(false); // Menü bezárása auth dialog nyitáskor
+		setMobileMenuOpen(false); 
 	};
 
 	return (
 		<div className="flex flex-col min-h-screen overflow-auto">
-			{/* Hero Section */}
 			<section className="min-h-screen bg-[linear-gradient(180deg,#777BF1_0%,#343D4A_140%)]" ref={homeRef}>
-				{/* RESPONSIVE HEADER - hamburger menü mobilon */}
 				<header className={headerColorClass}>
 					<div className="logo">
 						<img src="/houseinfologo.png" alt="House-Info logo" className="h-10 md:h-12 lg:h-15 w-auto" />
 					</div>
 
-					{/* Desktop menü - lg: felett látszik */}
 					<ul className="hidden lg:flex space-x-6 text-white">
 						<li
 							onClick={() => scrollToSection(homeRef)}
@@ -107,7 +104,6 @@ export default function Welcome() {
 						</li>
 					</ul>
 
-					{/* Desktop bejelentkezés gomb */}
 					<div className="hidden lg:flex space-x-4">
 						<button
 							className="text-white hover:text-teal-400 transition"
@@ -117,7 +113,6 @@ export default function Welcome() {
 						</button>
 					</div>
 
-					{/* Hamburger menü ikon - csak mobilon/tableten */}
 					<button
 						className="lg:hidden text-white text-2xl"
 						onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -126,7 +121,6 @@ export default function Welcome() {
 					</button>
 				</header>
 
-				{/* Mobil menü - hamburger kinyitva - háttér mint az oldal */}
 				{mobileMenuOpen && (
 					<div className="fixed top-16 md:top-18 left-0 w-full bg-[#484f79]/95 backdrop-blur-md z-20 lg:hidden">
 						<ul className="flex flex-col items-center space-y-4 py-6 text-white text-lg">
@@ -172,14 +166,11 @@ export default function Welcome() {
 					</div>
 				)}
 
-				{/* RESPONSIVE HERO CONTENT */}
 				<div className="h-screen w-full px-4 md:px-8 lg:w-[80vw] mx-auto flex flex-col items-center justify-center text-center text-white py-20">
 					<div data-aos="fade-up" data-aos-duration="1000">
-						{/* Responsive címsor */}
 						<p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center font-black mb-4 px-2">
 							Közösképviselet. Új szinten. Együttműködés könnyedén.
 						</p>
-						{/* Responsive szöveg */}
 						<p className="text-sm md:text-base text-center mx-auto px-4 w-full sm:w-[80vw] md:w-[60vw] lg:w-[35vw]">
 							Házinfó - ahol a közösképviselők és lakók könnyedén együttműködhetnek. Minden egy helyen:
 							kommunikáció, adminisztráció, közösköltség-kezelés.
@@ -196,7 +187,6 @@ export default function Welcome() {
 				</div>
 			</section>
 
-			{/* RESPONSIVE PROBLEMS SECTION */}
 			<section
 				className="min-h-screen flex flex-col text-white py-12 md:py-16 lg:py-20 bg-[#484f79] px-4 md:px-8"
 				ref={problemsRef}
@@ -209,7 +199,6 @@ export default function Welcome() {
 					>
 						Ismerősek az alábbi problémák?
 					</p>
-					{/* Flex column mobilon, row desktopban */}
 					<div className="w-full flex flex-col lg:flex-row justify-between items-center lg:items-stretch mt-8 gap-8">
 						<ul
 							className="md:ms-12 lg:ms-50 mt-6 lg:mt-25 space-y-2 md:space-y-4"
@@ -234,7 +223,6 @@ export default function Welcome() {
 							</li>
 						</ul>
 
-						{/* Responsive kép */}
 						<img
 							src="/problems.png"
 							alt="House-Info problems image"
@@ -244,7 +232,6 @@ export default function Welcome() {
 				</div>
 			</section>
 
-			{/* RESPONSIVE PROBLEM SOLVING SECTION */}
 			<section
 				className="flex flex-col min-h-screen overflow-auto text-white bg-[#484f79] px-4 md:px-8 py-12 md:py-16"
 				ref={problemSolveRef}
@@ -257,10 +244,8 @@ export default function Welcome() {
 						Egy átlátható, egyszerűen használható platform, amely összehozza a lakóközösséget
 					</p>
 				</div>
-				{/* Card két oszloppal középen függőleges vonallal */}
 				<div className="my-8 md:my-16 lg:my-25  flex justify-center">
 					<div className="max-w-3xl lg:max-w-4xl flex flex-col md:flex-row items-start justify-center gap-8 md:gap-10 lg:gap-16 rounded-3xl bg-gray-800/30 backdrop-blur-sm p-6 md:p-8 lg:p-12">
-						{/* Bal oszlop - Közösképviselőknek */}
 						<div className="flex-1 flex flex-col text-center md:mx-auto">
 							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6 ">
 								Közösképviselőknek
@@ -281,12 +266,9 @@ export default function Welcome() {
 							</ul>
 						</div>
 
-						{/* Függőleges vonal középen - csak desktop-on */}
 						<div className="hidden md:block w-px bg-teal-400/30 self-stretch"></div>
-						{/* Horizontal vonal mobilon */}
 						<div className="md:hidden w-full h-px bg-teal-400/30"></div>
 
-						{/* Jobb oszlop - Lakóknak */}
 						<div className="flex-1 flex flex-col text-center md:mx-auto">
 							<p className="text-teal-400 text-xl md:text-2xl lg:text-3xl font-black mb-4 lg:mb-6">
 								Lakóknak
@@ -310,7 +292,6 @@ export default function Welcome() {
 				</div>
 			</section>
 
-			{/* RESPONSIVE FEATURES SECTION */}
 			<section
 				className="flex flex-col min-h-screen text-white overflow-auto bg-[#484f79] px-4 md:px-8 py-12 md:py-16"
 				ref={featuresRef}
@@ -319,7 +300,6 @@ export default function Welcome() {
 					Miért pont a Házinfó?
 				</p>
 
-				{/* Feature 1 - Egyszerű használat */}
 				<div
 					className="flex flex-col md:flex-row my-6 md:my-12 lg:my-30 items-center justify-center gap-6 md:gap-8"
 					data-aos="fade-up"
@@ -339,7 +319,6 @@ export default function Welcome() {
 					/>
 				</div>
 
-				{/* Feature 2 - Mobil app */}
 				<div
 					className="flex flex-col md:flex-row-reverse my-6 md:my-12 lg:my-30 items-center justify-center gap-6 md:gap-8"
 					data-aos="fade-up"
@@ -357,7 +336,6 @@ export default function Welcome() {
 					/>
 				</div>
 
-				{/* Feature 3 - Költséghatékony */}
 				<div
 					className="flex flex-col md:flex-row my-6 md:my-12 lg:my-30 items-center justify-center gap-6 md:gap-8"
 					data-aos="fade-up"
@@ -375,7 +353,6 @@ export default function Welcome() {
 					/>
 				</div>
 
-				{/* Feature 4 - Biztonságos */}
 				<div
 					className="flex flex-col md:flex-row-reverse my-6 md:my-12 lg:my-30 items-center justify-center gap-6 md:gap-8"
 					data-aos="fade-up"
@@ -393,7 +370,6 @@ export default function Welcome() {
 					/>
 				</div>
 
-				{/* Feature 5 - Átlátható pénzügyek */}
 				<div
 					className="flex flex-col md:flex-row my-6 md:my-12 lg:my-30 items-center justify-center gap-6 md:gap-8"
 					data-aos="fade-up"
@@ -411,7 +387,6 @@ export default function Welcome() {
 					/>
 				</div>
 
-				{/* Feature 6 - Gyors kommunikáció */}
 				<div
 					className="flex flex-col md:flex-row-reverse my-6 md:my-12 lg:my-30 items-center justify-center gap-6 md:gap-8"
 					data-aos="fade-up"
@@ -430,7 +405,6 @@ export default function Welcome() {
 				</div>
 			</section>
 
-			{/* RESPONSIVE FOOTER WITH CTA */}
 			<footer
 				className="min-h-screen flex flex-col justify-between items-center text-white bg-[linear-gradient(180deg,#484f79_0%,#777BF1_140%)] px-4 md:px-8 py-12"
 				ref={contactRef}

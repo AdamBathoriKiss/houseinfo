@@ -74,7 +74,6 @@ export default function EventCalendar({ events: eventsData, buildingId }: EventC
     };
 
     const handleEventsChanged = () => {
-        // lehet finomítani: újra lekérni csak az eseményeket az API-tól
         window.location.reload();
     };
 
@@ -83,7 +82,6 @@ export default function EventCalendar({ events: eventsData, buildingId }: EventC
             <div className="surface-card shadow-2xl rounded-xl">
                 <div className="flex flex-col items-center">
                     <div className="w-full max-w-xs md:max-w-sm">
-                        {/* inline naptár, reszponzív magassággal */}
                         <Calendar
                             value={date}
                             onChange={handleDateSelect}

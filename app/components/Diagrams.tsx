@@ -138,7 +138,7 @@ export default function Diagrams({
 
         const options = {
             responsive: true,
-            maintainAspectRatio: false, // KULCS: ne feszítse szét a layoutot
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     labels: {
@@ -186,7 +186,6 @@ export default function Diagrams({
                 />
             </div>
 
-            {/* wrapper magasság reszponzív: mobil kisebb, desktop nagyobb */}
             <div className="p-2">
                 <div className="w-full h-56 md:h-72 lg:h-96">
                     <Chart className="w-full h-full" type="line" data={chartData} options={chartOptions} />
