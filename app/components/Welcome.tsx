@@ -9,6 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useRef } from "react";
 import DemoWarning from "./DemoWarning";
+import { render } from "@testing-library/react";
 
 export default function Welcome() {
 	const homeRef = useRef<HTMLElement>(null);
@@ -23,7 +24,7 @@ export default function Welcome() {
 	const [authDialog, setAuthDialog] = useState(false);
 	const [type, setType] = useState("");
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Mobil menü state
-	const [demoVisible, setDemoVisible] = useState(true);
+	const [demoVisible, setDemoVisible] = useState(false);
 
 	const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
 		if (!ref.current) return;
@@ -40,9 +41,9 @@ export default function Welcome() {
 		setCurrentSection(inView);
 	}, [inView]);
 
-	useEffect(()=> {
-		<DemoWarning visible={demoVisible} setVisible={setDemoVisible} setAuthVisible={()=>setAuthVisible} />
-	}, [])
+	useEffect(() => {
+		setDemoVisible(true)
+	}, []);
 
 	useEffect(() => {
 		AOS.init({
@@ -186,7 +187,7 @@ export default function Welcome() {
 						<div className="hero-buttons">
 							<Button
 								className="!bg-lime-50 !text-purple-900 !border-0 !px-4 md:!px-6 !py-2 md:!py-3 !mt-6 !text-base md:!text-lg !font-semibold transition delay-150 duration-600 hover:scale-105"
-								onClick={() => setAuthVisible("registration")}
+								onClick={() => setAuthVisible("login")}
 							>
 								Kezdjük el
 							</Button>
@@ -467,6 +468,14 @@ export default function Welcome() {
 				className="z-50 w-2rem h-2rem border-round bg-purple-950"
 				icon="pi pi-arrow-up text-base"
 			/>
+			{demoVisible &&
+				<DemoWarning
+				visible={demoVisible}
+				setVisible={setDemoVisible}
+				dialogType="login"
+				setAuthVisible={setAuthVisible}
+			/>
+			}
 		</div>
 	);
 }
