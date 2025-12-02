@@ -16,8 +16,8 @@ export default function Authorization({
     setVisible: (value: boolean) => void;
     type: string;
 }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("demo@houseinfo.hu");
+    const [password, setPassword] = useState("hashed-password-1234");
     const title = type === "login" ? "Bejelentkezés" : "Regisztráció";
     const { showSuccess, showError } = useToast();
     const { setToken, setUser } = useAuth(); // ✅ Context használata
@@ -85,7 +85,7 @@ export default function Authorization({
             >
                 {/* Ideiglenes DEMO user beléptetés*/}
                 <InputText
-                    value="demo@houseinfo.hu"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-75 h-1.5 !my-3.5 !bg-transparent"
                     placeholder="Email"
@@ -93,7 +93,7 @@ export default function Authorization({
                     type="email"
                 />
                 <InputText
-                    value="hashed-password-1234"
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-75 h-1.5 !my-3.5 !bg-transparent"
                     placeholder="Jelszó"
