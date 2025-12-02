@@ -52,7 +52,13 @@ export default function Maintences({
 			const userName = `${user.lastName} ${user.firstName}`;
 			setValue("reportedBy", userName);
 		}
-		if (reportedById) setValue("reportedById",  typeof reportedById === "string" ? parseInt(reportedById) : reportedById);
+		if (reportedById !== undefined && reportedById !== null) {
+			const idNum = Number(reportedById);
+			if (!isNaN(idNum) && idNum > 0) {
+				setValue("reportedById", idNum);
+			}
+		}
+
 		if (id) setValue("id", typeof id === "string" ? parseInt(id) : id);
 		if (status) setValue("status", status);
 		if (category) setValue("category", category);
@@ -144,7 +150,6 @@ export default function Maintences({
 										placeholder="Válasszon..."
 										className="w-full flex flex-row justify-between items-center px-3 py-2.5 md:px-4 md:py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base text-gray-100 transition-all"
 										panelClassName="mt-1 !w-full !rounded-lg !border !border-gray-600 !bg-[#343d4a] !shadow-xl"
-										
 									/>
 								)}
 							/>
@@ -174,7 +179,6 @@ export default function Maintences({
 										placeholder="Válasszon..."
 										className="w-full flex flex-row justify-between items-center px-3 py-2.5 md:px-4 md:py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base text-gray-100 transition-all"
 										panelClassName="mt-1 !w-full !rounded-lg !border !border-gray-600 !bg-[#343d4a] !shadow-xl"
-										
 									/>
 								)}
 							/>
@@ -203,7 +207,6 @@ export default function Maintences({
 										placeholder="Válasszon..."
 										className="w-full flex flex-row justify-between items-center px-3 py-2.5 md:px-4 md:py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base text-gray-100 transition-all"
 										panelClassName="mt-1 !w-full !rounded-lg !border !border-gray-600 !bg-[#343d4a] !shadow-xl"
-										
 									/>
 								)}
 							/>
