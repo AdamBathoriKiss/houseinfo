@@ -12,6 +12,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { useToast } from "~/utils/ToastProvider";
 import { Stepper } from "primereact/stepper";
 import CommonService from "~/services/common.service";
+import { useAuth } from "~/utils/AuthProvider";
 
 const schema = z.object({
 	id: z.preprocess((val) => (val === "" || val === 0 ? undefined : Number(val)), z.number().optional()),
@@ -27,6 +28,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function useMaintences({ buildingId }: { buildingId: number }) {
+	const { user } = useAuth();
 	const { showSuccess, showError } = useToast();
 	const stepperRef = useRef<Stepper | null>(null);
 
@@ -49,6 +51,19 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
 		},
 		resolver: zodResolver(schema) as any,
 	});
+
+	useEffect(() => {
+		// Minden dialog megnyitáskor reseteld a formot
+		reset({
+			title: "",
+			description: "",
+			reportedBy: user ? `${user.lastName} ${user.firstName}`.trim() : "",
+			reportedById: user?.userId || 0,
+			status: "NEW",
+			category: "PLUMBING",
+			priority: "LOW",
+		});
+	}, [buildingId]);
 
 	// Toast üzenet megjelenítése hibák esetén
 	useEffect(() => {
@@ -101,7 +116,11 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
 	}, [errors, isSubmitted]);
 
 	const onSubmit: SubmitHandler<FormData> = (data) => {
-		const body = { ...data, buildingId };
+		const body = {
+			...data,
+			buildingId,
+			reportedById: data.reportedById ?? user?.id,
+		};
 
 		const action = data.id
 			? CommonService.update("maintences", data.id, body)
@@ -111,14 +130,16 @@ export default function useMaintences({ buildingId }: { buildingId: number }) {
 			.then((response) => {
 				if (response) {
 					showSuccess(data.id ? "Sikeres feladat szerkesztés" : "Sikeres feladat létrehozás");
-					reset(); // ← form reset
+					reset();
 					window.location.reload();
 				} else {
 					showError(response?.error || "Ismeretlen hiba");
+					reset();
 				}
 			})
 			.catch((error) => {
 				showError(error.message || "Hiba történt");
+				reset();
 			});
 	};
 

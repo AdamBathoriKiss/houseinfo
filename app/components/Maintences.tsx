@@ -41,7 +41,11 @@ export default function Maintences({
 	} = useMaintences({ buildingId });
 
 	useEffect(() => {
-		console.log(id);
+		console.log(
+	reportedBy,
+	reportedById,
+	id,
+	buildingId,);
 		if (title) setValue("title", title);
 		if (description) setValue("description", description);
 		if (reportedBy) {
@@ -58,8 +62,11 @@ export default function Maintences({
 				setValue("reportedById", idNum);
 			}
 		}
+		   if(!reportedById && reportedBy){
+            setValue("reportedById", reportedBy.id);
+        }
 
-		if (id) setValue("id", typeof id === "string" ? parseInt(id) : id);
+		if (id) setValue("id", Number(id));
 		if (status) setValue("status", status);
 		if (category) setValue("category", category);
 		if (priority) setValue("priority", priority);

@@ -35,7 +35,7 @@ export default function Maximalized({
 }: Maximalized) {
 	const [createNews, setCreateNews] = useState<boolean>(false);
 	const [createTask, setCreateTask] = useState<boolean>(false);
-	const {user} = useAuth();
+	const { user } = useAuth();
 	// Type guard függvények
 	const isNews = (item: News | Maintence): item is News => {
 		return type === "news";
@@ -67,16 +67,30 @@ export default function Maximalized({
 		}
 
 		if (createNews) {
-			return <Create type="newsDialog" visible={createNews} setVisible={setCreateNews} buildingId={buildingId} />;
+			return (
+				<Announcements
+					title=""
+					content=""
+					author={user}
+					date=""
+					type="create"
+					authorId={user.id}
+					buildingId={buildingId}
+				/>
+			);
 		}
 
 		if (createTask) {
 			return (
-				<Create
-					type="maintenceDialog"
-					visible={createTask}
-					setVisible={setCreateTask}
+				<Maintences
+					title=""
+					description=""
+					status=""
+					category=""
+					priority=""
 					buildingId={buildingId}
+					reportedBy={user}
+					reportedById={user.id}
 				/>
 			);
 		}
@@ -93,18 +107,23 @@ export default function Maximalized({
 						></i>
 					</div>
 					{isNews(hoveredItem) ? (
-						<div className="space-y-3">
-							<Announcements
-								id={user.userId}
-								title={hoveredItem.title}
-								type="update"
-								buildingId={buildingId}
-								content={hoveredItem.content}
-								author={hoveredItem.author ? hoveredItem.author : null}
-								authorId={hoveredItem.authorId ? hoveredItem.authorId : ""}
-								date={hoveredItem.publishedAt}
-							/>
-						</div>
+						(console.log(hoveredItem),
+						(
+							<div className="space-y-3">
+								<Announcements
+									id={hoveredItem.id}
+									title={hoveredItem.title}
+									type="update"
+									buildingId={buildingId}
+									content={hoveredItem.content}
+									author={hoveredItem.author ? hoveredItem.author : null}
+									authorId={
+										hoveredItem.authorId !== undefined ? Number(hoveredItem.authorId) : undefined
+									}
+									date={hoveredItem.publishedAt}
+								/>
+							</div>
+						))
 					) : (
 						<div className="space-y-3">
 							<Maintences

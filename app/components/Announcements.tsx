@@ -39,7 +39,6 @@ export default function Announcements({ title, content, author, authorId, type, 
 			setValue("author", userName);
 		}
 		if (authorId) {
-            console.log('TESZT',authorId)
 			setValue("authorId", authorId);
 		}
         if(!authorId && author){
