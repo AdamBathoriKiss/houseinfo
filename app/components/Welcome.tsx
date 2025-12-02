@@ -8,6 +8,7 @@ import Authorization from "~/utils/dialogs/Authorization";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useRef } from "react";
+import DemoWarning from "./DemoWarning";
 
 export default function Welcome() {
 	const homeRef = useRef<HTMLElement>(null);
@@ -22,6 +23,7 @@ export default function Welcome() {
 	const [authDialog, setAuthDialog] = useState(false);
 	const [type, setType] = useState("");
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Mobil menü state
+	const [demoVisible, setDemoVisible] = useState(true);
 
 	const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
 		if (!ref.current) return;
@@ -37,6 +39,10 @@ export default function Welcome() {
 	useEffect(() => {
 		setCurrentSection(inView);
 	}, [inView]);
+
+	useEffect(()=> {
+		<DemoWarning visible={demoVisible} setVisible={setDemoVisible} setAuthVisible={()=>setAuthVisible} />
+	}, [])
 
 	useEffect(() => {
 		AOS.init({

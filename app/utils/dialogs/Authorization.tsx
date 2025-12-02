@@ -83,18 +83,21 @@ export default function Authorization({
                 contentClassName="flex flex-col !text-center !bg-[linear-gradient(180deg,#777BF1_0%,#343D4A_140%)]"
                 onHide={() => setVisible(false)}
             >
+                {/* Ideiglenes DEMO user beléptetés*/}
                 <InputText
-                    value={email}
+                    value="demo@houseinfo.hu"
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-75 h-1.5 !my-3.5 !bg-transparent"
                     placeholder="Email"
+                    disabled={true}
                     type="email"
                 />
                 <InputText
-                    value={password}
+                    value="hashed-password-1234"
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-75 h-1.5 !my-3.5 !bg-transparent"
                     placeholder="Jelszó"
+                    disabled={true}
                     type="password"
                 />
 
