@@ -52,7 +52,7 @@ export default function Maintences({
 			const userName = `${user.lastName} ${user.firstName}`;
 			setValue("reportedBy", userName);
 		}
-		if (reportedById) setValue("reportedById", reportedById);
+		if (reportedById) setValue("reportedById",  typeof reportedById === "string" ? parseInt(reportedById) : reportedById);
 		if (id) setValue("id", typeof id === "string" ? parseInt(id) : id);
 		if (status) setValue("status", status);
 		if (category) setValue("category", category);

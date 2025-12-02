@@ -8,6 +8,7 @@ import Selected from "~/utils/dialogs/Selected";
 import dayjs from "dayjs";
 import Create from "~/utils/dialogs/Create";
 import { useCommonProcesses } from "~/hooks/useCommonProcesses";
+import { useAuth } from "~/utils/AuthProvider";
 
 
 const categoryLabels: Record<string, string> = {
@@ -43,10 +44,11 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 	const [createTask, setCreateTask] = useState(false);
 	const [filteredItem, setFilteredItem] = useState<typeof dataTableValue>([]);
 	const { remove } = useCommonProcesses();
+	const { user } = useAuth();
 
 	useEffect(() => {
 		setFilteredItem(dataTableValue);
-	}, [dataTableValue]);
+	}, [dataTableValue, user]);
 
 	const filter = (searchTerm: string) => {
 		let filtered: typeof dataTableValue = [];
@@ -256,6 +258,7 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 			)}
 
 			{onViewDialogOpened && selectedItem && (
+				console.log(selectedItem),
 				<Selected
 					title={title}
 					id={id ? id : null}
@@ -268,7 +271,7 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 				/>
 			)}
 			{type === "news" && createNews && (
-				<Create type="newsDialog" visible={createNews} setVisible={setCreateNews} buildingId={buildingId} />
+				<Create type="newsDialog" visible={createNews} setVisible={setCreateNews} buildingId={buildingId} user={user} />
 			)}
 			{type === "maintence" && createTask && (
 				<Create
@@ -276,6 +279,7 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 					visible={createTask}
 					setVisible={setCreateTask}
 					buildingId={buildingId}
+					user={user} 
 				/>
 			)}
 		</div>

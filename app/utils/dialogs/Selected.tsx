@@ -29,8 +29,8 @@ export default function Selected({
 			header={title}
 			visible={onViewDialogOpened}
 			onHide={() => {
-				setOnViewDialogOpened(false);
 				setSelectedItem(null);
+				setOnViewDialogOpened(false);
 			}}
 			style={{
 				width: "90vw",
@@ -65,13 +65,14 @@ export default function Selected({
 			<div className="h-full overflow-y-auto p-4 md:p-6 max-h-[70vh]">
 				<div className="space-y-4">
 					{selectedItem && isNews(selectedItem) ? (
+						
 						<Announcements
-							id={parseInt(selectedItem.id as string)}
+							id={selectedItem.id}
 							title={selectedItem.title}
 							type="update"
 							content={selectedItem.content}
 							author={selectedItem.author ?? null}
-							authorId={selectedItem.authorId ?? ""}
+							authorId={selectedItem.authorId !== undefined ? Number(selectedItem.authorId) : undefined}
 							date={selectedItem.publishedAt}
 							buildingId={buildingId}
 						/>
@@ -81,7 +82,7 @@ export default function Selected({
 							title={selectedItem.title}
 							description={selectedItem.description}
 							reportedBy={selectedItem.reportedBy}
-							reportedById={parseInt(selectedItem.reportedById as string)}
+							reportedById={parseInt(selectedItem.reportedById)}
 							priority={selectedItem.priority}
 							status={selectedItem.status}
 							category={selectedItem.category}

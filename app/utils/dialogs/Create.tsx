@@ -1,18 +1,16 @@
 import { Dialog } from "primereact/dialog";
 import Maintences from "~/components/Maintences";
 import Announcements from "~/components/Announcements";
-import { useAuth } from "../AuthProvider";
 
 interface Creation {
 	visible?: boolean;
 	setVisible: (visible: boolean) => void;
 	type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
 	buildingId: number;
+	user: any
 }
 
-export default function Create({ visible, setVisible, type, buildingId }: Creation) {
-	const { user } = useAuth();
-//teszt
+export default function Create({ visible, setVisible, type, buildingId, user }: Creation) {
 	const createModal = () => {
 		return (
 			<div className="rounded-xl shadow-2xl h-fit bg-[#343d4a]">
@@ -77,11 +75,10 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 						<Announcements
 							title=""
 							content=""
-							author={null}
+							author={user}
 							date=""
 							type="create"
-							id={user.userId}
-							authorId={user.userId}
+							authorId={user.id}
 							buildingId={buildingId}
 						/>
 					) : (
@@ -93,7 +90,7 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 							priority=""
 							buildingId={buildingId}
 							reportedBy={user}
-							reportedById={user.userId}
+							reportedById={user.id}
 						/>
 					)}
 				</div>
