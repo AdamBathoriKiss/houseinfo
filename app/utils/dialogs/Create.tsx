@@ -79,7 +79,7 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 							author={null}
 							date=""
 							id={user.userId}
-							authorId={user}
+							authorId={""}
 							buildingId={buildingId}
 						/>
 					) : (
