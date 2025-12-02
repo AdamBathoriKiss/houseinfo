@@ -10,7 +10,8 @@ interface CurrentNews {
     title: string;
     content: string;
     author: User | null;
-    authorId: number | string;
+    type: string;
+    authorId?: number | string;
     date: string;
     buildingId: number;
     id: number;
@@ -21,6 +22,7 @@ export default function Announcements({
     content,
     author,
     authorId,
+    type,
     date,
     id,
     buildingId,
@@ -49,6 +51,9 @@ export default function Announcements({
         }
         if (authorId) {
             setValue("authorId", user.userId);
+        }
+        if(type){
+            setValue("type", type)
         }
         if (id) setValue("id", id);
         if (date) setValue("date", dayjs(date).format("YYYY-MM-DD"));
@@ -103,6 +108,8 @@ export default function Announcements({
                             type="number"
                             hidden
                         />
+
+                        <input {...register("type")} type="text" hidden />
                         
                         <input
                             {...register("id")}

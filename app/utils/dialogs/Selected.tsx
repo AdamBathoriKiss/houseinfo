@@ -68,6 +68,7 @@ export default function Selected({
 						<Announcements
 							id={parseInt(selectedItem.id as string)}
 							title={selectedItem.title}
+							type="update"
 							content={selectedItem.content}
 							author={selectedItem.author ?? null}
 							authorId={selectedItem.authorId ?? ""}

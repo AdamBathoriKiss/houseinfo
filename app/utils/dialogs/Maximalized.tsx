@@ -97,6 +97,7 @@ export default function Maximalized({
 							<Announcements
 								id={user.userId}
 								title={hoveredItem.title}
+								type="update"
 								buildingId={buildingId}
 								content={hoveredItem.content}
 								author={hoveredItem.author ? hoveredItem.author : null}

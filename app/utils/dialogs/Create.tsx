@@ -38,7 +38,8 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 							content=""
 							author={null}
 							date=""
-							authorId={""}
+							type="create"
+							authorId={user.userId}
 							buildingId={buildingId}
 						/>
 					) : (
@@ -78,8 +79,9 @@ export default function Create({ visible, setVisible, type, buildingId }: Creati
 							content=""
 							author={null}
 							date=""
+							type="create"
 							id={user.userId}
-							authorId={""}
+							authorId={user.userId}
 							buildingId={buildingId}
 						/>
 					) : (
