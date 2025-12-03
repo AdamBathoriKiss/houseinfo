@@ -2,8 +2,8 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
 import type { Nullable } from "primereact/ts-helpers";
-import { useState } from "react";
-import type { Event } from "~/components/EventCalendar";
+import { useEffect, useState } from "react";
+import type { Event, EventsMap } from "~/components/EventCalendar";
 import CreateEvent from "./CreateEvent";
 import { useAuth } from "../AuthProvider";
 import EventService from "~/services/event.service";
@@ -23,7 +23,7 @@ export default function EventDialog({
 	setVisible: (visible: boolean) => void;
 	selectedEvents: Event[];
 	formatDate: (date: Date) => string;
-	onEventsChanged: () => void;
+	onEventsChanged: (newEvents: EventsMap) => void;
 }) {
 	const { user } = useAuth();
 	const [createDialog, setCreateDialog] = useState(false);
@@ -44,10 +44,23 @@ export default function EventDialog({
 		setEditingEvent(null);
 	};
 
-	const handleSuccess = () => {
-		handleCloseCreate();
-		setVisible(false);
-		onEventsChanged(); // ✅ Események újratöltése
+	const handleSuccess = async () => {
+		try {
+			const rawEvents = await EventService.getAllByBuilding(buildingId);
+
+			const newEventsMap: EventsMap = {};
+			rawEvents.forEach((event: Event) => {
+				const dateKey = formatDate(new Date(event.startTime || event.endTime || date!));
+				if (!newEventsMap[dateKey]) newEventsMap[dateKey] = [];
+				newEventsMap[dateKey].push(event);
+			});
+
+			onEventsChanged(newEventsMap);
+		} catch (error) {
+			console.error("❌ Frissítés hiba:", error);
+		}
+		setCreateDialog(false);
+		setEditingEvent(null);
 	};
 
 	const confirmDelete = async (event: Event, type: string) => {
@@ -61,7 +74,17 @@ export default function EventDialog({
 			} else {
 				await EventService.deleteEventCompletely(event.id);
 			}
-			onEventsChanged(); // ✅ Események újratöltése törlés után
+
+			const rawEvents = await EventService.getAllByBuilding(buildingId);
+
+			const newEventsMap: EventsMap = {};
+			rawEvents.forEach((ev: Event) => {
+				const dateKey = formatDate(new Date(ev.startTime || ev.endTime!));
+				if (!newEventsMap[dateKey]) newEventsMap[dateKey] = [];
+				newEventsMap[dateKey].push(ev);
+			});
+
+			onEventsChanged(newEventsMap);
 			setVisible(false);
 		} catch (error) {
 			console.error("Törlési hiba:", error);
@@ -124,14 +147,14 @@ export default function EventDialog({
 						) : (
 							<div className="text-center text-gray-400 py-4">Nincs esemény ezen a napon</div>
 						)}
-            <div className="flex justify-center">
+						<div className="flex justify-center">
 							<Button
 								icon="pi pi-plus"
 								tooltip="Új esemény hozzáadása"
 								onClick={handleCreateNew}
 								className="!w-12 !h-12 !rounded-full !bg-indigo-500/20 hover:!bg-indigo-500/40 flex items-center justify-center !shadow-lg !border-0"
 							/>
-              </div>
+						</div>
 					</>
 				) : (
 					<div>
@@ -158,7 +181,8 @@ export default function EventDialog({
 										: undefined
 							}
 							buildingId={buildingId}
-							organizerId={user.userId}
+							organizerId={user.id}
+							onSuccess={handleSuccess}
 						/>
 					</div>
 				)}

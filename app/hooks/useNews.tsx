@@ -17,7 +17,7 @@ import { useAuth } from "~/utils/AuthProvider";
 
 const schema = z.object({
 	id: z
-		.union([z.string(), z.number()]) // elfogad stringet is vagy számot is
+		.union([z.string(), z.number()])
 		.optional()
 		.transform((val) => {
 			if (val === "" || val === undefined) return undefined;
@@ -113,8 +113,7 @@ export default function useNews({ buildingId }: { buildingId: number }) {
 			.then((response) => {
 				if (response) {
 					showSuccess(data.type === "create" ? "Sikeres hír létrehozás" : "Sikeres hír módosítás");
-					reset(); // reseteld a formot siker után
-					setTimeout(() => window.location.reload(), 1000);
+					reset();
 				} else {
 					showError(response?.error || "Ismeretlen hiba történt");
 				}

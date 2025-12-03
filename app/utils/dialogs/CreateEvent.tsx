@@ -14,7 +14,8 @@ interface CurrentEvent {
 	endTime?: Date | string;
 	buildingId: number;
 	organizerId: number;
-	onSuccess?: () => void; // ✅ ÚJ prop
+	onSuccess?: () => void;
+	handleSuccess?: () => void;
 }
 
 export default function CreateEvent({
@@ -25,7 +26,7 @@ export default function CreateEvent({
 	endTime,
 	buildingId,
 	organizerId,
-	onSuccess, // ✅ Destructure
+	onSuccess,
 }: CurrentEvent) {
 	const {
 		onSubmit,
@@ -37,7 +38,7 @@ export default function CreateEvent({
 	} = useEvents({ buildingId, onSuccess });
 
 	useEffect(() => {
-		if (id) setValue("id", id);
+		if (id) setValue("id", Number(id));
 		if (title) setValue("title", title);
 		if (description) setValue("description", description);
 		if (startTime) {
@@ -53,7 +54,6 @@ export default function CreateEvent({
 		}
 	}, [id, title, description, startTime, endTime, buildingId, organizerId, setValue]);
 
-	// ... rest of component
 
 	return (
 		<div className="h-full w-full">

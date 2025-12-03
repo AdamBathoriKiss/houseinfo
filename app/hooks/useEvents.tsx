@@ -5,11 +5,17 @@ import { useEffect, useState } from "react";
 import CommonService from "~/services/common.service";
 import { useToast } from "~/utils/ToastProvider";
 import type { JSXElementConstructor, ReactElement, ReactNode, ReactPortal } from "react";
+import { useAuth } from "~/utils/AuthProvider";
 
-// ✅ Validation schema
 const eventSchema = z
 	.object({
-		id: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+		id: z
+			.union([z.string(), z.number()])
+			.optional()
+			.transform((val) => {
+				if (val === "" || val === undefined) return undefined;
+				return typeof val === "string" ? Number(val) : val;
+			}),
 		title: z.string().min(3, "Kötelező megadni az esemény címét (min. 3 karakter)"),
 		description: z.string().min(1, "Kötelező megadni az esemény leírását"),
 		startTime: z.date({
@@ -19,9 +25,15 @@ const eventSchema = z
 			error: "Kötelező megadni az esemény befejezési időpontját",
 		}),
 		buildingId: z.number().min(1, "Az épület azonosító kötelező"),
-		organizerId: z.number().min(1, "Kötelező a felhasználó azonosítóját megadni"),
+		organizerId: z
+			.union([z.string(), z.number()])
+			.optional()
+			.transform((val) => {
+				if (val === "" || val === undefined) return undefined;
+				return typeof val === "string" ? Number(val) : val;
+			}),
 	})
-	.refine((data) => data.endTime >= data.startTime, {
+	.refine((data) => data.endTime > data.startTime, {
 		message: "A befejező dátum nem lehet korábbi, mint a kezdő dátum",
 		path: ["endTime"],
 	});
@@ -30,12 +42,13 @@ type EventFormData = z.infer<typeof eventSchema>;
 
 interface UseEventsProps {
 	buildingId: number;
-	onSuccess?: () => void; // ✅ ÚJ callback
+	onSuccess?: () => void;
 }
 
 export default function useEvents({ buildingId, onSuccess }: UseEventsProps) {
 	const { showSuccess, showError } = useToast();
 	const [apiError, setApiError] = useState(null);
+	const { user } = useAuth();
 
 	const {
 		register,
@@ -55,7 +68,6 @@ export default function useEvents({ buildingId, onSuccess }: UseEventsProps) {
 		},
 	});
 
-	// ✅ Toast üzenet megjelenítése hibák esetén
 	useEffect(() => {
 		if (Object.keys(errors).length > 0) {
 			showError(
@@ -102,55 +114,43 @@ export default function useEvents({ buildingId, onSuccess }: UseEventsProps) {
 
 	const onSubmit = async (data: EventFormData) => {
 		try {
-			// ✅ Reset API error
 			setApiError(null);
 
-			// ✅ Dátumok ISO formátumra alakítása
 			const payload = {
 				title: data.title,
 				description: data.description,
 				startTime: data.startTime.toISOString(),
 				endTime: data.endTime.toISOString(),
 				buildingId: data.buildingId,
-				organizerId: data.organizerId,
+				organizerId: data.organizerId ?? user.userId,
 			};
 
 			if (data.id) {
-				// ✅ UPDATE
 				const response = await CommonService.update("events", data.id, payload);
 
 				if (response) {
 					showSuccess("Sikeres esemény szerkesztés");
-					reset(); // Form reset
-					window.location.reload();
-
-					// ✅ Sikeres mentés callback
-					if (onSuccess) {
-						onSuccess();
-					window.location.reload();
+					reset();
+					if(onSuccess){
+						onSuccess()
 					}
 				} else {
 					showError("Hiba történt az esemény frissítése során");
 				}
 			} else {
-				// ✅ CREATE - buildingId a route-ban!
 				const response = await CommonService.create("events", buildingId, payload);
 
 				if (response) {
 					showSuccess("Sikeres esemény létrehozás");
-					reset(); // Form reset
-					window.location.reload();
-					// ✅ Sikeres mentés callback
-					if (onSuccess) {
-						onSuccess();
-					window.location.reload();
+					reset();
+					if(onSuccess){
+						onSuccess()
 					}
 				} else {
 					showError("Hiba történt az esemény létrehozása során");
 				}
 			}
 		} catch (error: any) {
-			console.error("Event save error:", error);
 			setApiError(error.message);
 			showError(error?.response?.data?.message || error.message || "Hiba történt az esemény mentése során");
 		}
