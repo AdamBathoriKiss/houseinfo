@@ -10,21 +10,20 @@ import Create from "~/utils/dialogs/Create";
 import { useCommonProcesses } from "~/hooks/useCommonProcesses";
 import { useAuth } from "~/utils/AuthProvider";
 
-
 const categoryLabels: Record<string, string> = {
-  PLUMBING: "Vízvezeték",
-  ELECTRICAL: "Villany", 
-  HEATING: "Fűtés",
-  ELEVATOR: "Lift",
-  COMMON_AREA: "Közös területek",
-  STRUCTURAL: "Szerkezeti",
-  OTHER: "Egyéb"
+	PLUMBING: "Vízvezeték",
+	ELECTRICAL: "Villany",
+	HEATING: "Fűtés",
+	ELEVATOR: "Lift",
+	COMMON_AREA: "Közös területek",
+	STRUCTURAL: "Szerkezeti",
+	OTHER: "Egyéb",
 };
 
 export interface DataScrollerSchemaProps<T = News | Maintence> {
 	dataTableValue: T[];
 	title: string;
-	id?: number,
+	id?: number;
 	type: "news" | "maintence" | "newsDialog" | "maintenceDialog";
 	buildingId: number;
 }
@@ -71,7 +70,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 
 	const onMaximizedHide = () => {
 		setOnMaximizedOpened(false);
-		setHoveredItem(null); 
+		setHoveredItem(null);
 		setFilteredItem(dataTableValue);
 	};
 
@@ -143,76 +142,77 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 		);
 	};
 
-const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
-  const hoverProps = isHoverable
-    ? {
-        onMouseEnter: () => setHoveredItem(maintence),
-        style: { cursor: "pointer" },
-      }
-    : {};
+	const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
+		const hoverProps = isHoverable
+			? {
+					onMouseEnter: () => setHoveredItem(maintence),
+					style: { cursor: "pointer" },
+				}
+			: {};
 
-  return (
-    <div
-      className="flex flex-row justify-between text-gray-100 !bg-[#343d4a] p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
-      {...hoverProps}
-    >
-      <div className="flex flex-row w-full justify-between items-center">
-        <div className="flex flex-col gap-2">
-          <div className="text-xl font-bold text-gray-100">{maintence.title}</div>
-          
-          {maintence.category && (
-            <div className="text-sm text-blue-400">
-              <i className="pi pi-tag mr-2"></i>
-              Kategória: {categoryLabels[maintence.category] || maintence.category}
-            </div>
-          )}
-          
-          {maintence.reportedBy && (
-            <div className="text-xs text-green-400">
-              <i className="pi pi-user mr-2"></i>
-              Bejelentő: {`${maintence.reportedBy?.lastName ?? ""} ${maintence.reportedBy?.firstName ?? ""}`}
-            </div>
-          )}
-        </div>
-        <div className="flex flex-col justify-center items-end">
-          {isHoverable && (
-            <Button
-              icon="pi pi-trash"
-              tooltip="Feladat törlése"
-              onClick={() => remove("maintences", maintence.id)}
-              className="p-button-rounded p-button-sm !bg-red-500  !text-white"
-            />
-          )}
-          {!isHoverable && (
-            <div className="flex justify-center items-center gap-3">
-              <Button
-                icon="pi pi-eye"
-                unstyled
-                className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
-                onClick={() => {
-                  setSelectedItem(maintence);
-                  setOnViewDialogOpened(true);
-                }}
-              />
-              <Button
-                icon="pi pi-trash"
-                tooltip="Feladat törlése"
-                onClick={() => remove("maintences", maintence.id)}
-                className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
-              />
-            </div>
-          )}
-          <div className="text-xs my-3 text-gray-400">
-            <i className="pi pi-wave-pulse mr-2"></i>
-            {maintence.priority}
-          </div>
-		  
-          <div className="text-sm text-gray-300">{maintence.status}</div>
-        </div>
-      </div>
-    </div>
-  );
-};
+		return (
+			<div
+				className="flex flex-row justify-between text-gray-100 !bg-[#343d4a] p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
+				{...hoverProps}
+			>
+				<div className="flex flex-row w-full justify-between items-center">
+					<div className="flex flex-col gap-2">
+						<div className="text-xl font-bold text-gray-100">{maintence.title}</div>
+
+						{maintence.category && (
+							<div className="text-sm text-blue-400">
+								<i className="pi pi-tag mr-2"></i>
+								Kategória: {categoryLabels[maintence.category] || maintence.category}
+							</div>
+						)}
+
+						{maintence.reportedBy && (
+							<div className="text-xs text-green-400">
+								<i className="pi pi-user mr-2"></i>
+								Bejelentő:{" "}
+								{`${maintence.reportedBy?.lastName ?? ""} ${maintence.reportedBy?.firstName ?? ""}`}
+							</div>
+						)}
+					</div>
+					<div className="flex flex-col justify-center items-end">
+						{isHoverable && (
+							<Button
+								icon="pi pi-trash"
+								tooltip="Feladat törlése"
+								onClick={() => remove("maintences", maintence.id)}
+								className="p-button-rounded p-button-sm !bg-red-500  !text-white"
+							/>
+						)}
+						{!isHoverable && (
+							<div className="flex justify-center items-center gap-3">
+								<Button
+									icon="pi pi-eye"
+									unstyled
+									className="!text-indigo-300 !bg-transparent hover:!bg-gray-600/30"
+									onClick={() => {
+										setSelectedItem(maintence);
+										setOnViewDialogOpened(true);
+									}}
+								/>
+								<Button
+									icon="pi pi-trash"
+									tooltip="Feladat törlése"
+									onClick={() => remove("maintences", maintence.id)}
+									className="!text-red-600 !bg-transparent hover:!bg-gray-600/30"
+								/>
+							</div>
+						)}
+						<div className="text-xs my-3 text-gray-400">
+							<i className="pi pi-wave-pulse mr-2"></i>
+							{maintence.priority}
+						</div>
+
+						<div className="text-sm text-gray-300">{maintence.status}</div>
+					</div>
+				</div>
+			</div>
+		);
+	};
 
 	const itemTemplate = (item: News | Maintence, isHoverable = false) => {
 		if (isNews(item)) {
@@ -223,13 +223,24 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 	};
 
 	return (
-		<div>
+		<div
+  className="
+    flex flex-col
+    bg-[#343d4a]
+    rounded-xl
+    shadow-xl
+    h-[55vh]      /* alap magasság */
+    sm:h-[50vh]
+    md:h-[45vh]
+    lg:h-[43.5vh]
+  "
+>
 			<DataScroller
 				value={filteredItem}
 				itemTemplate={itemTemplate}
 				rows={5}
+				scrollHeight="calc(100% - 4rem)"
 				inline
-				scrollHeight="310px"
 				header={DataScrollerHeader.header({
 					title,
 					filter,
@@ -239,7 +250,7 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 					setCreateNews,
 					setCreateTask,
 				})}
-				className="!bg-[#343d4a] h-full"
+				className="flex-1 !bg-transparent overflow-hidden"
 			/>
 
 			{onMaximizedOpened && (
@@ -257,21 +268,29 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 				/>
 			)}
 
-			{onViewDialogOpened && selectedItem && (
-				console.log(selectedItem),
-				<Selected
-					title={title}
-					id={id ? id : null}
-					onViewDialogOpened={onViewDialogOpened}
-					setOnViewDialogOpened={setOnViewDialogOpened}
-					selectedItem={selectedItem}
-					setSelectedItem={setSelectedItem}
-					isNews={isNews}
-					buildingId={buildingId}
-				/>
-			)}
+			{onViewDialogOpened &&
+				selectedItem &&
+				(console.log(selectedItem),
+				(
+					<Selected
+						title={title}
+						id={id ? id : null}
+						onViewDialogOpened={onViewDialogOpened}
+						setOnViewDialogOpened={setOnViewDialogOpened}
+						selectedItem={selectedItem}
+						setSelectedItem={setSelectedItem}
+						isNews={isNews}
+						buildingId={buildingId}
+					/>
+				))}
 			{type === "news" && createNews && (
-				<Create type="newsDialog" visible={createNews} setVisible={setCreateNews} buildingId={buildingId} user={user} />
+				<Create
+					type="newsDialog"
+					visible={createNews}
+					setVisible={setCreateNews}
+					buildingId={buildingId}
+					user={user}
+				/>
 			)}
 			{type === "maintence" && createTask && (
 				<Create
@@ -279,7 +298,7 @@ const renderMaintenceTemplate = (maintence: Maintence, isHoverable = false) => {
 					visible={createTask}
 					setVisible={setCreateTask}
 					buildingId={buildingId}
-					user={user} 
+					user={user}
 				/>
 			)}
 		</div>
