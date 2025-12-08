@@ -33,7 +33,6 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 	const [user, setUser] = useState<any>(null);
 	const [isLoading, setIsLoading] = useState(true);
 
-	// ✅ Oldal betöltésekor próbáld meg helyreállítani a sessiont
 	useEffect(() => {
 		const restoreSession = async () => {
 			try {
@@ -48,7 +47,6 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 		restoreSession();
 	}, []);
 
-	// Request interceptor - Token hozzáadása
 	useLayoutEffect(() => {
 		const authInterceptor = axiosInstance.interceptors.request.use((config: CustomAxiosRequestConfig) => {
 			if (!config._retry && token) {
