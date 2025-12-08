@@ -140,7 +140,7 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 				value={filteredItem}
 				sortMode="multiple"
 				unstyled
-				className="h-full !w-full !bg-[#343d4a] backdrop-blur-lg shadow-sm text-gray-300 px-3 py-2"
+				className="h-full !w-full !bg-transparent backdrop-blur-lg shadow-sm text-gray-300 px-3 py-2"
 				emptyMessage="Nincs megjelenítendő adat"
 				pt={{
 					wrapper: {
@@ -154,7 +154,7 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 					},
 					tbody: { className: "align-start" },
 					bodyRow: {
-						className: "hover:bg-gray-600/30 hover:text-gray-50 text-start border-b-1 border-solid",
+						className: "hover:bg-transparent hover:text-gray-50 text-start border-b-1 border-solid",
 					},
 				}}
 			>
@@ -164,7 +164,7 @@ export default function DataTableSchema({ dataTableValue, title, type, buildingI
 						field={col.field}
 						header={col.header}
 						body={(rowData) => bodyTemplate(rowData, col.field)}
-						bodyClassName="px-1 py-3 whitespace-nowrap"
+						bodyClassName="px-1 py-3 !bg-transparent" 
 					/>
 				))}
 			</DataTable>

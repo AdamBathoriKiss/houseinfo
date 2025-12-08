@@ -93,7 +93,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 
 		return (
 			<div
-				className="flex flex-row justify-between text-gray-100 !bg-[#343d4a] p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
+				className="flex flex-row justify-between text-gray-100 !bg-transparent p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
 				{...hoverProps}
 			>
 				<div className="flex flex-row w-full justify-between items-center">
@@ -152,7 +152,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 
 		return (
 			<div
-				className="flex flex-row justify-between text-gray-100 !bg-[#343d4a] p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
+				className="flex flex-row justify-between text-gray-100 !bg-transparent p-4 mb-2 rounded-lg hover:!bg-[#3d4651] transition-colors duration-200"
 				{...hoverProps}
 			>
 				<div className="flex flex-row w-full justify-between items-center">
@@ -226,7 +226,7 @@ export default function DataScrollerSchema<T extends News | Maintence>({
 		<div
   className="
     flex flex-col
-    bg-[#343d4a]
+    bg-transparent
     rounded-xl
     shadow-xl
     h-[55vh]      /* alap magasság */
