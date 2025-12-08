@@ -18,7 +18,7 @@ export default function DashboardHeader({
 					<p className="text-gray-100 font-bold">Bevétel</p>
 					<i className="pi pi-wallet mr-2"></i>
 				</div>
-				<p className="text-gray-100 !text-3xl">
+				<p className="text-gray-100 !lg:text-3xl !md:text-2xl !text-xl">
 					{new Intl.NumberFormat("hu-HU", {
 						style: "currency",
 						currency: "HUF",
@@ -30,14 +30,14 @@ export default function DashboardHeader({
 					<p className="text-gray-400 font-bold">Aktív feladatok</p>
 					<i className="pi pi-list-check mr-2"></i>
 				</div>
-				<p className="text-gray-400 !text-3xl">{maintenancesCount} db</p>
+				<p className="text-gray-400  !lg:text-3xl !md:text-2xl !text-xl">{maintenancesCount} db</p>
 			</Card>
 			<Card className="!bg-teal-400/70 m-4 h-35 rounded-lg">
 				<div className="flex flex-row justify-between">
 					<p className="text-gray-100 font-bold">Kiadás</p>
 					<i className="pi pi-money-bill mr-2"></i>
 				</div>
-				<p className="text-gray-100 !text-3xl">
+				<p className="text-gray-100  !lg:text-3xl !md:text-2xl !text-xl">
 					{" "}
 					{new Intl.NumberFormat("hu-HU", {
 						style: "currency",
@@ -50,7 +50,7 @@ export default function DashboardHeader({
 					<p className="text-gray-400 font-bold">Applikáción regisztrált</p>
 					<i className="pi pi-user mr-2"></i>
 				</div>
-				<p className="text-gray-400 !text-3xl">{applicationRegistered} fő</p>
+				<p className="text-gray-400  !lg:text-3xl !md:text-2xl !text-xl">{applicationRegistered} fő</p>
 			</Card>
 		</div>
 	);
