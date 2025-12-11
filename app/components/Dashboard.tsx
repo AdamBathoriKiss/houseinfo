@@ -58,8 +58,8 @@ export default function Dashboard({ selectedHouse }: { houses: any[]; selectedHo
 				/>
 			</div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2  gap-4 mb-6 px-4 min-h-screen">
-				<div className="grid grid-cols-1 md:grid-cols-2 xlg:grid-cols-4 col-start-1 col-end-13 gap-4">
+			<div className="grid grid-cols-1 md:grid-cols-3  gap-4 mb-6 px-4 min-h-screen">
+				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 col-start-1 col-end-13 gap-4">
 					<div className="shadow-2xl rounded-xl p-1">
 						<Parkings
 							parkingData={parkingData}
