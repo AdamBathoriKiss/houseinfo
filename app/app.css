@@ -18,6 +18,11 @@
 	scrollbar-color: #9fa8da gray;
 	scrollbar-width: thin;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 .p-dialog-mask {
 	background-color: rgba(0, 0, 0, 0.4) !important;

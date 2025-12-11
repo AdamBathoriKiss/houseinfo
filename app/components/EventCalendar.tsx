@@ -83,20 +83,14 @@ export default function EventCalendar({ events: eventsData, buildingId }: EventC
 
 	return (
 		<>
-			<div className="surface-card shadow-2xl rounded-xl">
-				<div className="flex flex-col items-center">
-					<div className="w-full max-w-xs md:max-w-sm">
-						<Calendar
-							value={date}
-							onChange={handleDateSelect}
-							dateTemplate={dateTemplate}
-							inline
-							className="rounded-md w-full mb-3 !bg-transparent"
-							panelClassName="!bg-transparent !border-0 !overflow-hidden"
-						/>
-					</div>
-				</div>
-			</div>
+			<Calendar
+				value={date}
+				onChange={handleDateSelect}
+				dateTemplate={dateTemplate}
+				inline
+				className="rounded-md px-4 w-full !bg-transparent"
+				panelClassName="!bg-transparent !border-0 !overflow-hidden"
+			/>
 
 			<EventDialog
 				date={date}
